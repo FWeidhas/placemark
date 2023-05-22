@@ -25,4 +25,8 @@ export const locationMemStore = {
   async deleteAllLocations() {
     locations = [];
   },
+
+  async getUserLocations(userid) {
+    return locations.filter((location) => location.userid === userid);
+  },
 };
