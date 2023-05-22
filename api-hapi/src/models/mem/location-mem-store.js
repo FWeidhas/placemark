@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 let locations = [];
 
 export const locationMemStore = {
-  async getAllPlaylists() {
+  async getAllLocations() {
     return locations;
   },
 
