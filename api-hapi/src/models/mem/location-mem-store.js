@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import { detailsMemStore } from "./details-mem-store.js";
 
 let locations = [];
 
@@ -14,7 +15,9 @@ export const locationMemStore = {
   },
 
   async getLocationById(id) {
-    return locations.find((location) => location._id === id);
+    const list = locations.find((location) => location._id === id);
+    list.details = await detailsMemStore.getDetails(); 
+    return list;
   },
 
   async deleteLocationById(id) {
