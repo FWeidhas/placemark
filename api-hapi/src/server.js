@@ -5,6 +5,7 @@ import path from "path";
 import Cookie from "@hapi/cookie";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import Joi from "joi";
 
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
