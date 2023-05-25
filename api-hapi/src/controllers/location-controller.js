@@ -8,7 +8,6 @@ export const locationController = {
         title: "Placemark",
         location: location,
       };
-      console.log(location);
       return h.view("location-view", viewData);
     },
   },
@@ -21,7 +20,6 @@ export const locationController = {
         latitude: Number(request.payload.latitude),
         longitude: Number(request.payload.longitude),
       };
-      console.log(newDetails);
       await db.detailsStore.addDetails(location._id, newDetails);
       return h.redirect(`/location/${location._id}`);
     },

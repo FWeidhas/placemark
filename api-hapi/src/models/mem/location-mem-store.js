@@ -16,7 +16,7 @@ export const locationMemStore = {
 
   async getLocationById(id) {
     const list = locations.find((location) => location._id === id);
-    list.details = await detailsMemStore.getDetails(); 
+    list.details = await detailsMemStore.getDetailsById(id);
     return list;
   },
 

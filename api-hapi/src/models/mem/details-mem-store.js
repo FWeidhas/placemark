@@ -10,15 +10,15 @@ export const detailsMemStore = {
   async addDetails(locationId, detail) {
     details._id = v4();
     details.locationid = locationId;
-    details = detail;
+    details.data = detail;
     return detail;
   },
-  // Does not work now 
-  // async getDetailsById(id) {
-  //   if(details.locationid === id)
-  //       return details;
-  //   return undefined;
-  // },
+  
+  async getDetailsById(id) {
+    if(details.locationid === id)
+        return details;
+    return undefined;
+  },
 
   async deleteDetails(id) {
     if(details._id === id)
