@@ -28,6 +28,7 @@ async function init() {
 
   await server.register(Cookie);
   await server.register(Vision);
+  server.validator(Joi);
 
   server.views({
     engines: {
