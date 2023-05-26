@@ -1,43 +1,43 @@
 import { db } from "../models/db.js";
-import { LocationSpec } from "../models/joi-schemas.js";
+import { PoiSpec } from "../models/joi-schemas.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const locations = await db.locationStore.getUserLocations(loggedInUser._id);
+      const pois = await db.poiStore.getUserpois(loggedInUser._id);
       const viewData = {
         title: "Placemark Dashboard",
         user: loggedInUser,
-        locations: locations,
+        pois: pois,
       };
       return h.view("dashboard-view", viewData);
     },
   },
 
-  addLocation: {
+  addPoi: {
     validate: {
-      payload: LocationSpec,
+      payload: PoiSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("dashboard-view", { title: "Add Location error", errors: error.details }).takeover().code(400);
+        return h.view("dashboard-view", { title: "Add Point of Interest error", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const newLocation = {
+      const newPoi = {
         userid: loggedInUser._id,
         name: request.payload.name,
       };
-      await db.locationStore.addLocation(newLocation);
+      await db.poiStore.addPoi(newPoi);
       return h.redirect("/dashboard");
     },
   },
 
-  deleteLocation: {
+  deletePoi: {
     handler: async function (request, h) {
-      const location = await db.locationStore.getLocationById(request.params.id);
-      await db.locationStore.deleteLocationById(location._id);
+      const poi = await db.poiStore.getPoiById(request.params.id);
+      await db.poiStore.deletePoiById(poi._id);
       return h.redirect("/dashboard");
     },
   },

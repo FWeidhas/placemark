@@ -1,6 +1,6 @@
 import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
-import { locationController } from "./controllers/location-controller.js";
+import { poiController } from "./controllers/poi-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -11,9 +11,9 @@ export const webRoutes = [
   { method: "POST", path: "/authenticate", config: accountsController.login },
 
   { method: "GET", path: "/dashboard", config: dashboardController.index },
-  { method: "POST", path: "/dashboard/addlocation", config: dashboardController.addLocation },
-  { method: "GET", path: "/dashboard/deletelocation/{id}", config: dashboardController.deleteLocation },
+  { method: "POST", path: "/dashboard/addpoi", config: dashboardController.addPoi },
+  { method: "GET", path: "/dashboard/deletepoi/{id}", config: dashboardController.deletePoi },
 
-  { method: "GET", path: "/location/{id}", config: locationController.index },
-  { method: "POST", path: "/location/{id}/adddetails", config: locationController.addDetails },
+  { method: "GET", path: "/poi/{id}", config: poiController.index },
+  { method: "POST", path: "/poi/{id}/adddetails", config: poiController.addDetails },
 ];

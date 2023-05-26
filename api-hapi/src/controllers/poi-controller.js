@@ -1,15 +1,15 @@
 import { db } from "../models/db.js";
 import { DetailsSpec } from "../models/joi-schemas.js";
 
-export const locationController = {
+export const poiController = {
   index: {
     handler: async function (request, h) {
-      const location = await db.locationStore.getLocationById(request.params.id);
+      const poi = await db.poiStore.getPoiById(request.params.id);
       const viewData = {
         title: "Placemark",
-        location: location,
+        poi: poi,
       };
-      return h.view("location-view", viewData);
+      return h.view("poi-view", viewData);
     },
   },
 
@@ -18,18 +18,18 @@ export const locationController = {
       payload: DetailsSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("location-view", { title: "Add Details error", errors: error.details }).takeover().code(400);
+        return h.view("poi-view", { title: "Add Details error", errors: error.details }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
-      const location = await db.locationStore.getLocationById(request.params.id);
+      const poi = await db.poiStore.getPoiById(request.params.id);
       const newDetails = {
         description: request.payload.description,
         latitude: Number(request.payload.latitude),
         longitude: Number(request.payload.longitude),
       };
-      await db.detailsStore.addDetails(location._id, newDetails);
-      return h.redirect(`/location/${location._id}`);
+      await db.detailsStore.addDetails(poi._id, newDetails);
+      return h.redirect(`/poi/${poi._id}`);
     },
   },
 };

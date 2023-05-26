@@ -12,7 +12,7 @@ export const UserCredentialsSpec = {
   password: Joi.string().required()
 };
 
-export const LocationSpec = {
+export const PoiSpec = {
   name: Joi.string().required()
 };
 

@@ -1,13 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 
-export const locationApi = {
+export const poiApi = {
   find: {
     auth: false,
     handler: async function (request, h) {
       try {
-        const locations = await db.locationStore.getAllLocations();
-        return locations;
+        const poi = await db.poiStore.getAllPois();
+        return poi;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -18,13 +18,13 @@ export const locationApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const location = await db.locationStore.getLocationById(request.params.id);
-        if (!location) {
-          return Boom.notFound("No Location with this id");
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (!poi) {
+          return Boom.notFound("No Point of Interest with this id");
         }
-        return location;
+        return poi;
       } catch (err) {
-        return Boom.serverUnavailable("No Location with this id");
+        return Boom.serverUnavailable("No Point of Interest with this id");
       }
     },
   },
@@ -33,11 +33,11 @@ export const locationApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const location = await db.locationStore.addLocation(request.payload);
-        if (location) {
-          return h.response(location).code(201);
+        const poi = await db.poiStore.addPoi(request.payload);
+        if (poi) {
+          return h.response(poi).code(201);
         }
-        return Boom.badImplementation("error creating location");
+        return Boom.badImplementation("error creating Point of Interest");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -48,7 +48,7 @@ export const locationApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.locationStore.deleteAll();
+        await db.poiStore.deleteAll();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");

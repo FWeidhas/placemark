@@ -7,15 +7,15 @@ export const detailsMemStore = {
     return details;
   },
 
-  async addDetails(locationId, detail) {
+  async addDetails(poiId, detail) {
     details._id = v4();
-    details.locationid = locationId;
+    details.poiid = poiId;
     details.data = detail;
     return detail;
   },
   
   async getDetailsById(id) {
-    if(details.locationid === id)
+    if(details.poiid === id)
         return details;
     return undefined;
   },
