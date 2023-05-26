@@ -42,7 +42,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  db.init();
+  db.init("mongo");
 
   server.auth.strategy("session", "cookie", {
     cookie: {
