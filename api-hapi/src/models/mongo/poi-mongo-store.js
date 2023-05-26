@@ -11,7 +11,9 @@ export const poiMongoStore = {
     if (id) {
       const poi = await Poi.findOne({ _id: id }).lean();
       if (poi) {
-        poi.tracks = await detailsMongoStore.getDetailsByPoiId(poi._id);
+        poi.details = await detailsMongoStore.getDetailsByPoiId(poi._id);
+        const data = poi.details.shift();
+        poi.details = data;
       }
       return poi;
     }

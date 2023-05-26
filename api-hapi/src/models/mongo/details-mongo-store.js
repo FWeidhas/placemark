@@ -5,4 +5,20 @@ export const detailsMongoStore = {
     const details = await Details.find({ poiid: id }).lean();
     return details;
   },
+
+  async addDetails(id, details) {
+      details.poiid = id;
+      const newDetails = new Details(details);
+      const detailsObj = await newDetails.save();
+      return this.getDetailsByPoiId(detailsObj._id);
+  },
+
+  async deleteDetails(id) {
+    try {
+      await Details.deleteOne({ _id: id });
+    } catch (error) {
+      console.log("bad id");
+    }
+  },
+
 };
