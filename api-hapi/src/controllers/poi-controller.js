@@ -5,7 +5,6 @@ export const poiController = {
   index: {
     handler: async function (request, h) {
       const poi = await db.poiStore.getPoiById(request.params.id);
-      console.log(poi);
       const viewData = {
         title: "Placemark",
         poi: poi,
