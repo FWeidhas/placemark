@@ -16,4 +16,5 @@ export const webRoutes = [
 
   { method: "GET", path: "/poi/{id}", config: poiController.index },
   { method: "POST", path: "/poi/{id}/adddetails", config: poiController.addDetails },
+  { method: "GET", path: "/poi/{id}/deletedetails/{detailsid}", config: poiController.deleteDetails },
 ];

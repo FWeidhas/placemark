@@ -32,4 +32,11 @@ export const poiController = {
       return h.redirect(`/poi/${poi._id}`);
     },
   },
+
+  deleteDetails: {
+    handler: async function (request, h) {
+      await db.detailsStore.deleteDetails(request.params.detailsid);
+      return h.redirect(`/poi/${request.params.id}`);
+    },
+  }
 };
