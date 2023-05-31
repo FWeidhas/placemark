@@ -1,6 +1,12 @@
 import { Details } from "./details.js";
 
 export const detailsMongoStore = {
+
+  async getAllDetails() {
+    const details = await Details.find({}).lean();
+    return details;
+  },
+
   async getDetailsByPoiId(id) {
     const details = await Details.findOne({ poiid: id }).lean();
     return details;
@@ -20,5 +26,9 @@ export const detailsMongoStore = {
       console.log("bad id");
     }
   },
+
+  async deleteAllDetails(){
+    await Details.deleteMany({});
+  }
 
 };
