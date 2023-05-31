@@ -8,7 +8,11 @@ export const userMongoStore = {
 
   async getUserById(id) {
     if (id) {
-      const user = await User.findOne({ _id: id }).lean();
+      let user = await User.findOne({ _id: id }).lean();
+
+      if (user === undefined) {
+        user = null;
+      }
       return user;
     }
     return null;
@@ -22,7 +26,10 @@ export const userMongoStore = {
   },
 
   async getUserByEmail(email) {
-    const user = await User.findOne({ email: email }).lean();
+    let user = await User.findOne({ email: email }).lean();
+    if (user === undefined) {
+      user = null;
+    }
     return user;
   },
 
