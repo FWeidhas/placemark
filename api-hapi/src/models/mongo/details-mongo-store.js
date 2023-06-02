@@ -8,15 +8,19 @@ export const detailsMongoStore = {
   },
 
   async getDetailsByPoiId(id) {
-    const details = await Details.findOne({ poiid: id }).lean();
+    if(id){
+      const details = await Details.findOne({ poiid: id }).lean();
+    // console.log(details);
     return details;
+    }
+    return null;
   },
 
   async addDetails(id, details) {
-      details.poiid = id;
       const newDetails = new Details(details);
+      newDetails.poiid = id;
       const detailsObj = await newDetails.save();
-      return this.getDetailsByPoiId(detailsObj._id);
+      return this.getDetailsByPoiId(detailsObj.poiid);
   },
 
   async deleteDetails(id) {

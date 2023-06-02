@@ -40,21 +40,21 @@ suite("Details Model tests", () => {
   });
 
   test("delete details - success", async () => {
-    await db.detailsStore.deleteTrack(testDetails[0]._id);
-    const tracks = await db.detailsStore.getAllDetails();
-    assert.equal(tracks.length, testPlaylists.length - 1);
-    const deletedTrack = await db.detailsStore.getTrackById(testDetails[0]._id);
-    assert.isNull(deletedTrack);
+    await db.detailsStore.deleteDetails(testDetails[0]._id);
+    const details = await db.detailsStore.getAllDetails();
+    assert.equal(details.length, testDetails.length - 1);
+    const deletedDetails = await db.detailsStore.getDetailsByPoiId(testDetails[0]._id);
+    assert.isNull(deletedDetails);
   });
 
   test("get details - bad params", async () => {
-    assert.isNull(await db.detailsStore.getTrackById(""));
-    assert.isNull(await db.detailsStore.getTrackById());
+    assert.isNull(await db.detailsStore.getDetailsByPoiId(""));
+    assert.isNull(await db.detailsStore.getDetailsByPoiId());
   });
 
   test("delete details - fail", async () => {
-    await db.detailsStore.deleteTrack("bad-id");
-    const tracks = await db.detailsStore.getAllDetails();
-    assert.equal(tracks.length, testPlaylists.length);
+    await db.detailsStore.deleteDetails("bad-id");
+    const details = await db.detailsStore.getAllDetails();
+    assert.equal(details.length, testDetails.length);
   });
 });
