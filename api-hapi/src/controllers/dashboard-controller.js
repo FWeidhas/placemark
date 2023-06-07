@@ -28,6 +28,7 @@ export const dashboardController = {
       const newPoi = {
         userid: loggedInUser._id,
         name: request.payload.name,
+        category: request.payload.category,
       };
       await db.poiStore.addPoi(newPoi);
       return h.redirect("/dashboard");

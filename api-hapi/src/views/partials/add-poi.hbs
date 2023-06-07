@@ -1,6 +1,15 @@
 <form action="/dashboard/addpoi" method="POST">
   <div class="field">
     <label class="label">Point of Interest Name</label> <input class="input" type="text" placeholder="Enter Point of Interest name" name="name">
+    <div class="select">
+      <select name="category">
+        <option>Select Category</option>
+        <option>River</option>
+        <option>Lake</option>
+        <option>Sea</option>
+        <option>Pond</option>
+      </select>
+    </div>
   </div>
   <button class="button is-link">Add Point of Interest</button>
 </form>

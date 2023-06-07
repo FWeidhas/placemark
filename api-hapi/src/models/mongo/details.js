@@ -6,7 +6,6 @@ const detailsSchema = new Schema({
   description: String,
   latitude: Number,
   longitude: Number,
-  category: String,
   poiid: {
     type: Schema.Types.ObjectId,
     ref: "Poi",
