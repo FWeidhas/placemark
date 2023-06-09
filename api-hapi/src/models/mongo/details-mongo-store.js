@@ -10,7 +10,6 @@ export const detailsMongoStore = {
   async getDetailsByPoiId(id) {
     if(id){
       const details = await Details.findOne({ poiid: id }).lean();
-    // console.log(details);
     return details;
     }
     return null;

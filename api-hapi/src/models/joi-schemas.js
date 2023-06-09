@@ -13,7 +13,8 @@ export const UserCredentialsSpec = {
 };
 
 export const PoiSpec = {
-  name: Joi.string().required()
+  name: Joi.string().required(),
+  category: Joi.string().required()
 };
 
 export const DetailsSpec = {
