@@ -2,7 +2,7 @@
   <div class="navbar-brand">
     {{> placemark-brand}}
   </div>
-  <div class="navbar-menu" id="navMenu">
+  <div class="navbar-menu" id="navbarBasicExample">
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
@@ -14,7 +14,9 @@
   </div>
 </nav>
 
-
+<script>
+  document.getElementById("{{active}}").classList.add("is-primary");
+</script>
 
 
 
