@@ -1,6 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { UserArray } from "../models/joi-schemas.js";
+import { UserArray, UserSpecPlus, IdSpec, UserSpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 
 export const userApi = {
@@ -16,7 +16,7 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Get all userApi",
-    notes: "Returns details of all userApi",
+    notes: "Returns details of all users",
     response: { schema: UserArray, failAction: validationError },
   },
 
@@ -33,6 +33,11 @@ export const userApi = {
         return Boom.serverUnavailable("No User with this id");
       }
     },
+    tags: ["api"],
+    description: "Get one userApi",
+    notes: "Returns details of one user",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
   },
 
   create: {
@@ -48,6 +53,11 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a userApi",
+    notes: "Returns newly created user",
+    validate: { payload: UserSpec, failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
   },
 
   deleteOne: {
@@ -63,7 +73,11 @@ export const userApi = {
       } catch (err) {
         return Boom.serverUnavailable("No User with this id");
       }
-    }
+    },
+    tags: ["api"],
+    description: "Delete one userApi",
+    notes: "Deletes one user based on given ID from placemark",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
@@ -76,5 +90,8 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all userApi",
+    notes: "Deletes all existing users from placemark",
   },
 };
