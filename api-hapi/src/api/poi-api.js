@@ -47,6 +47,16 @@ export const poiApi = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (!poi) {
+          return Boom.notFound("No Point if Interest with this id");
+        }
+        await db.poiStore.deletePoiById(poi._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("No Point if Interest with this id");
+      }
     },
   },
 
@@ -55,7 +65,7 @@ export const poiApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.poiStore.deleteAll();
+        await db.poiStore.deleteAllPois();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
