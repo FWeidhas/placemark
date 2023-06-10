@@ -26,6 +26,7 @@ export const dashboardController = {
         const viewData = {
           title: "Add Point of Interest error",
           user: loggedInUser,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
           pois: pois,
           errors: error.details,
         };
