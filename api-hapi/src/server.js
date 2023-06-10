@@ -6,6 +6,7 @@ import Cookie from "@hapi/cookie";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import Joi from "joi";
+import Inert from "@hapi/inert";
 
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
@@ -30,6 +31,7 @@ async function init() {
   await server.register(Cookie);
   await server.register(Vision);
   server.validator(Joi);
+  await server.register(Inert);
 
   server.views({
     engines: {
