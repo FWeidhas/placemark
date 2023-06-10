@@ -32,8 +32,8 @@ suite("Details API tests", () => {
     assert.equal(returnedDetails.length, testDetails.length);
     for (let i = 0; i < returnedDetails.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      const track = await placemarkService.getDetailsById(returnedDetails[i]._id);
-      assertSubset(track, returnedDetails[i]);
+      const details = await placemarkService.getDetailsById(returnedDetails[i]._id);
+      assertSubset(details, returnedDetails[i]);
     }
   });
 
