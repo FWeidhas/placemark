@@ -1,5 +1,7 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { validationError } from "./logger.js";
+import { IdSpec, DetailsSpec, DetailsSpecPlus, DetailsArraySpec } from "../models/joi-schemas.js";
 
 export const detailsApi = {
   find: {
@@ -12,6 +14,10 @@ export const detailsApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    response: { schema: DetailsArraySpec, failAction: validationError },
+    description: "Get all Details",
+    notes: "Returns all Details",
   },
 
   findOne: {
@@ -27,6 +33,11 @@ export const detailsApi = {
         return Boom.serverUnavailable("No Details with this id");
       }
     },
+    tags: ["api"],
+    description: "Find details based on given ID",
+    notes: "Returns details",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 
   findOneByPoiId: {
@@ -57,6 +68,11 @@ export const detailsApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create details",
+    notes: "Returns the newly created details",
+    validate: { payload: DetailsSpec },
+    response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 
   deleteOne: {
@@ -73,6 +89,9 @@ export const detailsApi = {
         return Boom.serverUnavailable("No Details with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete details based on given ID",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
 
@@ -86,5 +105,7 @@ export const detailsApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all details",
   },
 };
