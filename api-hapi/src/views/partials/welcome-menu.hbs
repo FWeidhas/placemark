@@ -1,18 +1,18 @@
 <nav class="navbar">
   <div class="navbar-brand">
     {{> placemark-brand}}
-    <div role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-    </div>
+    </a>
   </div>
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button" id="login" href="/login"> Log in </a>
-          <a class="button" id="signup" href="/signup"> Signup </a>
+          <a id="login" class="button"  href="/login"> Log in </a>
+          <a id="signup" class="button" href="/signup"> Signup </a>
         </div>
       </div>
     </div>
@@ -20,7 +20,8 @@
 </nav>
 
 <script>
-  document.getElementById("{{active}}").classList.add("is-primary");
+  if(document.getElementById("{{active}}") !== null)
+    document.getElementById("{{active}}").classList.add("is-primary");
 
   document.addEventListener('DOMContentLoaded', () => {
 
