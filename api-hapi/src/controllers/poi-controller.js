@@ -4,10 +4,13 @@ import { DetailsSpec } from "../models/joi-schemas.js";
 export const poiController = {
   index: {
     handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
       const poi = await db.poiStore.getPoiById(request.params.id);
       const viewData = {
         title: "Placemark",
+        user: loggedInUser,
         poi: poi,
+        role: loggedInUser.isAdmin ? "Admin" : "User",
       };
       return h.view("poi-view", viewData);
     },
@@ -17,8 +20,17 @@ export const poiController = {
     validate: {
       payload: DetailsSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("poi-view", { title: "Add Details error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        const viewData = {
+          title: "Placemark",
+          user: loggedInUser,
+          poi: poi,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
+          errors: error.details,
+        };
+        return h.view("poi-view", viewData).code(400).takeover();
       },
     },
     handler: async function (request, h) {

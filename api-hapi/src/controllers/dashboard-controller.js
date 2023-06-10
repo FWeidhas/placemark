@@ -9,6 +9,7 @@ export const dashboardController = {
       const viewData = {
         title: "Placemark Dashboard",
         user: loggedInUser,
+        role: loggedInUser.isAdmin ? "Admin" : "User",
         pois: pois,
       };
       return h.view("dashboard-view", viewData);
@@ -25,6 +26,7 @@ export const dashboardController = {
         const viewData = {
           title: "Add Point of Interest error",
           user: loggedInUser,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
           pois: pois,
           errors: error.details,
         };

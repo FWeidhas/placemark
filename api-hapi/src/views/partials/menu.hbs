@@ -1,6 +1,7 @@
 <nav class="navbar">
-  <div class="navbar-brand">
+  <div class="navbar-brand is-flex is-align-items-center mt-5">
     {{> placemark-brand}}
+    {{> user-role}}
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -11,6 +12,9 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+          {{#if user.isAdmin}}
+            <a id="admin" class="button" href="/admin"> Admin </a>
+          {{/if}}
           <a id="dashboard" class="button" href="/dashboard"> Dashboard </a>
           <a id="logout" class="button" href="/logout"> Logout </a>
         </div>
