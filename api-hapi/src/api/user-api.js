@@ -44,6 +44,12 @@ export const userApi = {
     },
   },
 
+  deleteOne: {
+    auth: false,
+    handler: async function (request, h) {
+    },
+  },
+
   deleteAll: {
     auth: false,
     handler: async function (request, h) {

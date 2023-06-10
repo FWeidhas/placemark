@@ -44,6 +44,13 @@ export const detailsApi = {
     },
   },
 
+  deleteOne: {
+    auth: false,
+    handler: async function (request, h) {
+    },
+  },
+
+
   deleteDetails: {
     auth: false,
     handler: async function (request, h) {
