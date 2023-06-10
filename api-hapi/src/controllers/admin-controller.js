@@ -20,9 +20,9 @@ export const adminController = {
   
     deleteUser: {
       handler: async function (request, h) {
-        const poi = await db.poiStore.getPoiById(request.params.id);
-        await db.poiStore.deletePoiById(poi._id);
-        return h.redirect("/dashboard");
+        const poi = await db.userStore.getUserById(request.params.id);
+        await db.userStore.deleteUserById(poi._id);
+        return h.redirect("/admin");
       },
     },
   };
