@@ -54,5 +54,34 @@ export const placemarkService = {
     const res = await axios.get(`${this.placemarkUrl}/api/pois/${id}`);
     return res.data;
   },
-  
-}
+
+  async getAllDetails() {
+    const res = await axios.get(`${this.placemarkUrl}/api/details`);
+    return res.data;
+  },
+
+  async createDetails(id, details) {
+    const res = await axios.post(`${this.placemarkUrl}/api/pois/${id}/details`, details);
+    return res.data;
+  },
+
+  async deleteAllDetails() {
+    const res = await axios.delete(`${this.placemarkUrl}/api/details`);
+    return res.data;
+  },
+
+  async getDetailsById(id) {
+    const res = await axios.get(`${this.placemarkUrl}/api/details/${id}`);
+    return res.data;
+  },
+
+  async getDetailsByPoiId(id) {
+    const res = await axios.get(`${this.placemarkUrl}/api/pois/${id}/details`);
+    return res.data;
+  },
+
+  async deleteDetailsbyId(id) {
+    const res = await axios.delete(`${this.placemarkUrl}/api/details/${id}`);
+    return res.data;
+  },
+};

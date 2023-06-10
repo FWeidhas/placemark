@@ -15,6 +15,14 @@ export const detailsMongoStore = {
     return null;
   },
 
+  async getDetailsById(id) {
+    if(id){
+      const details = await Details.findOne({ _id: id }).lean();
+    return details;
+    }
+    return null;
+  },
+
   async addDetails(id, details) {
       const newDetails = new Details(details);
       newDetails.poiid = id;
@@ -22,7 +30,7 @@ export const detailsMongoStore = {
       return this.getDetailsByPoiId(detailsObj.poiid);
   },
 
-  async deleteDetails(id) {
+  async deleteDetailsById(id) {
     try {
       await Details.deleteOne({ _id: id });
     } catch (error) {

@@ -6,7 +6,7 @@ export const detailsApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const details = await db.detailsStore.getDetails();
+        const details = await db.detailsStore.getAllDetails();
         return details;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -19,6 +19,21 @@ export const detailsApi = {
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.getDetailsById(request.params.id);
+        if (!details) {
+          return Boom.notFound("No Details with this id");
+        }
+        return details;
+      } catch (err) {
+        return Boom.serverUnavailable("No Details with this id");
+      }
+    },
+  },
+
+  findOneByPoiId: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const details = await db.detailsStore.getDetailsByPoiId(request.params.id);
         if (!details) {
           return Boom.notFound("No Details with this id");
         }
@@ -47,15 +62,25 @@ export const detailsApi = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
+      try {
+        const details = await db.detailsStore.getDetailsById(request.params.id);
+        if (!details) {
+          return Boom.notFound("No Details with this id");
+        }
+        await db.detailsStore.deleteDetailsById(details._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("No Details with this id");
+      }
     },
   },
 
 
-  deleteDetails: {
+  deleteAll: {
     auth: false,
     handler: async function (request, h) {
       try {
-        await db.detailsStore.deleteDetails();
+        await db.detailsStore.deleteAllDetails();
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
