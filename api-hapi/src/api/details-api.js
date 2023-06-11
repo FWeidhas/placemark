@@ -71,7 +71,7 @@ export const detailsApi = {
     tags: ["api"],
     description: "Create details",
     notes: "Returns the newly created details",
-    validate: { payload: DetailsSpec },
+    validate: { payload: DetailsSpec , failAction: validationError},
     response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 

@@ -8,11 +8,8 @@ export const detailsMongoStore = {
   },
 
   async getDetailsByPoiId(id) {
-    if(id){
-      const details = await Details.findOne({ poiid: id }).lean();
+    const details = await Details.findOne({ poiid: id }).lean();
     return details;
-    }
-    return null;
   },
 
   async getDetailsById(id) {

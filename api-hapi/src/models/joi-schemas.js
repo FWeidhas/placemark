@@ -28,13 +28,13 @@ export const DetailsSpec = Joi.object()
     latitude: Joi.number().min(-90).max(90).precision(8).required().example(49.0134297),
     longitude: Joi.number().min(-180).max(180).precision(8).required().example(12.1016236),
     poiid: IdSpec,
-  })
-  .label("Details");
+}).label("Details");
 
 export const DetailsSpecPlus = DetailsSpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
 }).label("DetailsPlus");
+  
 
 export const DetailsArraySpec = Joi.array().items(DetailsSpecPlus).label("DetailsArray");
 
