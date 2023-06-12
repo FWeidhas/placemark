@@ -53,6 +53,11 @@ export const detailsApi = {
         return Boom.serverUnavailable("No Details with this id");
       }
     },
+    tags: ["api"],
+    description: "Find details based on given Point of Interest ID",
+    notes: "Returns details",
+    validate: { params: { id: IdSpec } , failAction: validationError},
+    response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 
   create: {
