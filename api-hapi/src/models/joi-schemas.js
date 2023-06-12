@@ -43,7 +43,7 @@ export const PoiSpec = Joi.object()
     name: Joi.string().required().example("Regensburg"),
     category: Joi.string().required().example("River"),
     userid: IdSpec,
-    details: DetailsSpecPlus.optional(),
+    details: DetailsSpecPlus.optional().allow(null),
   })
   .label("Point of Interest");
 
