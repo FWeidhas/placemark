@@ -57,7 +57,6 @@ export const poiApi = {
     description: "Create a Point of Interest",
     notes: "Returns the newly created Point of Interest",
     validate: { payload: PoiSpec, failAction: validationError },
-    // error liegt hier
     response: { schema: PoiSpecPlus, failAction: validationError },
   },
 
