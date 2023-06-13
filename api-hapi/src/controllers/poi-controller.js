@@ -1,5 +1,7 @@
+import * as cloudinary from "cloudinary";
 import { db } from "../models/db.js";
 import { DetailsSpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const poiController = {
   index: {
@@ -65,7 +67,7 @@ export const poiController = {
         return h.redirect(`/poi/${poi._id}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/poi/${poi._id}`);
+        return h.redirect(`/poi/${request.params.id}`);
       }
     },
     payload: {
@@ -75,4 +77,21 @@ export const poiController = {
       parse: true,
     },
   },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (poi.img) {
+          await imageStore.deleteImage(poi.img);
+          poi.img = null;
+          await db.poiStore.updatePoi(poi);
+        }
+        return h.redirect(`/poi/${poi._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/poi/${request.params.id}`);
+      }
+    },
+  },  
 };
