@@ -1,0 +1,46 @@
+<div id="infoModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <article class="message is-primary">
+      <div class="message-header">
+        <p>User Details:</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left"> 
+                <i class="far fa-user" style="font-size: 48px;"></i>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">{{user.lastName}}, {{user.firstName}}</p>
+                <p class="subtitle is-6">{{user.email}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<script>
+    const popupButton = document.getElementById("infoButton");
+    const popupModal = document.getElementById("infoModal");
+    const deleteButton = popupModal.querySelector(".delete");
+    const modalClose = popupModal.querySelector(".modal-close");
+
+    popupButton.addEventListener("click", function() {
+    popupModal.classList.add("is-active");
+    });
+
+    deleteButton.addEventListener("click", function() {
+    popupModal.classList.remove("is-active");
+    });
+
+    modalClose.addEventListener("click", function() {
+    popupModal.classList.remove("is-active");
+    });
+</script>

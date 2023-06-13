@@ -1,0 +1,18 @@
+{{#each users}}
+    <div class="box">
+        <article class="media is-flex is-align-items-center">
+            <div class="media-left"> 
+                <i class="far fa-user" style="font-size: 48px;"></i>
+            </div>
+            <div class="media-content">
+                <p class="title is-4">{{lastName}}, {{firstName}}</p>
+                <p class="subtitle is-6">{{email}}</p>
+            </div>
+            <div class="media-right">
+            <a href="/admin/deleteuser/{{_id}}">
+                <button class="button is-danger">Delete</button>
+            </a>
+        </div>
+        </article>
+    </div>
+{{/each}}

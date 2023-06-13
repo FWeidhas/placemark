@@ -9,6 +9,7 @@ export const dashboardController = {
       const viewData = {
         title: "Placemark Dashboard",
         user: loggedInUser,
+        role: loggedInUser.isAdmin ? "Admin" : "User",
         pois: pois,
       };
       return h.view("dashboard-view", viewData);
@@ -19,15 +20,26 @@ export const dashboardController = {
     validate: {
       payload: PoiSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        return h.view("dashboard-view", { title: "Add Point of Interest error", errors: error.details }).takeover().code(400);
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const pois = await db.poiStore.getUserPois(loggedInUser._id);
+        const viewData = {
+          title: "Add Point of Interest error",
+          user: loggedInUser,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
+          pois: pois,
+          errors: error.details,
+        };
+        return h.view("dashboard-view", viewData).code(400).takeover();
       },
+      
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newPoi = {
         userid: loggedInUser._id,
         name: request.payload.name,
+        category: request.payload.category ,
       };
       await db.poiStore.addPoi(newPoi);
       return h.redirect("/dashboard");

@@ -1,3 +1,5 @@
+export const serviceUrl = "http://localhost:3000";
+
 export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",
@@ -27,7 +29,8 @@ export const testUsers = [
 ];
 
 export const regensburg = {
-  name: "Regensburg"
+  name: "Regensburg",
+  category: "Pond",
 };
 
 export const rgbdetails = {
@@ -37,18 +40,22 @@ export const rgbdetails = {
 };
 
 export const weiden = {
-  name: "Weiden i.d.Opf."
+  name: "Weiden i.d.Opf.",
+  category: "Sea",
 };
 
 export const testPois = [
   {
-    name: "Regensburg"
+    name: "Regensburg",
+    category: "Pond",
   },
   {
-    name: "Weiden i.d.Opf."
+    name: "Weiden i.d.Opf.",
+    category: "Sea",
   },
   {
-    name: "Amberg"
+    name: "Amberg",
+    category: "River",
   }
 ];
 
