@@ -12,6 +12,7 @@ suite("Details API tests", () => {
     await placemarkService.deleteAllUsers();
     await placemarkService.deleteAllDetails();
     user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggie);
     regensburg.userid = user._id;
     poi = await placemarkService.createPoi(regensburg);
   });
