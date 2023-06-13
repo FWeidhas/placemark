@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { DetailsSpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const poiController = {
   index: {
@@ -54,8 +55,9 @@ export const poiController = {
 
   uploadImage: {
     handler: async function (request, h) {
+      let poi;
       try {
-        const poi = await db.poiStore.getPoiById(request.params.id);
+        poi = await db.poiStore.getPoiById(request.params.id);
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
