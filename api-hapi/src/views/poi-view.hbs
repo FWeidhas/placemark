@@ -1,9 +1,16 @@
 {{> menu}}
 
-<section class="section">
+<section class="section columns is-vcentered">
+  <div class="column has-text-centered">
   <div class="title">
-    {{add-poi.name}}
+    {{poi.name}}
   </div>
-  {{> list-details}}
-  {{> add-details}}
+    {{#if poi.details}}
+      {{> list-details}}
+    {{/if}}
+    {{> add-details}}
+  </div>
+  <div class="column">
+    {{> poi-image }}
+  </div>
 </section>
