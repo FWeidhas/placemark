@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import { db } from "../src/models/db.js";
-import { testPois, testDetails, weiden, regensburg, rgbdetails, testUsers } from "./fixtures.js";
-import { assertSubset } from "./test-utils.js";
+import { db } from "../../src/models/db.js";
+import { testPois, testDetails, weiden, regensburg, rgbdetails, testUsers } from "../fixtures.js";
+import { assertSubset } from "../test-utils.js";
 
 suite("Details Model tests", () => {
 
@@ -40,7 +40,7 @@ suite("Details Model tests", () => {
   });
 
   test("delete details - success", async () => {
-    await db.detailsStore.deleteDetails(testDetails[0]._id);
+    await db.detailsStore.deleteDetailsById(testDetails[0]._id);
     const details = await db.detailsStore.getAllDetails();
     assert.equal(details.length, testDetails.length - 1);
     const deletedDetails = await db.detailsStore.getDetailsByPoiId(testDetails[0]._id);
@@ -53,7 +53,7 @@ suite("Details Model tests", () => {
   });
 
   test("delete details - fail", async () => {
-    await db.detailsStore.deleteDetails("bad-id");
+    await db.detailsStore.deleteDetailsById("bad-id");
     const details = await db.detailsStore.getAllDetails();
     assert.equal(details.length, testDetails.length);
   });

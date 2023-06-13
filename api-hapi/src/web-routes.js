@@ -21,4 +21,6 @@ export const webRoutes = [
 
   { method: "GET", path: "/admin", config: adminController.index },
   { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
 ];
