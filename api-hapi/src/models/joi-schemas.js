@@ -56,3 +56,10 @@ export const PoiSpecPlus = PoiSpec.keys({
 }).label("Point of Interest Plus");
 
 export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("Points of Interest Array");
+
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+  })
+  .label("JwtAuth");
