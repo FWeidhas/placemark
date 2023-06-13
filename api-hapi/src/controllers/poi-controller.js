@@ -1,3 +1,4 @@
+import * as cloudinary from "cloudinary";
 import { db } from "../models/db.js";
 import { DetailsSpec } from "../models/joi-schemas.js";
 import { imageStore } from "../models/image-store.js";
