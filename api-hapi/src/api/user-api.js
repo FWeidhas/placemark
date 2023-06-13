@@ -34,7 +34,7 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Get one userApi",
+    description: "Get user based on given ID",
     notes: "Returns details of one user",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
@@ -54,7 +54,7 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Create a userApi",
+    description: "Create a user",
     notes: "Returns newly created user",
     validate: { payload: UserSpec, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
@@ -75,7 +75,7 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Delete one userApi",
+    description: "Delete one user based on given ID",
     notes: "Deletes one user based on given ID from placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
