@@ -8,7 +8,9 @@
     {{#if poi.details}}
       {{> list-details}}
     {{/if}}
-    {{> add-details}}
+    {{#unless poi.details}}
+      {{> add-details}}
+    {{/unless}}
   </div>
   <div class="column">
     {{> poi-image }}
