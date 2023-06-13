@@ -70,13 +70,14 @@ export const detailsApi = {
         }
         return Boom.badImplementation("error creating details");
       } catch (err) {
+        console.error(err);
         return Boom.serverUnavailable("Database Error");
       }
     },
     tags: ["api"],
     description: "Create details",
     notes: "Returns the newly created details",
-    validate: { payload: DetailsSpec , failAction: validationError},
+    validate: { payload: DetailsSpec , params: { id: IdSpec }, failAction: validationError},
     response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 

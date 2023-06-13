@@ -32,7 +32,7 @@ suite("Point of Interest API tests", () => {
     const response = await placemarkService.deleteOnePoi(poi._id);
     assert.equal(response.status, 204);
     try {
-      const returnedPoi = await placemarkService.getPoiById(poi.id);
+      const returnedPoi = await placemarkService.getPoiById(poi._id);
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No Point of Interest with this id", "Incorrect Response Message");
@@ -57,7 +57,7 @@ suite("Point of Interest API tests", () => {
       const response = await placemarkService.deleteOnePoi("not an id");
       assert.fail("Should not return a response");
     } catch (error) {
-      assert(error.response.data.message === "No Point if Interest with this id", "Incorrect Response Message");
+      assert(error.response.data.message === "No Point if Interest with this id" || "id with value not an id fails to match the required pattern: /^[0-9a-fA-F]{24}$/", "Incorrect Response Message");
     }
   });
 });

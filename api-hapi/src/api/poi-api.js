@@ -30,6 +30,7 @@ export const poiApi = {
         }
         return poi;
       } catch (err) {
+        console.error(err);
         return Boom.serverUnavailable("No Point of Interest with this id");
       }
     },
@@ -50,6 +51,7 @@ export const poiApi = {
         }
         return Boom.badImplementation("error creating Point of Interest");
       } catch (err) {
+        console.error(err);
         return Boom.serverUnavailable("Database Error");
       }
     },

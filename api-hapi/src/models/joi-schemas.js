@@ -1,6 +1,8 @@
 import Joi from "joi";
 
-export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
+
+// export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
+export const IdSpec =  Joi.alternatives().try(Joi.string().regex(/^[0-9a-fA-F]{24}$/) , Joi.object()).description("a valid ID");
 
 export const UserCredentialsSpec = Joi.object()
   .keys({
