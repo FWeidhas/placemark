@@ -50,5 +50,29 @@ export const poiController = {
       await db.detailsStore.deleteDetailsById(request.params.detailsid);
       return h.redirect(`/poi/${request.params.id}`);
     },
-  }
+  },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          poi.img = url;
+          await db.poiStore.updatePoi(poi);
+        }
+        return h.redirect(`/poi/${poi._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/poi/${poi._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
 };

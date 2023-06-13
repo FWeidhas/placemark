@@ -39,5 +39,12 @@ export const poiMongoStore = {
 
   async deleteAllPois() {
     await Poi.deleteMany({});
-  }
+  },
+
+  async updatePoi(updatedPoi) {
+    const poi = await Poi.findOne({ _id: updatedPoi._id });
+    poi.title = updatedPoi.title;
+    poi.img = updatedPoi.img;
+    await poi.save();
+  },   
 };
