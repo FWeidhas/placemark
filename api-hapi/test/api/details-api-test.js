@@ -11,9 +11,9 @@ suite("Details API tests", () => {
     placemarkService.clearAuth();
     user = await placemarkService.createUser(maggie);
     await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.deleteAllDetails();
     await placemarkService.deleteAllPois();
     await placemarkService.deleteAllUsers();
-    await placemarkService.deleteAllDetails();
     user = await placemarkService.createUser(maggie);
     await placemarkService.authenticate(maggieCredentials);
     regensburg.userid = user._id;
