@@ -13,14 +13,14 @@ suite("Authentication API tests", async () => {
 
   test("authenticate", async () => {
     const returnedUser = await placemarkService.createUser(maggie);
-    const response = await placemarkService.authenticate(maggie);
+    const response = await placemarkService.authenticate(maggieCredentials);
     assert(response.success);
     assert.isDefined(response.token);
   });
 
   test("verify Token", async () => {
     const returnedUser = await placemarkService.createUser(maggie);
-    const response = await placemarkService.authenticate(maggie);
+    const response = await placemarkService.authenticate(maggieCredentials);
 
     const userInfo = decodeToken(response.token);
     assert.equal(userInfo.email, returnedUser.email);
