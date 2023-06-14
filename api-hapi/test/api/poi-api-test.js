@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testPois, regensburg } from "../fixtures.js";
+import { maggie, testPois, regensburg, maggieCredentials } from "../fixtures.js";
 
 
 suite("Point of Interest API tests", () => {
@@ -10,10 +10,13 @@ suite("Point of Interest API tests", () => {
   let user = null;
 
   setup(async () => {
-    await placemarkService.deleteAllUsers();
-    await placemarkService.deleteAllPois();
-
+    placemarkService.clearAuth();
     user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.deleteAllPois();
+    await placemarkService.deleteAllUsers();
+    user = await placemarkService.createUser(maggie);
+    await placemarkService.authenticate(maggieCredentials);
     regensburg.userid = user._id;
   });
 
