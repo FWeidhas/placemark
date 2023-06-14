@@ -22,9 +22,18 @@ const __dirname = path.dirname(__filename);
 const swaggerOptions = {
   info: {
     title: "Placemark API",
-    version: "0.1",
+    version: "0.1"
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
+
 
 const result = dotenv.config();
 if (result.error) {
