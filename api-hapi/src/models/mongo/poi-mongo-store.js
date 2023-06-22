@@ -90,7 +90,10 @@ export const poiMongoStore = {
       const poi = await Poi.updateOne({ _id: id }, { $set: updates });
       return poi;
     } catch (error) {
-      throw new Error(`Failed to update the poi: ${error}`);
+      console.log(error);
+      const poi = await Poi.findOne({ _id: id }).lean();
+      
+      return poi;
     }
   }
   

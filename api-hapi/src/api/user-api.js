@@ -129,4 +129,21 @@ export const userApi = {
     validate: { payload: UserCredentialsSpec, failAction: validationError },
     response: { schema: JwtAuth, failAction: validationError },
   },
+
+  userCount: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const count = await db.userStore.getUserCount();
+        return h.response(count).code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Counts all existing users and returns the number",
+    notes: "Counts all existing users from placemark",
+  },
 };
