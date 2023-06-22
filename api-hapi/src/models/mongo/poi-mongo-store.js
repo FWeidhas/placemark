@@ -61,7 +61,11 @@ export const poiMongoStore = {
     await Promise.all(
       categories.map(async (category) => {
         const count = await Poi.countDocuments({ category: category });
-        numberofpois.push(count);
+        const categorywithcount = {
+          category: category,
+          count: count
+        };
+        numberofpois.push(categorywithcount);
       })
     );
   

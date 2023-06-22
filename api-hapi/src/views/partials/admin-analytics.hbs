@@ -1,42 +1,36 @@
 <div class="box">
     <article class="media is-flex is-align-items-center">
-        <div class="media-content">
-            <p class="title is-4">Total user:</p>
+        <div class="media-content has-text-centered">
+            <p class="title is-4">Usercount:</p>
             <p class="subtitle is-6">{{usercount}}</p>
         </div>
     </article>
 </div>
 
 <div class="box">
-    <article class="media is-flex is-align-items-center">
-        <div class="media-left"> 
-            <i class="far fa-user" style="font-size: 48px;"></i>
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <div class="columns has-text-centered">
+          {{#each numberofpoiswithcategory}}
+          <div class="column">
+            <p class="title is-4">{{category}}</p>
+            <p class="subtitle is-6">Number of Poi's: {{count}}</p>
+          </div>
+          {{/each}}
         </div>
-        <div class="media-content">
-            <p class="title is-4">{{lastName}}, {{firstName}}</p>
-            <p class="subtitle is-6">{{email}}</p>
-        </div>
-        <div class="media-right">
-            <a href="/admin/deleteuser/{{_id}}">
-                <button class="button is-danger">Delete</button>
-            </a>
-        </div>
-    </article>
+      </div>
+    </div>
+  </article>
 </div>
+
+
 
 <div class="box">
     <article class="media is-flex is-align-items-center">
-        <div class="media-left"> 
-            <i class="far fa-user" style="font-size: 48px;"></i>
-        </div>
-        <div class="media-content">
-            <p class="title is-4">{{lastName}}, {{firstName}}</p>
-            <p class="subtitle is-6">{{email}}</p>
-        </div>
-        <div class="media-right">
-            <a href="/admin/deleteuser/{{_id}}">
-                <button class="button is-danger">Delete</button>
-            </a>
+        <div class="media-content has-text-centered">
+            <p class="title is-4">Points of Interest count:</p>
+            <p class="subtitle is-6">{{numberofpois}}</p>
         </div>
     </article>
 </div>
