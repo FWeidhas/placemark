@@ -105,4 +105,27 @@ export const poiApi = {
     tags: ["api"],
     description: "Delete all Points of Interest",
   },
+
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.addPoi(request.payload);
+        if (poi) {
+          return h.response(poi).code(201);
+        }
+        return Boom.badImplementation("error creating Point of Interest");
+      } catch (err) {
+        console.error(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update a Point of Interest",
+    notes: "Returns the updated Point of Interest",
+    validate: { payload: PoiSpec, params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PoiSpecPlus, failAction: validationError },
+  },
 };
