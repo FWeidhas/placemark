@@ -112,11 +112,11 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        const poi = await db.poiStore.addPoi(request.payload);
+        const poi = await db.poiStore.editPoi(request.params.id, request.payload);
         if (poi) {
           return h.response(poi).code(201);
         }
-        return Boom.badImplementation("error creating Point of Interest");
+        return Boom.badImplementation("error updating Point of Interest");
       } catch (err) {
         console.error(err);
         return Boom.serverUnavailable("Database Error");
@@ -127,5 +127,26 @@ export const poiApi = {
     notes: "Returns the updated Point of Interest",
     validate: { payload: PoiSpec, params: { id: IdSpec }, failAction: validationError },
     response: { schema: PoiSpecPlus, failAction: validationError },
+  },
+
+  poisCountbyUser: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (!poi) {
+          return Boom.notFound("No Point if Interest with this id");
+        }
+        await db.poiStore.deletePoiById(poi._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("No Point if Interest with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a Point of Interest",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };
