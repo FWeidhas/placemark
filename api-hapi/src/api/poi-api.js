@@ -107,9 +107,9 @@ export const poiApi = {
   },
 
   update: {
-    auth: {
-      strategy: "jwt",
-    },
+    // auth: {
+    //   strategy: "jwt",
+    // },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.editPoi(request.params.id, request.payload);
