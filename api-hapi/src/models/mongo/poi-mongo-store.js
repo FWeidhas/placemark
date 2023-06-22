@@ -37,6 +37,14 @@ export const poiMongoStore = {
     }
   },
 
+  async deletePoiByUserId(id) {
+    try {
+      await Poi.deleteMany({ userid: id });
+    } catch (error) {
+      console.log("bad id");
+    }
+  },
+
   async deleteAllPois() {
     await Poi.deleteMany({});
   },

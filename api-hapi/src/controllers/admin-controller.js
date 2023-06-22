@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { poiMemStore } from "../models/mem/poi-mem-store.js";
 
 export const adminController = {
     index: {
@@ -35,9 +36,20 @@ export const adminController = {
   
     deleteUser: {
       handler: async function (request, h) {
-        const poi = await db.userStore.getUserById(request.params.id);
-        await db.userStore.deleteUserById(poi._id);
+        const userId = request.params.id;
+        const user = await db.userStore.getUserById(userId);
+        const pois = await db.poiStore.getUserPois(user._id);
+    
+        await db.userStore.deleteUserById(user._id);
+        await db.poiStore.deletePoiByUserId(user._id);
+    
+        await Promise.all(
+          pois.map(async (poi) => {
+            await db.detailsStore.deleteDetailsByUserId(poi._id);
+          })
+        );
+    
         return h.redirect("/admin");
       },
-    },
+    },        
   };
