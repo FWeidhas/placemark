@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const poiApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.getAllPois();
@@ -21,7 +23,9 @@ export const poiApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
@@ -42,7 +46,9 @@ export const poiApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.addPoi(request.payload);
@@ -63,7 +69,9 @@ export const poiApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
@@ -83,7 +91,9 @@ export const poiApi = {
 
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.poiStore.deleteAllPois();
@@ -94,5 +104,28 @@ export const poiApi = {
     },
     tags: ["api"],
     description: "Delete all Points of Interest",
+  },
+
+  update: {
+    // auth: {
+    //   strategy: "jwt",
+    // },
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.editPoi(request.params.id, request.payload);
+        if (poi) {
+          return h.response(poi).code(201);
+        }
+        return Boom.badImplementation("error updating Point of Interest");
+      } catch (err) {
+        console.error(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update a Point of Interest",
+    notes: "Returns the updated Point of Interest",
+    validate: { payload: PoiSpecPlus, params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PoiSpecPlus, failAction: validationError },
   },
 };

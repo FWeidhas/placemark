@@ -43,5 +43,11 @@ export const userMongoStore = {
 
   async deleteAll() {
     await User.deleteMany({});
+  },
+
+  async getUserCount() {
+    const usercount = await User.countDocuments({});
+
+    return usercount;
   }
 };

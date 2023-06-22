@@ -14,11 +14,15 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addpoi", config: dashboardController.addPoi },
   { method: "GET", path: "/dashboard/deletepoi/{id}", config: dashboardController.deletePoi },
+  { method: "GET", path: "/dashboard/editpoi/{id}", config: dashboardController.editPoi },
+  { method: "POST", path: "/dashboard/updatepoi/{id}", config: dashboardController.updatePoi },
 
   { method: "GET", path: "/poi/{id}", config: poiController.index },
   { method: "POST", path: "/poi/{id}/adddetails", config: poiController.addDetails },
   { method: "GET", path: "/poi/{id}/deletedetails/{detailsid}", config: poiController.deleteDetails },
   { method: "POST", path: "/poi/{id}/uploadimage", config: poiController.uploadImage },
+  { method: "GET", path: "/poi/{id}/deleteimage", config: poiController.deleteImage },
+  { method: "POST", path: "/poi/{id}/editdetails/{detailsid}", config: poiController.editDetails },
 
   { method: "GET", path: "/admin", config: adminController.index },
   { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },

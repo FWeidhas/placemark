@@ -5,7 +5,9 @@ import { IdSpec, DetailsSpec, DetailsSpecPlus, DetailsArraySpec } from "../model
 
 export const detailsApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.getAllDetails();
@@ -21,7 +23,9 @@ export const detailsApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.getDetailsById(request.params.id);
@@ -41,7 +45,9 @@ export const detailsApi = {
   },
 
   findOneByPoiId: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.getDetailsByPoiId(request.params.id);
@@ -61,7 +67,9 @@ export const detailsApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.addDetails(request.params.id, request.payload);
@@ -82,7 +90,9 @@ export const detailsApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const details = await db.detailsStore.getDetailsById(request.params.id);
@@ -102,7 +112,9 @@ export const detailsApi = {
 
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.detailsStore.deleteAllDetails();
@@ -113,5 +125,28 @@ export const detailsApi = {
     },
     tags: ["api"],
     description: "Delete all details",
+  },
+
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const details = await db.detailsStore.updateDetails(request.params.id, request.payload);
+        if (details) {
+          return h.response(details).code(201);
+        }
+        return Boom.badImplementation("error updating details");
+      } catch (err) {
+        console.error(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update details",
+    notes: "Returns the updated details",
+    validate: { payload: DetailsSpecPlus , params: { id: IdSpec }, failAction: validationError},
+    response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 };

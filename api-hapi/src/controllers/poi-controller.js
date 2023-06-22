@@ -1,5 +1,7 @@
+import * as cloudinary from "cloudinary";
 import { db } from "../models/db.js";
 import { DetailsSpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const poiController = {
   index: {
@@ -65,7 +67,7 @@ export const poiController = {
         return h.redirect(`/poi/${poi._id}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/poi/${poi._id}`);
+        return h.redirect(`/poi/${request.params.id}`);
       }
     },
     payload: {
@@ -73,6 +75,56 @@ export const poiController = {
       output: "data",
       maxBytes: 209715200,
       parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (poi.img) {
+          await imageStore.deleteImage(poi.img);
+          poi.img = null;
+          await db.poiStore.updatePoi(poi);
+        }
+        return h.redirect(`/poi/${poi._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/poi/${request.params.id}`);
+      }
+    },
+  },
+
+  editDetails: {
+    validate: {
+      payload: DetailsSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        const viewData = {
+          title: "Placemark",
+          user: loggedInUser,
+          poi: poi,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
+          errors: error.details,
+        };
+        return h.view("poi-view", viewData).code(400).takeover();
+      },
+    },
+    handler: async function (request, h) {
+      const updates = {
+        description: request.payload.description,
+        latitude: Number(request.payload.latitude),
+        longitude: Number(request.payload.longitude),
+      };
+      try {
+        await db.detailsStore.updateDetails(request.params.detailsid, updates);
+        return h.redirect(`/poi/${request.params.id}`);
+      } catch (error) {
+        console.error(error);
+        return h.redirect(`/poi/${request.params.id}`);
+      }
     },
   },
 };
