@@ -1,0 +1,17 @@
+<form class="box" action="/poi/{{details._id}}/editdetails" method="POST">
+  <label>Edit Point of Interest Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <textarea class="textarea" placeholder="Enter Description" name="description"></textarea>
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Latitude" name="latitude">
+      </div>
+      <div class="field">
+        <input class="input" type="text" placeholder="Enter Longitude" name="longitude">
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Edit Details</button>
+</form>

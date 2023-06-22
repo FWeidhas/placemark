@@ -46,8 +46,17 @@ export const detailsMongoStore = {
     }
   },
 
-  async deleteAllDetails(){
+  async deleteAllDetails() {
     await Details.deleteMany({});
-  }
+  },
+
+  async updateDetails(id, updates) {
+    try {
+      const details = await Details.updateOne({ _id: id }, { $set: updates });
+      return details;
+    } catch (error) {
+      throw new Error(`Failed to update the poi details: ${error}`);
+    }
+  },
 
 };
