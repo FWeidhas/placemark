@@ -125,7 +125,7 @@ export const poiApi = {
     tags: ["api"],
     description: "Update a Point of Interest",
     notes: "Returns the updated Point of Interest",
-    validate: { payload: PoiSpec, params: { id: IdSpec }, failAction: validationError },
+    validate: { payload: PoiSpecPlus, params: { id: IdSpec }, failAction: validationError },
     response: { schema: PoiSpecPlus, failAction: validationError },
   },
 };

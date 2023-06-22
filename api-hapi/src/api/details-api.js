@@ -146,7 +146,7 @@ export const detailsApi = {
     tags: ["api"],
     description: "Update details",
     notes: "Returns the updated details",
-    validate: { payload: DetailsSpec , params: { id: IdSpec }, failAction: validationError},
+    validate: { payload: DetailsSpecPlus , params: { id: IdSpec }, failAction: validationError},
     response: { schema: DetailsSpecPlus, failAction: validationError },
   },
 };
