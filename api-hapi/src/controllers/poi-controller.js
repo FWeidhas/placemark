@@ -93,5 +93,38 @@ export const poiController = {
         return h.redirect(`/poi/${request.params.id}`);
       }
     },
-  },  
+  },
+
+  editDetails: {
+    validate: {
+      payload: DetailsSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        const viewData = {
+          title: "Placemark",
+          user: loggedInUser,
+          poi: poi,
+          role: loggedInUser.isAdmin ? "Admin" : "User",
+          errors: error.details,
+        };
+        return h.view("poi-view", viewData).code(400).takeover();
+      },
+    },
+    handler: async function (request, h) {
+      const updates = {
+        description: request.payload.description,
+        latitude: Number(request.payload.latitude),
+        longitude: Number(request.payload.longitude),
+      };
+      try {
+        await db.detailsStore.updateDetails(request.params.detailsid, updates);
+        return h.redirect(`/poi/${request.params.id}`);
+      } catch (error) {
+        console.error(error);
+        return h.redirect(`/poi/${request.params.id}`);
+      }
+    },
+  },
 };

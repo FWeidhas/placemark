@@ -46,8 +46,20 @@ export const detailsMongoStore = {
     }
   },
 
-  async deleteAllDetails(){
+  async deleteAllDetails() {
     await Details.deleteMany({});
-  }
+  },
+
+  async updateDetails(id, updates) {
+    try {
+      const details = await Details.updateOne({ _id: id }, { $set: updates });
+      return details;
+    } catch (error) {
+      console.log(error);
+      const details = await Details.findOne({ _id: id }).lean();
+      
+      return details;
+    }
+  },
 
 };

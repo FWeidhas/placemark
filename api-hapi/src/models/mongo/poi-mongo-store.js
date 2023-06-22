@@ -51,7 +51,6 @@ export const poiMongoStore = {
 
   async updatePoi(updatedPoi) {
     const poi = await Poi.findOne({ _id: updatedPoi._id });
-    poi.title = updatedPoi.title;
     poi.img = updatedPoi.img;
     await poi.save();
   },   
@@ -85,5 +84,14 @@ export const poiMongoStore = {
 
     return count;
   },
+
+  async editPoi(id, updates) {
+    try {
+      const poi = await Poi.updateOne({ _id: id }, { $set: updates });
+      return poi;
+    } catch (error) {
+      throw new Error(`Failed to update the poi: ${error}`);
+    }
+  }
   
 };
