@@ -26,4 +26,5 @@ export const apiRoutes = [
   { method: "GET", path: "/api/details/{id}", config: detailsApi.findOne },
   { method: "GET", path: "/api/pois/{id}/details", config: detailsApi.findOneByPoiId },
   { method: "DELETE", path: "/api/details/{id}", config: detailsApi.deleteOne },
+  { method: "PUT", path: "/api/details/{id}", config: detailsApi.update },
 ];

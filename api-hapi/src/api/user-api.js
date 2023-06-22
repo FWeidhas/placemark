@@ -136,8 +136,8 @@ export const userApi = {
     },
     handler: async function (request, h) {
       try {
-        await db.userStore.getUserCount();
-        return h.response().code(204);
+        const count = await db.userStore.getUserCount();
+        return h.response(count).code(204);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

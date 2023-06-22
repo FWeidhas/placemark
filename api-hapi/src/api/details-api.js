@@ -126,4 +126,27 @@ export const detailsApi = {
     tags: ["api"],
     description: "Delete all details",
   },
+
+  update: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const details = await db.detailsStore.updateDetails(request.params.id, request.payload);
+        if (details) {
+          return h.response(details).code(201);
+        }
+        return Boom.badImplementation("error updating details");
+      } catch (err) {
+        console.error(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update details",
+    notes: "Returns the updated details",
+    validate: { payload: DetailsSpec , params: { id: IdSpec }, failAction: validationError},
+    response: { schema: DetailsSpecPlus, failAction: validationError },
+  },
 };
