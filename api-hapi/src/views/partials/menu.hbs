@@ -24,7 +24,8 @@
 </nav>
 
 <script>
-  document.getElementById("{{active}}").classList.add("is-primary");
+  if(document.getElementById("{{active}}") !== null)
+    document.getElementById("{{active}}").classList.add("is-primary");
 
   document.addEventListener('DOMContentLoaded', () => {
 

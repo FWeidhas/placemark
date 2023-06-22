@@ -55,7 +55,10 @@ export const detailsMongoStore = {
       const details = await Details.updateOne({ _id: id }, { $set: updates });
       return details;
     } catch (error) {
-      throw new Error(`Failed to update the poi details: ${error}`);
+      console.log(error);
+      const details = await Details.findOne({ _id: id }).lean();
+      
+      return details;
     }
   },
 

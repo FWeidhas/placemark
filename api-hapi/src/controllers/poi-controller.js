@@ -119,11 +119,11 @@ export const poiController = {
         longitude: Number(request.payload.longitude),
       };
       try {
-        await db.detailsStore.updateDetails(request.params.id, updates);
-        return h.redirect(`/poi/${poiId}`);
+        await db.detailsStore.updateDetails(request.params.detailsid, updates);
+        return h.redirect(`/poi/${request.params.id}`);
       } catch (error) {
         console.error(error);
-        return h.redirect(`/poi/${poiId}`);
+        return h.redirect(`/poi/${request.params.id}`);
       }
     },
   },
