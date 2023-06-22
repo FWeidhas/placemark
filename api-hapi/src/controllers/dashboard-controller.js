@@ -73,7 +73,7 @@ export const dashboardController = {
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
         const loggedInUser = request.auth.credentials;
-        const poi = await db.poiStore.getPoiById(loggedInUser._id);
+        const poi = await db.poiStore.getPoiById(request.params.id);
         const viewData = {
           title: "Edit Point of Interest error",
           user: loggedInUser,
@@ -91,8 +91,16 @@ export const dashboardController = {
         category: request.payload.category,
       };
 
-      await db.poiStore.editPoi(request.params.id, updates);
-      return h.redirect("/dashboard");
+      try {
+
+        await db.poiStore.editPoi(request.params.id, updates);
+        return h.redirect("/dashboard");
+
+      } catch (error) {
+        console.error(error);
+  
+        return h.redirect("/dashboard");
+      }
     },
   },
 };
