@@ -37,6 +37,14 @@ export const poiMongoStore = {
     }
   },
 
+  async deletePoiByUserId(id) {
+    try {
+      await Poi.deleteMany({ userid: id });
+    } catch (error) {
+      console.log("bad id");
+    }
+  },
+
   async deleteAllPois() {
     await Poi.deleteMany({});
   },
@@ -47,4 +55,35 @@ export const poiMongoStore = {
     poi.img = updatedPoi.img;
     await poi.save();
   },   
+
+  async getNumberofPois() {
+    const numberofpois = await Poi.countDocuments({});
+
+    return numberofpois;
+  },
+
+  async getNumberofPoiswithCategory() {
+    const categories = ["River", "Pond", "Lake", "Sea"];
+    const numberofpois = [];
+  
+    await Promise.all(
+      categories.map(async (category) => {
+        const count = await Poi.countDocuments({ category: category });
+        const categorywithcount = {
+          category: category,
+          count: count
+        };
+        numberofpois.push(categorywithcount);
+      })
+    );
+  
+    return numberofpois;
+  },
+
+  async getUserPoisCount(id) {
+    const count = await Poi.countDocuments({ userid: id });
+
+    return count;
+  },
+  
 };
