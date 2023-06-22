@@ -55,13 +55,13 @@ export const dashboardController = {
 
   editPoi: {
     handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
       const poi = await db.poiStore.getPoiById(request.params.id);
       const viewData = {
         title: "Edit Point of Interest error",
         user: loggedInUser,
         role: loggedInUser.isAdmin ? "Admin" : "User",
         poi: poi,
-        errors: error.details,
       };
       return h.view("dashboard-edit-view", viewData);
     },
@@ -85,13 +85,13 @@ export const dashboardController = {
       }, 
     },
     handler: async function (request, h) {
-      const loggedInUser = request.auth.credentials;
-      const newPoi = {
-        userid: loggedInUser._id,
+
+      const updates = {
         name: request.payload.name,
-        category: request.payload.category ,
+        category: request.payload.category,
       };
-      await db.poiStore.addPoi(newPoi);
+
+      await db.poiStore.editPoi(request.params.id, updates);
       return h.redirect("/dashboard");
     },
   },
