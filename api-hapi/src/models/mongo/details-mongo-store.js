@@ -38,6 +38,14 @@ export const detailsMongoStore = {
     }
   },
 
+  async deleteDetailsByPoiId(id) {
+    try {
+      await Details.deleteMany({ poiid: id });
+    } catch (error) {
+      console.log("bad id");
+    }
+  },
+
   async deleteAllDetails(){
     await Details.deleteMany({});
   }

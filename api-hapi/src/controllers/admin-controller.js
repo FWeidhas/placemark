@@ -45,7 +45,7 @@ export const adminController = {
     
         await Promise.all(
           pois.map(async (poi) => {
-            await db.detailsStore.deleteDetailsByUserId(poi._id);
+            await db.detailsStore.deleteDetailsByPoiId(poi._id);
           })
         );
     
