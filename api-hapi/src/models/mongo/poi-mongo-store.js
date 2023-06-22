@@ -71,5 +71,11 @@ export const poiMongoStore = {
   
     return numberofpois;
   },
+
+  async getUserPoisCount(id) {
+    const count = await Poi.countDocuments({ userid: id });
+
+    return count;
+  },
   
 };
