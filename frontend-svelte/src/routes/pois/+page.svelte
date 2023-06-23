@@ -1,9 +1,12 @@
 <script>
     import Header from '../../lib/Header.svelte';
+    import MainNavigator from '../../lib/MainNavigator.svelte';
     import ListPois from '../../lib/ListPois.svelte';
 </script>
 
-<Header />
+<Header>
+    <MainNavigator />
+</Header>
 
 <div class="columns">
     <div class="column has-text-centered">

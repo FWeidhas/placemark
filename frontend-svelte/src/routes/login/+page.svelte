@@ -1,9 +1,12 @@
 <script>
   import Header from '../../lib/Header.svelte';
+  import WelcomeNavigator from '../../lib/WelcomeNavigator.svelte';
   import LoginForm from '../../lib/LoginForm.svelte';
 </script>
 
-<Header />
+<Header>
+  <WelcomeNavigator />
+</Header>
 
 <div class="columns">
   <div class="column has-text-centered">
