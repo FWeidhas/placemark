@@ -21,7 +21,7 @@ export const placemark = {
 
     async logout() {
         axios.defaults.headers.common["Authorization"] = "";
-        localStorage.removeItem("donation");
+        localStorage.removeItem("placemark");
     },
 
     // @ts-ignore
