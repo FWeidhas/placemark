@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 
-export const placemark = {
+export const placemarkService = {
     baseUrl: "http://localhost:3000",
 
     // @ts-ignore
