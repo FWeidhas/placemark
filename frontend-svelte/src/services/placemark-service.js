@@ -16,6 +16,7 @@ export const placemarkService = {
                     email: email,
                     token: response.data.token
                 });
+                localStorage.placemark = JSON.stringify({ email: email, token: response.data.token });
                 return true;
             }
             return false;
@@ -31,6 +32,7 @@ export const placemarkService = {
           token: "",
         });
         axios.defaults.headers.common["Authorization"] = "";
+        localStorage.removeItem("placemark");
     },
     
     // @ts-ignore
@@ -46,6 +48,18 @@ export const placemarkService = {
             return true;
         } catch (error) {
             return false;
+        }
+    },
+
+    reload () {
+        const placemarkCredentials = localStorage.placemark;
+        if (placemarkCredentials) {
+            const savedUser = JSON.parse(placemarkCredentials);
+            user.set({
+                email: savedUser.email,
+                token: savedUser.token
+            });
+            axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
         }
     }
 };
