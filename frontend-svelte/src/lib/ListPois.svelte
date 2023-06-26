@@ -4,7 +4,6 @@
   import { user } from "../stores.js";
 
   const { id } = $user;
-  console.log($user);
 
   /**
 	 * @type {any[]}
@@ -20,7 +19,7 @@
     <h2 class="title">
       {poi.name}
     </h2>
-    <div class="tags">
+    <div class="tags is-flex is-centered">
         <span class="tag is-primary has-background-info">{poi.category}</span>
     </div>
     <a href="/poi/{id}" class="button">
