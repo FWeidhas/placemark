@@ -1,8 +1,7 @@
 <script>
   // @ts-nocheck
-  
-      import { onMount } from "svelte";
-      import { placemarkService } from "../services/placemark-service";
+    import { placemarkService } from "../services/placemark-service";
+	import { user } from "../stores";
   
       let name ="";
   
@@ -11,13 +10,26 @@
 
       let message = "Add your spot with name and category";
   
-    async function addpoi() {
-      if (selectedCategory && amount && selectedMethod) {
-        // TODO - make donation
-      } else {
-        message = "Please select name and category";
-      }
-    }
+      async function addpoi() {
+        if (!selectedCategory || !name || selectedCategory === "Select category") {
+            message = "Please select name and category";
+            return;
+        }
+
+        const poi = {
+            name: name,
+            category: selectedCategory,
+            userid: $user.id,
+        };
+
+        const response = await placemarkService.addpoi(poi);
+        if (response) {
+            message = `Thanks! You added ${name} in the category of ${selectedCategory}`;
+        } else {
+            message = "Adding not completed - some error occurred";
+        }
+        }
+
   </script>
   
   <form on:submit|preventDefault={addpoi}>

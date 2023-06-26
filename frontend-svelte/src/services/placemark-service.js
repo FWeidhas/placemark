@@ -68,12 +68,11 @@ export const placemarkService = {
 
     /**
      * @param {any} poi
-     * @param {string} id
      */
-    async addpoi(poi, id) {
+    async addpoi(poi) {
 		try {
-			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/user", poi);
-			return response.status == 200;
+			const response = await axios.post(this.baseUrl + "/api/pois", poi);
+			return response.status == 201;
 		} catch (error) {
 			return false;
 		}

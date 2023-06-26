@@ -45,7 +45,10 @@ async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
     "routes": {
-      "cors": true
+      cors: {
+        origin: ["http://localhost:5173"],
+        additionalHeaders: ["cache-control", "x-requested-with"],
+      },
     }
   });
   
