@@ -79,6 +79,9 @@ export const placemarkService = {
 		}
 	},
 
+	/**
+     * @param {string} id
+     */
 	async getPoisbyUserId(id) {
 		try {
 			const response = await axios.get(this.baseUrl + "/api/pois/" + id + "/user");
