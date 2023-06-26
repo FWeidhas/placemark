@@ -69,8 +69,11 @@ export const placemarkService = {
     // @ts-ignore
     async addpoi(poi) {
 		try {
+            // @ts-ignore
+            // eslint-disable-next-line no-undef
+            const { id } = $user;
 			// @ts-ignore
-			const response = await axios.post(this.baseUrl + "/api/pois/" + user.id + "/user", poi);
+			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/user", poi);
 			return response.status == 200;
 		} catch (error) {
 			return false;
