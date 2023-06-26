@@ -107,9 +107,9 @@ export const poiApi = {
   },
 
   update: {
-    // auth: {
-    //   strategy: "jwt",
-    // },
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.editPoi(request.params.id, request.payload);
@@ -128,4 +128,24 @@ export const poiApi = {
     validate: { payload: PoiSpecPlus, params: { id: IdSpec }, failAction: validationError },
     response: { schema: PoiSpecPlus, failAction: validationError },
   },
+
+  findbyuser: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const pois = await db.poiStore.getUserPois(req.params.id);
+        return pois;
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PoiArraySpec, failAction: validationError },
+    description: "Get all Points of Interest by User id",
+    notes: "Returns all Points of Interest by User id",
+  },
+
 };
