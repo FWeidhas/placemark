@@ -15,8 +15,8 @@ export const placemarkService = {
                 user.set({
                     email: email,
                     token: response.data.token,
+                    id: response.data.id,
                 });
-                console.log(response.data);
                 localStorage.placemark = JSON.stringify({ email: email, token: response.data.token});
                 return true;
             }
@@ -31,6 +31,7 @@ export const placemarkService = {
         user.set({
           email: "",
           token: "",
+          id: "",
         });
         axios.defaults.headers.common["Authorization"] = "";
         localStorage.removeItem("placemark");
@@ -59,6 +60,7 @@ export const placemarkService = {
             user.set({
                 email: savedUser.email,
                 token: savedUser.token,
+                id: savedUser.id,
             });
             axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
         }
@@ -75,10 +77,13 @@ export const placemarkService = {
 		}
 	},
 
-	async getPois() {
+	async getPoisbyUserId() {
 		try {
+            // @ts-ignore
+            // eslint-disable-next-line no-undef
+            const { id } = $user;
 			// @ts-ignore
-			const response = await axios.get(this.baseUrl + "/api/pois/" + user.id + "/user");
+			const response = await axios.get(this.baseUrl + "/api/pois/" + id + "/user");
 			return response.data;
 		} catch (error) {
 			return [];
