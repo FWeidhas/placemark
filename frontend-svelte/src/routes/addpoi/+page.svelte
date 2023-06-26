@@ -12,7 +12,7 @@
         <img alt="fishing" src="/lake-fishing.jpg" width="80%" />
     </div>
     <div class="column box has-text-centered">
-        <h1 class="title is-4">Add your favourite spots</h1>
+        <h1 class="title is-4">Add your favourite fishing spots</h1>
         <AddPoiForm />
     </div>
 </div>

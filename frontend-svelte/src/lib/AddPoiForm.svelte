@@ -7,27 +7,28 @@
       let name ="";
   
       let categories = ["River", "Pond", "Sea", "Lake"];
-      let selectedCategory = "";
+      let selectedCategory = "Select category";
 
-      let message = "Add your favourite fishing spot";
+      let message = "Add your spot with name and category";
   
     async function addpoi() {
       if (selectedCategory && amount && selectedMethod) {
         // TODO - make donation
       } else {
-        message = "Please select amount, method and candidate";
+        message = "Please select name and category";
       }
     }
   </script>
   
   <form on:submit|preventDefault={addpoi}>
       <div class="field">
-          <label class="label" for="name">Enter Name</label>
+          <label class="label" for="name">Point of Interest Name</label>
           <input bind:value={name} class="input" id="name" name="name" type="text" />
       </div>
       <div class="field">
           <div class="select">
               <select bind:value={selectedCategory}>
+                  <option disabled hidden>Select category</option>
                   {#each categories as category}
                       <option>{category}</option>
                   {/each}
