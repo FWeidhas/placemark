@@ -135,9 +135,10 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        const pois = await db.poiStore.getUserPois(req.params.id);
+        const pois = await db.poiStore.getUserPois(request.params.id);
         return pois;
       } catch (err) {
+        console.log(err);
         return Boom.serverUnavailable("Database Error");
       }
     },

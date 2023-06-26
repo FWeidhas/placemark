@@ -4,13 +4,14 @@
   import { user } from "../stores.js";
 
   const { id } = $user;
+  console.log($user);
 
   /**
 	 * @type {any[]}
 	 */
   let poisList = [];
   onMount(async () => {
-    poisList = await placemarkService.getPoisbyUserId();
+    poisList = await placemarkService.getPoisbyUserId(id);
   });
 </script>
 

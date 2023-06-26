@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 
-import { user } from "../stores";
+import { user } from "../stores.js";
 
 export const placemarkService = {
     baseUrl: "http://localhost:3000",
@@ -17,7 +17,7 @@ export const placemarkService = {
                     token: response.data.token,
                     id: response.data.id,
                 });
-                localStorage.placemark = JSON.stringify({ email: email, token: response.data.token});
+                localStorage.placemark = JSON.stringify({ email: email, token: response.data.token, id: response.data.id});
                 return true;
             }
             return false;
@@ -66,13 +66,12 @@ export const placemarkService = {
         }
     },
 
-    // @ts-ignore
-    async addpoi(poi) {
+    /**
+     * @param {any} poi
+     * @param {string} id
+     */
+    async addpoi(poi, id) {
 		try {
-            // @ts-ignore
-            // eslint-disable-next-line no-undef
-            const { id } = $user;
-			// @ts-ignore
 			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/user", poi);
 			return response.status == 200;
 		} catch (error) {
@@ -80,15 +79,12 @@ export const placemarkService = {
 		}
 	},
 
-	async getPoisbyUserId() {
+	async getPoisbyUserId(id) {
 		try {
-            // @ts-ignore
-            // eslint-disable-next-line no-undef
-            const { id } = $user;
-			// @ts-ignore
 			const response = await axios.get(this.baseUrl + "/api/pois/" + id + "/user");
 			return response.data;
 		} catch (error) {
+            console.log(error);
 			return [];
 		}
 	}
