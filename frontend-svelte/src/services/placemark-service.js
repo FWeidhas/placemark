@@ -78,6 +78,19 @@ export const placemarkService = {
 		}
 	},
 
+    /**
+     * @param {{name: string;category: string;}} poi
+     * @param {string} id
+     */
+    async editpoi(id, poi) {
+		try {
+			const response = await axios.put(this.baseUrl + "/api/pois/" + id, poi);
+			return response.status == 201;
+		} catch (error) {
+			return false;
+		}
+	},
+
 	/**
      * @param {string} id
      */

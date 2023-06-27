@@ -1,34 +1,33 @@
 <script>
     // @ts-nocheck
-      import { placemarkService } from "../services/placemark-service";
-      import { user } from "../stores";
-    
-      let name ="";
-  
-      let categories = ["River", "Pond", "Sea", "Lake"];
-      let selectedCategory = "Select category";
-  
-      let message = "Edit your spot with name and category";
-  
-      async function editpoi() {
-          if (!selectedCategory || !name || selectedCategory === "Select category") {
-              message = "Please select name and category";
-              return;
-          }
-  
-          const poi = {
-              name: name,
-              category: selectedCategory,
-              userid: $user.id,
-          };
-  
-          const response = await placemarkService.addpoi(poi);
-          if (response) {
-              message = `Thanks! You edited ${name} in the category of ${selectedCategory}`;
-          } else {
-              message = "Editing not completed - some error occurred";
-          }
-      }
+    import { page } from '$app/stores';
+    import { placemarkService } from "../services/placemark-service";
+
+    let poiId = $page.params.slug;
+    let name ="";
+
+    let categories = ["River", "Pond", "Sea", "Lake"];
+    let selectedCategory = "Select category";
+
+    let message = "Edit your spot with name and category";
+
+    async function editpoi() {
+        if (!selectedCategory || !name || selectedCategory === "Select category") {
+            message = "Please select name and category";
+            return;
+        }
+
+        const poi = {
+            name: name,
+            category: selectedCategory,
+        };
+        const response = await placemarkService.editpoi(poiId, poi);
+        if (response) {
+            message = `Thanks! You edited ${name} in the category of ${selectedCategory}`;
+        } else {
+            message = "Editing not completed - some error occurred";
+        }
+    }
   </script>
     
   <form on:submit|preventDefault={editpoi}>
@@ -48,7 +47,7 @@
       </div>
       <div class="field">
           <div class="control">
-              <button class="button is-link is-light">Add</button>
+              <button class="button is-link is-light">Edit</button>
           </div>
       </div>
       <div class="box">
