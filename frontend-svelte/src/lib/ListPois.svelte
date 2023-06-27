@@ -23,8 +23,15 @@
   /**
 	 * @param {any} id
 	 */
-   function gotoDetails(id) {
+  function gotoDetails(id) {
     goto("/details/" + id);
+  }
+
+  /**
+	 * @param {string} id
+	 */
+  function gotoEdit(id) {
+    goto("/edit/" + id )
   }
 </script>
 
@@ -44,7 +51,7 @@
     <button class="button" on:click={() => deletePoi(poi._id)}>
       <i class="fas fa-trash"></i>
     </button>
-    <button class="button" on:click={() => editPoi(poi._id)}>
+    <button class="button" on:click={() => gotoEdit(poi._id)}>
       <i class="fas fa-edit"></i>
     </button>
   </div>
