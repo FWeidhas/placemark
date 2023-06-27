@@ -1,9 +1,11 @@
 <script>
     // @ts-nocheck
+    import { onMount } from "svelte";
     import { page } from '$app/stores';
     import { placemarkService } from "../services/placemark-service";
 
     let poiId = $page.params.slug;
+    let poi = {};
     let name ="";
 
     let categories = ["River", "Pond", "Sea", "Lake"];
@@ -11,16 +13,21 @@
 
     let message = "Edit your spot with name and category";
 
+    onMount(async () => {
+        poi = await placemarkService.getPoibyId(poiId);
+    });
+
     async function editpoi() {
         if (!selectedCategory || !name || selectedCategory === "Select category") {
             message = "Please select name and category";
             return;
         }
 
-        const poi = {
-            name: name,
-            category: selectedCategory,
-        };
+        poi.name = name;
+        poi.category = selectedCategory;
+
+        console.log(poi);
+
         const response = await placemarkService.editpoi(poiId, poi);
         if (response) {
             message = `Thanks! You edited ${name} in the category of ${selectedCategory}`;

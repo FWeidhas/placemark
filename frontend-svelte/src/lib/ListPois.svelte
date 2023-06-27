@@ -31,7 +31,7 @@
 	 * @param {string} id
 	 */
   function gotoEdit(id) {
-    goto("/edit/" + id )
+    goto("/edit/" + id)
   }
 </script>
 
