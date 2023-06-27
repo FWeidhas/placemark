@@ -18,7 +18,6 @@
   async function deletePoi(id) {
     await placemarkService.deletePoibyId(id);
     poisList = await placemarkService.getPoisbyUserId($user.id);
-    console.log(poisList);
   };
 
   /**

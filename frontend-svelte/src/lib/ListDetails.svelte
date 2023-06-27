@@ -1,20 +1,20 @@
 <script>
-    import { placemarkService } from "../services/placemark-service.js";
+    import { createEventDispatcher } from 'svelte';
+	import { placemarkService } from '../services/placemark-service';
   
-  /**
-   * @type {any}
-   */
-  export let poi;
+    /**
+	 * @type {{ details: { _id: string; description: any; latitude: any; longitude: any; }; }}
+	 */
+     export let poi;
+    const dispatch = createEventDispatcher();
   
-  async function deleteDetails(id) {
-    await placemarkService.deletePoibyId(id);
-    poisList = await placemarkService.getPoisbyUserId($user.id);
-    console.log(poisList);
-  };
-
-</script>
-
-<div class="box">
+    async function deleteDetails() {
+      await placemarkService.deleteDetailsbyId(poi.details._id);
+      dispatch('detailsDeleted');
+    }
+  </script>
+  
+  <div class="box">
     <div class="block">
       {poi.details.description}
     </div>

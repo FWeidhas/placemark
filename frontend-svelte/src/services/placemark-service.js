@@ -127,6 +127,18 @@ export const placemarkService = {
 		} catch (error) {
 			return false;
 		}
-    }
+    },
+
+    /**
+     * @param {string} id
+     */
+    async deleteDetailsbyId(id) {
+        try {
+			const response = await axios.delete(this.baseUrl + "/api/details/" + id);
+			return response.data;
+		} catch (error) {
+            console.log(error);
+		}
+    },
 
 };

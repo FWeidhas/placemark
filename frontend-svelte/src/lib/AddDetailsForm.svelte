@@ -1,10 +1,13 @@
 <script>
-    import { placemarkService } from "../services/placemark-service.js";
+	import { createEventDispatcher } from 'svelte';
+  import { placemarkService } from "../services/placemark-service.js";
   
     /**
      * @type {any}
      */
     export let poiId;
+
+    const dispatch = createEventDispatcher();
   
     let description = "";
     let latitude = "";
@@ -26,7 +29,7 @@
   
       const response = await placemarkService.addDetails(poiId, details);
       if (response) {
-        message = `Thanks! You added ${description} at ${latitude}, ${longitude} for POI: ${poiId}`;
+        dispatch('detailsAdded');
       } else {
         message = "Adding not completed - some error occurred";
       }
