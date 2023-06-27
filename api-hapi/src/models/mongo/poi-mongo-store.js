@@ -87,7 +87,8 @@ export const poiMongoStore = {
 
   async editPoi(id, updates) {
     try {
-      const poi = await Poi.updateOne({ _id: id }, { $set: updates });
+      await Poi.updateOne({ _id: id }, { $set: updates });
+      const poi = await Poi.findOne({ _id: id }).lean();
       return poi;
     } catch (error) {
       console.log(error);
