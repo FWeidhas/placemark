@@ -21,6 +21,6 @@
   {#if !poi.details}
     <AddDetailsForm {poiId} />
   {:else}
-    <ListDetails />
+    <ListDetails {poi}/>
   {/if}
 {/if}
