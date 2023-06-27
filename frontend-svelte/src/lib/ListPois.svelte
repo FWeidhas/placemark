@@ -3,15 +3,22 @@
   import { placemarkService } from "../services/placemark-service";
   import { user } from "../stores.js";
 
-  const { id } = $user;
-
   /**
 	 * @type {any[]}
 	 */
   let poisList = [];
   onMount(async () => {
-    poisList = await placemarkService.getPoisbyUserId(id);
+    poisList = await placemarkService.getPoisbyUserId($user.id);
   });
+
+  /**
+	 * @param {string} id
+	 */
+  async function deletePoi(id) {
+    await placemarkService.deletePoibyId(id);
+    poisList = await placemarkService.getPoisbyUserId($user.id);
+    console.log(poisList);
+  };
 </script>
 
 {#each poisList as poi}
@@ -22,15 +29,15 @@
     <div class="tags is-flex is-centered">
         <span class="tag is-primary has-background-info">{poi.category}</span>
     </div>
-    <a href="/poi/{id}" class="button">
+    <a href="/poi/{poi._id}" class="button">
       <span class="icon is-small">
         <i class="fas fa-folder-open"></i>
       </span>
     </a>
-    <a href="/dashboard/deletepoi/{id}" class="button">
+    <button class="button" on:click={() => deletePoi(poi._id)}>
       <i class="fas fa-trash"></i>
-    </a>
-    <a href="/dashboard/editpoi/{id}" class="button">
+    </button>
+    <a href="/dashboard/editpoi/{poi._id}" class="button">
       <i class="fas fa-edit"></i>
     </a>
   </div>

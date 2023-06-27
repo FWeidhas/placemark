@@ -89,5 +89,18 @@ export const placemarkService = {
             console.log(error);
 			return [];
 		}
-	}
+	},
+
+    /**
+     * @param {string} id
+     */
+    async deletePoibyId(id) {
+        try {
+			const response = await axios.delete(this.baseUrl + "/api/pois/" + id);
+			return response.data;
+		} catch (error) {
+            console.log(error);
+		}
+    },
+
 };
