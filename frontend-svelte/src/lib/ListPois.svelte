@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { placemarkService } from "../services/placemark-service";
   import { user } from "../stores.js";
+	import { goto } from "$app/navigation";
 
   /**
 	 * @type {any[]}
@@ -19,6 +20,13 @@
     poisList = await placemarkService.getPoisbyUserId($user.id);
     console.log(poisList);
   };
+
+  /**
+	 * @param {any} id
+	 */
+   function gotoDetails(id) {
+    goto("/details/" + id);
+  }
 </script>
 
 {#each poisList as poi}
@@ -29,16 +37,16 @@
     <div class="tags is-flex is-centered">
         <span class="tag is-primary has-background-info">{poi.category}</span>
     </div>
-    <a href="/poi/{poi._id}" class="button">
+    <button class="button" on:click={() => gotoDetails(poi._id)}>
       <span class="icon is-small">
         <i class="fas fa-folder-open"></i>
       </span>
-    </a>
+    </button>
     <button class="button" on:click={() => deletePoi(poi._id)}>
       <i class="fas fa-trash"></i>
     </button>
-    <a href="/dashboard/editpoi/{poi._id}" class="button">
+    <button class="button" on:click={() => editPoi(poi._id)}>
       <i class="fas fa-edit"></i>
-    </a>
+    </button>
   </div>
 {/each}

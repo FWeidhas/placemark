@@ -94,6 +94,19 @@ export const placemarkService = {
     /**
      * @param {string} id
      */
+    async getPoibyId(id) {
+		try {
+			const response = await axios.get(this.baseUrl + "/api/pois/" + id);
+			return response.data;
+		} catch (error) {
+            console.log(error);
+			return {};
+		}
+	},
+
+    /**
+     * @param {string} id
+     */
     async deletePoibyId(id) {
         try {
 			const response = await axios.delete(this.baseUrl + "/api/pois/" + id);
@@ -102,5 +115,18 @@ export const placemarkService = {
             console.log(error);
 		}
     },
+
+    /**
+     * @param {{description: string;latitude: number;longitude: number;}} details
+     * @param {string} id
+     */
+    async addDetails(id ,details) {
+        try {
+			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/details", details);
+			return response.status == 201;
+		} catch (error) {
+			return false;
+		}
+    }
 
 };
