@@ -6,6 +6,7 @@
   import { page } from '$app/stores';
   import AddDetailsForm from "./AddDetailsForm.svelte";
   import ListDetails from "./ListDetails.svelte";
+  import ListImages from "./ListImages.svelte";
 
   let poi = {};
   let poiId = $page.params.slug;
@@ -27,4 +28,5 @@
   {:else}
     <ListDetails {poi} on:detailsDeleted={handleDetailsProcessing} />
   {/if}
+    <ListImages {poi} />
 {/if}
