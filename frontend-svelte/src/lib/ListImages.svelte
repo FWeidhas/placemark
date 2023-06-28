@@ -4,7 +4,30 @@
     /**
 	 * @type {{ img: any; _id: any; }}
 	 */
-     export let poi;
+    export let poi;
+
+    /**
+	 * @type {any}
+	 */
+    let imagefile;
+
+    let message = "Add your images for your spot";
+
+    async function addimage () {
+        if(!imagefile) {
+          message = "Choose a png/jpeg-file to upload"
+        }
+        let formData = new FormData();
+        formData.append("imagefile", imagefile);
+
+        // @ts-ignore
+        const response = await placemarkService.addImage(poi._id, formData);
+        if (response) {
+            message = `Thanks! You added ${imagefile.name}`;
+        } else {
+            message = "Uploading not completed - some error occurred";
+        }
+    }
 
 
     const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
@@ -29,10 +52,10 @@
       </figure>
     </div>
     <div class="card-content">
-        <form action={`/poi/${poi._id}/uploadimage`} method="POST" enctype="multipart/form-data">
+        <form on:submit|preventDefault={addimage} enctype="multipart/form-data">
             <div id="file-select" class="file has-name is-fullwidth">
             <label class="file-label">
-                <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg" on:change={handleFileInputChange}>
+                <input bind:files={imagefile} class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg" on:change={handleFileInputChange}>
                 <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas fa-upload"></i>
@@ -45,6 +68,9 @@
             </label>
             <button type="submit" class="button is-info">Upload</button>
             </div>
+            <div class="box">
+              {message}
+          </div>
         </form>
         <div class="has-text-centered mt-4">
         <button class="button" on:click={handleDelete}>

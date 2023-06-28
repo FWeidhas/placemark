@@ -2,6 +2,7 @@ import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { IdSpec, PoiSpec, PoiSpecPlus, PoiArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const poiApi = {
   find: {
@@ -147,6 +148,64 @@ export const poiApi = {
     response: { schema: PoiArraySpec, failAction: validationError },
     description: "Get all Points of Interest by User id",
     notes: "Returns all Points of Interest by User id",
+  },
+
+
+  uploadImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+
+        if (Object.keys(request.payload.imagefile).length > 0) {
+          // eslint-disable-next-line no-restricted-syntax
+          for (const key of Object.keys(request.payload.imagefile)) {
+            const uploadfile = Buffer.from(request.payload.imagefile[key]);
+ 
+            // eslint-disable-next-line no-await-in-loop
+            const url = await imageStore.uploadImage(uploadfile);
+            poi.img = url;
+          }
+          await db.poiStore.updatePoi(poi);
+        }
+        return h.response(poi).code(201);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+    tags: ["api"],
+    description: "Add image to Point of Interest",
+  },
+
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        if (poi.img) {
+          await imageStore.deleteImage(poi.img);
+          poi.img = null;
+          await db.poiStore.updatePoi(poi);
+        }
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("No Image found");
+      }
+    },
+    tags: ["api"],
+    description: "Delete image from Point of Interest",
   },
 
 };

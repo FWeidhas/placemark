@@ -130,6 +130,19 @@ export const placemarkService = {
     },
 
     /**
+     * @param {string} id
+     * @param {undefined} [data]
+     */
+    async addImage(id, data) {
+        try {
+			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/uploadimage", data);
+			return response.status == 201;
+		} catch (error) {
+            console.log(error);
+		}
+    },
+
+    /**
      * @param {{description: string;latitude: number;longitude: number;}} details
      * @param {string} id
      */
