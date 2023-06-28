@@ -159,10 +159,10 @@ export const poiApi = {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
 
-        if (Object.keys(request.payload.imagefile).length > 0) {
+        if (Object.keys(request.payload).length > 0) {
           // eslint-disable-next-line no-restricted-syntax
-          for (const key of Object.keys(request.payload.imagefile)) {
-            const uploadfile = Buffer.from(request.payload.imagefile[key]);
+          for (const key of Object.keys(request.payload)) {
+            const uploadfile = Buffer.from(request.payload[key]);
  
             // eslint-disable-next-line no-await-in-loop
             const url = await imageStore.uploadImage(uploadfile);

@@ -9,21 +9,25 @@
     /**
 	 * @type {any}
 	 */
-    let imagefile;
+    let imagefiles;
 
     let message = "Add your images for your spot";
 
     async function addimage () {
-        if(!imagefile) {
+        if(!imagefiles) {
           message = "Choose a png/jpeg-file to upload"
         }
         let formData = new FormData();
-        formData.append("imagefile", imagefile);
+        for (let i = 0; i < imagefiles.length; i++) {
+            let partfile = imagefiles[i];
+            formData.append(`image_buffer_${i}`, partfile);
+        }
+        // formData.append("imagefile", imagefile);
 
         // @ts-ignore
         const response = await placemarkService.addImage(poi._id, formData);
         if (response) {
-            message = `Thanks! You added ${imagefile.name}`;
+            message = `Thanks! It worked!`;
         } else {
             message = "Uploading not completed - some error occurred";
         }
@@ -55,7 +59,7 @@
         <form on:submit|preventDefault={addimage} enctype="multipart/form-data">
             <div id="file-select" class="file has-name is-fullwidth">
             <label class="file-label">
-                <input bind:files={imagefile} class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg" on:change={handleFileInputChange}>
+                <input multiple bind:files={imagefiles} class="file-input" name="imagefiles" type="file" accept="image/png, image/jpeg" on:change={handleFileInputChange}>
                 <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas fa-upload"></i>
