@@ -24,11 +24,22 @@
 
 {#if poi && poi.name}
   <h1 class="title is-4">Details of {poi.name}:</h1>
-  {#if !poi.details}
-    <AddDetailsForm {poiId} on:detailsAdded={handleDetailsProcessing}/>
-  {:else}
-    <ListDetails {poi} on:detailsDeleted={handleDetailsProcessing} />
-  {/if}
-    <ListImages {poi} on:imageAdded={handleDetailsProcessing}/>
-    <ImageGallery {poi} on:imageDeleted={handleDetailsProcessing}/>
+
+  <div class="columns">
+    <div class="column is-half">
+      {#if !poi.details}
+        <AddDetailsForm {poiId} on:detailsAdded={handleDetailsProcessing}/>
+      {:else}
+        <ListDetails {poi} on:detailsDeleted={handleDetailsProcessing} />
+      {/if}
+    </div>
+
+    <div class="column is-half">
+      <ListImages {poi} on:imageAdded={handleDetailsProcessing}/>
+    </div>
+  </div>
+
+  <ImageGallery {poi} on:imageDeleted={handleDetailsProcessing}/>
 {/if}
+
+

@@ -14,28 +14,29 @@
     }
   </script>
   
-  <div class="box">
-    <div class="block">
-      {poi.details.description}
-    </div>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>Latitude</th>
-          <th>Longitude</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{poi.details.latitude}</td>
-          <td>{poi.details.longitude}</td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="ui icon button" on:click={deleteDetails}>
-      <span class="icon is-small">
-        <i class="fas fa-trash"></i>
-      </span>
-    </button>
+<div class="box">
+  <div class="block">
+    {poi.details.description}
   </div>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th class="has-text-centered">Latitude</th>
+        <th class="has-text-centered">Longitude</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="has-text-centered">{poi.details.latitude}</td>
+        <td class="has-text-centered">{poi.details.longitude}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="ui icon button" on:click={deleteDetails}>
+    <span class="icon is-small">
+      <i class="fas fa-trash"></i>
+    </span>
+  </button>
+</div>
+  
   
