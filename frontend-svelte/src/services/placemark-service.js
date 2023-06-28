@@ -143,6 +143,15 @@ export const placemarkService = {
     },
 
     /**
+     * @param {string} id
+     * @param {import("axios").AxiosRequestConfig<any> | undefined} img
+     */
+    async deleteImage(id, img) {
+        const response = await axios.delete(this.baseUrl +  "/api/pois/" + id + "/deleteimage", img);
+        return response;
+    },
+
+    /**
      * @param {{description: string;latitude: number;longitude: number;}} details
      * @param {string} id
      */

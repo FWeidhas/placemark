@@ -51,7 +51,7 @@ export const PoiSpec = Joi.object()
     category: Joi.string().required().example("River"),
     userid: IdSpec,
     details: DetailsSpecPlus.optional().allow(null),
-    img: Joi.string().allow(null).empty("").optional(),
+    img: Joi.array().items(Joi.string()).optional().allow(null),
   })
   .label("Point of Interest");
 

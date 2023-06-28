@@ -7,6 +7,7 @@
   import AddDetailsForm from "./AddDetailsForm.svelte";
   import ListDetails from "./ListDetails.svelte";
   import ListImages from "./ListImages.svelte";
+	import ImageGallery from "./ImageGallery.svelte";
 
   let poi = {};
   let poiId = $page.params.slug;
@@ -28,5 +29,6 @@
   {:else}
     <ListDetails {poi} on:detailsDeleted={handleDetailsProcessing} />
   {/if}
-    <ListImages {poi} />
+    <ListImages {poi} on:imageAdded={handleDetailsProcessing}/>
+    <ImageGallery {poi} on:imageDeleted={handleDetailsProcessing}/>
 {/if}
