@@ -32,6 +32,10 @@
         const response = await placemarkService.editdetails(poi.details._id, details);
         if (response) {
             dispatch('detailsEdited');
+            description = "";
+            latitude = "";
+            longitude = "";
+            message = "";
         } else {
             message = "Editing not completed - some error occurred";
         }
