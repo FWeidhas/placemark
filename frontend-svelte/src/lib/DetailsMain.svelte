@@ -6,8 +6,9 @@
   import { page } from '$app/stores';
   import AddDetailsForm from "./AddDetailsForm.svelte";
   import ListDetails from "./ListDetails.svelte";
-  import ListImages from "./ListImages.svelte";
+  import AddImagesForm from "./AddImagesForm.svelte";
 	import ImageGallery from "./ImageGallery.svelte";
+	import EditDetailsForm from "./EditDetailsForm.svelte";
 
   let poi = {};
   let poiId = $page.params.slug;
@@ -31,11 +32,12 @@
         <AddDetailsForm {poiId} on:detailsAdded={handleDetailsProcessing}/>
       {:else}
         <ListDetails {poi} on:detailsDeleted={handleDetailsProcessing} />
+        <EditDetailsForm {poi} on:detailsEdited={handleDetailsProcessing}/>
       {/if}
     </div>
 
     <div class="column is-half">
-      <ListImages {poi} on:imageAdded={handleDetailsProcessing}/>
+      <AddImagesForm {poi} on:imageAdded={handleDetailsProcessing}/>
     </div>
   </div>
 

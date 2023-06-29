@@ -176,4 +176,17 @@ export const placemarkService = {
 		}
     },
 
+    /**
+     * @param {string} id
+     * @param {any} details
+     */
+    async editdetails(id, details) {
+		try {
+			const response = await axios.put(this.baseUrl + "/api/details/" + id, details);
+			return response.status == 201;
+		} catch (error) {
+			return false;
+		}
+	},
+
 };
