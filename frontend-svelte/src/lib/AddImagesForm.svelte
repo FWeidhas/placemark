@@ -14,12 +14,15 @@
 	 */
     let imagefiles;
 
+    let isLoading = false;
+
     let message = "Add your images for your spot";
 
     async function addimage () {
         if(!imagefiles) {
           message = "Choose a png/jpeg-file to upload"
         }
+        isLoading = true;
         let formData = new FormData();
         for (let i = 0; i < imagefiles.length; i++) {
             let partfile = imagefiles[i];
@@ -30,8 +33,11 @@
         const response = await placemarkService.addImage(poi._id, formData);
         
         if (response) {
+          isLoading = false;
+          const fileName = document.querySelector(".file-name");
+          // @ts-ignore
+          fileName.textContent = "";
           dispatch('imageAdded');
-          imagefiles = "";
         } else {
             message = "Uploading not completed - some error occurred";
         }
@@ -64,7 +70,7 @@
                   </span>
                   <span class="file-name"></span>
               </label>
-              <button type="submit" class="button is-info">Upload</button>
+              <button type="submit" class="button is-info" class:is-loading={isLoading}>Upload</button>
             </div>
         </form>
         <div class="mt-3">
