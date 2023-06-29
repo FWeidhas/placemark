@@ -25,12 +25,13 @@
             let partfile = imagefiles[i];
             formData.append(`image_buffer_${i}`, partfile);
         }
-        // formData.append("imagefile", imagefile);
-
+        
         // @ts-ignore
         const response = await placemarkService.addImage(poi._id, formData);
+        
         if (response) {
           dispatch('imageAdded');
+          imagefiles = "";
         } else {
             message = "Uploading not completed - some error occurred";
         }

@@ -219,9 +219,10 @@ export const placemarkService = {
     /**
      * @param {string} id
      * @param {import("axios").AxiosRequestConfig<any> | undefined} img
+     * @param {string | number} index
      */
-    async deleteImage(id, img) {
-        const response = await axios.delete(this.baseUrl +  "/api/pois/" + id + "/deleteimage/" + img);
+    async deleteImage(id, img, index) {
+        const response = await axios.delete(this.baseUrl +  "/api/pois/" + id + "/deleteimage/" + img + "/" + index);
         return response;
     },
 
