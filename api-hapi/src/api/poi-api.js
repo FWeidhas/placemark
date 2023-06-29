@@ -158,6 +158,10 @@ export const poiApi = {
     handler: async function (request, h) {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
+        
+        if (!poi.img) {
+          poi.img = [];
+        }
 
         if (Object.keys(request.payload).length > 0) {
           // eslint-disable-next-line no-restricted-syntax
@@ -166,7 +170,7 @@ export const poiApi = {
  
             // eslint-disable-next-line no-await-in-loop
             const url = await imageStore.uploadImage(uploadfile);
-            poi.img = url;
+            poi.img.push(url);
           }
           await db.poiStore.updatePoi(poi);
         }
@@ -194,8 +198,8 @@ export const poiApi = {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
         if (poi.img) {
-          await imageStore.deleteImage(poi.img);
-          poi.img = null;
+          await imageStore.deleteImage(request.params.img);
+          poi.img.splice(request.params.index, 1);
           await db.poiStore.updatePoi(poi);
         }
         return h.response().code(204);

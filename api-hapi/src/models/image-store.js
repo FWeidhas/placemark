@@ -25,6 +25,8 @@ export const imageStore = {
   },
 
   deleteImage: async function(img) {
-    await cloudinary.v2.uploader.destroy(img, {resource_type: "image"});
+    console.log(img);
+    const response = await cloudinary.v2.uploader.destroy(img);
+    console.log(response);
   }
 };

@@ -38,127 +38,127 @@ export const seedData = {
       regensburg: {
         name: "Regensburg",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.bart"
       },
       munich: {
         name: "Munich",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.lisa"
       },
       ammersee: {
         name: "Ammersee",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.homer"
       },
       balticSea: {
         name: "Baltic Sea",
         category: "Sea",
-        img: [""],
+        img: [],
         userid: "->users.admin"
       },
       englishPond: {
         name: "English Pond",
         category: "Pond",
-        img: [""],
+        img: [],
         userid: "->users.marge"
       },
       rhineRiver: {
         name: "Rhine River",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.bart"
       },
       neuschwanstein: {
         name: "Neuschwanstein Castle",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.lisa"
       },
       berlin: {
         name: "Berlin",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.bart"
       },
       zugspitze: {
         name: "Zugspitze",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.lisa"
       },
       bodensee: {
         name: "Lake Constance",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.homer"
       },
       norwegianFjords: {
         name: "Norwegian Fjords",
         category: "Sea",
-        img: [""],
+        img: [],
         userid: "->users.admin"
       },
       blackForest: {
         name: "Black Forest",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.marge"
       },
       cologneCathedral: {
         name: "Cologne Cathedral",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.homer"
       },
       rhineFalls: {
         name: "Rhine Falls",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.bart"
       },
       starnbergerSee: {
         name: "Starnberger See",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.lisa"
       },
       chiemsee: {
         name: "Chiemsee",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.homer"
       },
       bodden: {
         name: "Bodden",
         category: "Sea",
-        img: [""],
+        img: [],
         userid: "->users.admin"
       },
       tegernsee: {
         name: "Tegernsee",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.marge"
       },
       ammer: {
         name: "Ammer",
         category: "River",
-        img: [""],
+        img: [],
         userid: "->users.bart"
       },
       constance: {
         name: "Lake Constance",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.lisa"
       },
       fuschlsee: {
         name: "Fuschlsee",
         category: "Lake",
-        img: [""],
+        img: [],
         userid: "->users.homer"
       }
     },
