@@ -4,6 +4,10 @@ import Joi from "joi";
 // export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 export const IdSpec =  Joi.alternatives().try(Joi.string().regex(/^[0-9a-fA-F]{24}$/) , Joi.object()).description("a valid ID");
 
+// export const IdSpec = Joi.object({
+//   id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+// }).description("A valid ID");
+
 export const UserCredentialsSpec = Joi.object()
   .keys({
     email: Joi.string().email().example("homer@simpson.com").required(),
@@ -47,6 +51,7 @@ export const PoiSpec = Joi.object()
     category: Joi.string().required().example("River"),
     userid: IdSpec,
     details: DetailsSpecPlus.optional().allow(null),
+    img: Joi.array().items(Joi.string().allow("")).optional().allow(null),
   })
   .label("Point of Interest");
 
@@ -63,3 +68,7 @@ export const JwtAuth = Joi.object()
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
   })
   .label("JwtAuth");
+
+export const JwtAuthPlus = JwtAuth.keys({
+  id : IdSpec.required(),
+}).label("JwtAuthPlus")

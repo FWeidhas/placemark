@@ -1,0 +1,20 @@
+<script>
+    import { user } from "../stores.js";
+</script>
+
+<div class="box has-text-centered columns m-2">
+    {#if $user.isAdmin}
+    <a href="/admin" class="column">
+        <i class="fas fa-cogs fa-3x" style="color:rgb(41, 128, 185)" />
+    </a>
+    {/if}
+    <a href="/addpoi" class="column">
+        <i class="fas fa-plus fa-3x" style="color:rgb(153, 196, 74)" />
+    </a>
+    <a href="/dashboard" class="column">
+        <i class="fas fa-th-list fa-3x" style="color:rgb(63, 122, 139)" />
+    </a>
+    <a href="/logout" class="column">
+        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)" />
+    </a>
+</div>

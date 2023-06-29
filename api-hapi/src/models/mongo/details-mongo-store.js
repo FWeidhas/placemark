@@ -52,7 +52,8 @@ export const detailsMongoStore = {
 
   async updateDetails(id, updates) {
     try {
-      const details = await Details.updateOne({ _id: id }, { $set: updates });
+      await Details.updateOne({ _id: id }, { $set: updates });
+      const details = await Details.findOne({ _id: id }).lean();
       return details;
     } catch (error) {
       console.log(error);
