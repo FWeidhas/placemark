@@ -2,6 +2,7 @@
     import Header from '../../lib/Header.svelte';
     import MainNavigator from '../../lib/MainNavigator.svelte';
     import ListUser from '../../lib/ListUser.svelte';
+	import AdminAnalytics from '$lib/AdminAnalytics.svelte';
 </script>
 
 <Header>
@@ -15,5 +16,6 @@
     <div class="column box has-text-centered">
         <h1 class="title is-4">Admin Dashboard:</h1>
         <ListUser />
+        <AdminAnalytics />
     </div>
 </div>

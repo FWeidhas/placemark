@@ -173,6 +173,26 @@ export const placemarkService = {
             }
         },
 
+    async getAllPois() {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/pois");
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    async getCategoryNumberofPois() {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/pois/admin");
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
     /**
      * @param {string} id
      * @param {undefined} [data]

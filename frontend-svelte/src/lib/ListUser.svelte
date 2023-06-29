@@ -1,33 +1,33 @@
 <script>
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
-    import { user } from "../stores.js";
+  import { user } from "../stores.js";
 
-    /**
-	 * @type {any[]}
-	 */
-    let users = [];
+  /**
+ * @type {any[]}
+ */
+  let users = [];
 
-    /**
-	 * @type {{ isAdmin: any; }}
-	 */
-    let userinfo;
+  /**
+ * @type {{ isAdmin: any; }}
+ */
+  let userinfo;
 
-    onMount(async () => {
-        if($user.isAdmin) {
-            users = await placemarkService.getAllUser();
-        }
-    });
+  onMount(async () => {
+      if($user.isAdmin) {
+          users = await placemarkService.getAllUser();
+      }
+  });
 
-    /**
-	 * @param {string} id
-	 */
-    async function deleteUser(id) {
-        if($user.isAdmin) {
-            await placemarkService.deleteUserById(id);
-            users = await placemarkService.getAllUser();
-        }
-    }
+  /**
+ * @param {string} id
+ */
+  async function deleteUser(id) {
+    if($user.isAdmin) {
+        await placemarkService.deleteUserById(id);
+        users = await placemarkService.getAllUser();
+      }
+  }
 </script>
 
 {#each users as user}
