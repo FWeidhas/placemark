@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-    import { user } from "../stores.js";
+  import { user } from "../stores.js";
 	import { placemarkService } from "../services/placemark-service.js";
 
     export let title = "";

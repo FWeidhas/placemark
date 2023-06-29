@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
+    import { user } from "../stores.js";
 
     /**
 	 * @type {any[]}
@@ -8,7 +9,10 @@
     let users = [];
 
     onMount(async () => {
-        users = await placemarkService.getAllUser();
+        let userinfo = await placemarkService.getUser($user.id);
+        if(userinfo.isAdmin) {
+            users = await placemarkService.getAllUser();
+        }
   });
 </script>
 
