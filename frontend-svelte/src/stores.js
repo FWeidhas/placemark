@@ -4,4 +4,5 @@ export const user = writable({
   email: "",
   token: "",
   id: "",
+  isAdmin: false,
 });

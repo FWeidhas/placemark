@@ -8,12 +8,27 @@
 	 */
     let users = [];
 
+    /**
+	 * @type {{ isAdmin: any; }}
+	 */
+    let userinfo;
+
     onMount(async () => {
-        let userinfo = await placemarkService.getUser($user.id);
-        if(userinfo.isAdmin) {
+        if($user.isAdmin) {
             users = await placemarkService.getAllUser();
         }
-  });
+    });
+
+    /**
+	 * @param {string} id
+	 */
+    async function deleteUser(id) {
+        if($user.isAdmin) {
+            await placemarkService.deleteUserById(id);
+            users = await placemarkService.getAllUser();
+        }
+    }
+
 </script>
 
 {#each users as user}
@@ -33,9 +48,7 @@
         </div>
       </div>
       <div class="media-right">
-        <a href="/admin/deleteuser/{user._id}">
-          <button class="button is-danger">Delete</button>
-        </a>
+        <button class="button is-danger" on:click={() => deleteUser(user._id)}>Delete</button>
       </div>
     </article>
   </div>
