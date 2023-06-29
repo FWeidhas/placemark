@@ -45,13 +45,20 @@
 
 
     const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
-      const fileInput = event.target;
-      if (fileInput.files.length > 0) {
-        const fileName = document.querySelector(".file-name");
-        // @ts-ignore
-        fileName.textContent = fileInput.files[0].name;
+  const fileInput = event.target;
+  if (fileInput.files.length > 0) {
+    const fileName = document.querySelector(".file-name");
+    let filenames = '';
+    for (let i = 0; i < fileInput.files.length; i++) {
+      filenames += fileInput.files[i].name;
+      if (i !== fileInput.files.length - 1) {
+        filenames += ', ';
       }
-    };
+    }
+    // @ts-ignore
+    fileName.textContent = filenames;
+  }
+};
 </script>
   
 <div class="card mb-5">
