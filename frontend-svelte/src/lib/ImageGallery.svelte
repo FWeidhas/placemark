@@ -16,9 +16,11 @@
 
      const dispatch = createEventDispatcher();
 
-     async function handleDelete () {
+     async function handleDelete (i) {
       if(poi.img){
-        const response = await placemarkService.deleteImage(poi._id, poi.img);
+        const img = poi.img[i].split("/").pop().replace(/\.[^/.]+$/, "");
+        console.log(img);
+        const response = await placemarkService.deleteImage(poi._id, img);
         if (response.status === 204) {
           dispatch('imageDeleted');
         } else {
@@ -31,14 +33,14 @@
 </script>
 
 {#if poi.img}
-  {#each poi.img as img}
+  {#each poi.img as img, i}
     <div class="card-image">
         <figure class="image is-256x256">
             <!-- svelte-ignore a11y-missing-attribute -->
             <img src={img}>
         </figure>
         <div class="has-text-centered mt-4">
-            <button class="button" on:click={handleDelete}>
+            <button class="button" on:click={() => handleDelete(i)}>
                 <i class="fas fa-trash"></i>
             </button>
         </div>

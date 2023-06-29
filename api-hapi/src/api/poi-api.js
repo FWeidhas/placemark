@@ -194,7 +194,7 @@ export const poiApi = {
       try {
         const poi = await db.poiStore.getPoiById(request.params.id);
         if (poi.img) {
-          await imageStore.deleteImage(poi.img);
+          await imageStore.deleteImage(request.params.img);
           poi.img = null;
           await db.poiStore.updatePoi(poi);
         }
