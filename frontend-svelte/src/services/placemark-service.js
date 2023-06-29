@@ -67,6 +67,21 @@ export const placemarkService = {
     },
 
     /**
+     * @param {string} id
+     */
+    async getUser(id) {
+        try {
+
+            const response = await axios.get(this.baseUrl + "/api/users/" + id);
+            
+            return response.data;
+
+        } catch (error) {
+			return false;
+		}   
+    },
+
+    /**
      * @param {any} poi
      */
     async addpoi(poi) {
