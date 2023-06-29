@@ -28,7 +28,6 @@
             users = await placemarkService.getAllUser();
         }
     }
-
 </script>
 
 {#each users as user}
