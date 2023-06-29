@@ -20,6 +20,7 @@ export const apiRoutes = [
   { method: "PUT", path: "/api/pois/{id}", config: poiApi.update },
   { method: "GET", path: "/api/pois/{id}/user", config: poiApi.findbyuser },
   { method: "GET", path: "/api/pois/admin", config: poiApi.findbycategorycount },
+  { method: "GET", path: "/api/pois/users", config: poiApi.poisCountByUser },
 
   { method: "POST", path: "/api/pois/{id}/uploadimage", config: poiApi.uploadImage },
   { method: "DELETE", path: "/api/pois/{id}/deleteimage", config: poiApi.deleteImage },

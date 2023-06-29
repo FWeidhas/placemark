@@ -148,6 +148,16 @@ export const placemarkService = {
 		}
 	},
 
+    async getPoisCountbyUser() {
+		try {
+			const response = await axios.get(this.baseUrl + "/api/pois/users");
+			return response.data;
+		} catch (error) {
+            console.log(error);
+			return [];
+		}
+	}, 
+
     /**
      * @param {string} id
      */

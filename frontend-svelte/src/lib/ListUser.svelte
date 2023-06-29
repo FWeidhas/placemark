@@ -1,21 +1,23 @@
 <script>
+// @ts-nocheck
+
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
   import { user } from "../stores.js";
 
+ 
   /**
- * @type {any[]}
- */
+	 * @type {any[] | import("axios").AxiosResponse<any, any>}
+	 */
   let users = [];
 
-  /**
- * @type {{ isAdmin: any; }}
- */
-  let userinfo;
+  
+  // let usercount;
 
   onMount(async () => {
       if($user.isAdmin) {
-          users = await placemarkService.getAllUser();
+          // users = await placemarkService.getAllUser();
+          users = await placemarkService.getPoisCountbyUser();
       }
   });
 
@@ -25,7 +27,7 @@
   async function deleteUser(id) {
     if($user.isAdmin) {
         await placemarkService.deleteUserById(id);
-        users = await placemarkService.getAllUser();
+        users = await placemarkService.getPoisCountbyUser();
       }
   }
 </script>

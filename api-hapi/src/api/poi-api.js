@@ -226,4 +226,29 @@ export const poiApi = {
     notes: "Returns number of Points of Interest in each category",
   },
 
+  poisCountByUser: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const users = await db.userStore.getAllUsers();
+          const userCountPromises = users.map(user => db.poiStore.getUserPoisCount(user._id));
+    
+          const poisCounts = await Promise.all(userCountPromises);
+    
+          users.forEach((user, index) => {
+            user.poisCount = poisCounts[index];
+          });
+          return users;
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Get all users and the number of Points of Interest each added",
+    notes: "Returns number of Points of Interest of each user",
+  },
+
 };
