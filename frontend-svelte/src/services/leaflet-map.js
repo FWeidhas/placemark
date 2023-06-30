@@ -84,7 +84,10 @@ export class LeafletMap {
     }
 
     clearMarker() {
-        L.clearMarker();
+        // remove all markers from each layer
+        for (let layer in this.overlays) {
+          this.overlays[layer].clearLayers();
+        }
     }
 
     invalidateSize() {

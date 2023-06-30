@@ -49,10 +49,16 @@
         }
     };
 
-    latestDetails.subscribe((details) => {        
+    latestDetails.subscribe((details) => {    
+        console.log(details);    
         if (map && details) {
             poi.details = details;
             note = null;
+            addPoiMarker(map, poi);
+        }
+        if (map && !details) {
+            poi.details = details;
+            map.clearMarker();
             addPoiMarker(map, poi);
         }
     });
