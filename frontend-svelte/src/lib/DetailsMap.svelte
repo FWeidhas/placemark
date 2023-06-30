@@ -34,14 +34,8 @@
         map.showZoomControl();
         map.addLayerGroup('Points of Interest');
         map.showLayerControl();
-        if (poi) {
-            addPoiMarker(map, poi);
-        } else {
-            const pois = await placemarkService.getPoisbyUserId($user.id);
-            pois.forEach((/** @type {{ details: any; name?: any; category?: any; }} */ poi) => {
-                addPoiMarker(map, poi);
-            });
-        }
+        
+        addPoiMarker(map, poi);
     });
 
 
@@ -72,8 +66,8 @@
         }
     }
 
-    latestDetails.subscribe((details) => {
-        if (poi && map && details) {
+    latestDetails.subscribe((details) => {        
+        if (map && details) {
             poi.details = details;
             note = null;
             addPoiMarker(map, poi);

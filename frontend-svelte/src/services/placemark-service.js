@@ -246,6 +246,7 @@ export const placemarkService = {
     async deleteDetailsbyId(id) {
         try {
 			const response = await axios.delete(this.baseUrl + "/api/details/" + id);
+            latestDetails.set(null);
 			return response.data;
 		} catch (error) {
             console.log(error);
