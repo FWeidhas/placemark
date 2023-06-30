@@ -16,7 +16,6 @@
         map.showZoomControl();
 		map.showLayerControl();
         const pois = await placemarkService.getPoisbyUserId($user.id);
-        console.log(pois);
         pois.forEach((/** @type {{ details: { latitude: any; longitude: any; }; }} */ poi) => {
             map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude });
         });
