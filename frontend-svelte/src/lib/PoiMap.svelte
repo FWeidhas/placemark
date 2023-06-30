@@ -9,52 +9,86 @@
      */
     let notes = [];
 
-    
     /**
 	 * @type {import("../services/leaflet-map.js").LeafletMap}
 	 */
-    let map;
+    let mapTerrain;
+    /**
+	 * @type {import("../services/leaflet-map.js").LeafletMap}
+	 */
+    let mapSat;
+    /**
+	 * @type {import("../services/leaflet-map.js").LeafletMap}
+	 */
+    let mapContext;
 
     let categories = ["River", "Pond", "Sea", "Lake"];
 
     onMount(async () => {
-    if (typeof window !== "undefined") {
+        if (typeof window !== "undefined") {
             const { LeafletMap } = await import("../services/leaflet-map.js");
-            import("leaflet/dist/leaflet.css");
 
             const mapConfig = {
-            location: { lat: 49.0134297, lng: 12.1016236 },
-            zoom: 8,
-            minZoom: 1
+                location: { lat: 49.0134297, lng: 12.1016236 },
+                zoom: 8,
+                minZoom: 1
             };
 
-            map = new LeafletMap("poi-map", mapConfig);
-            map.showZoomControl();
-            map.addLayerGroup("Own POI");
-            map.addLayerGroup("All POI");
+            mapTerrain = new LeafletMap("poi-terrainmap", mapConfig, "Terrain");
+            mapSat = new LeafletMap("poi-satmap", mapConfig, "Satellite");
+            mapContext = new LeafletMap("poi-contextmap", mapConfig, "Street");
+
+            mapTerrain.showZoomControl();
+            mapTerrain.addLayerGroup("Own POI");
+            mapTerrain.addLayerGroup("All POI");
             categories.forEach(category => {
-                map.addLayerGroup(category);
+                mapTerrain.addLayerGroup(category);
             });
-            map.showLayerControl();
+            mapTerrain.showLayerControl();
+
+            mapSat.showZoomControl();
+            mapSat.addLayerGroup("Own POI");
+            mapSat.addLayerGroup("All POI");
+            categories.forEach(category => {
+                mapSat.addLayerGroup(category);
+            });
+            mapSat.showLayerControl();
+
+            mapContext.showZoomControl();
+            mapContext.addLayerGroup("Own POI");
+            mapContext.addLayerGroup("All POI");
+            categories.forEach(category => {
+                mapContext.addLayerGroup(category);
+            });
+            mapContext.showLayerControl();
 
             const pois = await placemarkService.getPoisbyUserId($user.id);
             pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
-            addPoiMarker(map, poi, "Own POI");
+                addPoiMarker(mapTerrain, poi, "Own POI");
+            });
+            pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
+                addPoiMarker(mapSat, poi, "Own POI");
+            });
+            pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
+                addPoiMarker(mapContext, poi, "Own POI");
             });
 
             const allpois = await placemarkService.getAllPois();
-            allpois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
-            addPoiMarker(map, poi, "All POI");
-            addPoiMarker(map, poi, poi.category)
+            allpois.forEach((/** @type {{ category: any; details: any; name: any; }} */ poi) => {
+                addPoiMarker(mapTerrain, poi, "All POI");
+                addPoiMarker(mapTerrain, poi, poi.category);
             });
-
-
+            allpois.forEach((/** @type {{ category: any; details: any; name: any; }} */ poi) => {
+                addPoiMarker(mapSat, poi, "All POI");
+                addPoiMarker(mapSat, poi, poi.category);
+            });
+            allpois.forEach((/** @type {{ category: any; details: any; name: any; }} */ poi) => {
+                addPoiMarker(mapContext, poi, "All POI");
+                addPoiMarker(mapContext, poi, poi.category);
+            });
         }
     });
 
-
-
-   
     /**
 	 * @param {import("../services/leaflet-map.js").LeafletMap} map
 	 * @param {{details: any;name: any;category: any;}} poi
@@ -62,11 +96,11 @@
 	 */
     function addPoiMarker(map, poi, layer) {
         if (poi.details) {
-            const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
+            const poiStr = `${poi.name}\nCategory: ${poi.category}\nCoordinates: ${poi.details.latitude}, ${poi.details.longitude}`;
             map.addMarker(
-            { lat: poi.details.latitude, lng: poi.details.longitude },
-            poiStr,
-            layer
+                { lat: poi.details.latitude, lng: poi.details.longitude },
+                poiStr,
+                layer
             );
         } else {
             notes.push(`${poi.name} has no coordinates or details, add details to add it to the map.`);
@@ -75,12 +109,21 @@
     }
 </script>
 
+<div class="columns is-multiline">
+    <div class="column is-half">
+        <div class="box" id="poi-terrainmap" style="height: 75vh"></div>
+    </div>
+    <div class="column is-half">
+        <div class="box" id="poi-satmap" style="height: 75vh"></div>
+    </div>
+    <div class="column is-half">
+        <div class="box" id="poi-contextmap" style="height: 75vh"></div>
+    </div>
+</div>
 {#if notes.length > 0}
     <div class="box">
-    {#each notes as note}
-        <div class="notification is-danger">{note}</div>
-    {/each}
+        {#each notes as note}
+            <div class="notification is-danger">{note}</div>
+        {/each}
     </div>
 {/if}
-<div class="box" id="poi-map" style="height: 75vh"></div>
-  
