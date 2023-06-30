@@ -4,6 +4,13 @@ import { detailsMongoStore } from "./details-mongo-store.js";
 export const poiMongoStore = {
   async getAllPois() {
     const pois = await Poi.find().lean();
+    if (pois) {
+      for (let i = 0; i < pois.length; i+=1) {
+        const poi = pois[i];
+        // eslint-disable-next-line no-await-in-loop
+        poi.details = await detailsMongoStore.getDetailsByPoiId(poi._id);
+      }
+    }
     return pois;
   },
 

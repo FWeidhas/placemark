@@ -15,6 +15,8 @@
 	 */
     let map;
 
+    let categories = ["River", "Pond", "Sea", "Lake"];
+
     onMount(async () => {
     if (typeof window !== "undefined") {
             const { LeafletMap } = await import("../services/leaflet-map.js");
@@ -28,13 +30,25 @@
 
             map = new LeafletMap("poi-map", mapConfig);
             map.showZoomControl();
-            map.addLayerGroup("Points of Interest");
+            map.addLayerGroup("Own POI");
+            map.addLayerGroup("All POI");
+            categories.forEach(category => {
+                map.addLayerGroup(category);
+            });
             map.showLayerControl();
 
             const pois = await placemarkService.getPoisbyUserId($user.id);
             pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
-            addPoiMarker(map, poi);
+            addPoiMarker(map, poi, "Own POI");
             });
+
+            const allpois = await placemarkService.getAllPois();
+            allpois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
+            addPoiMarker(map, poi, "All POI");
+            addPoiMarker(map, poi, poi.category)
+            });
+
+
         }
     });
 
@@ -43,15 +57,16 @@
    
     /**
 	 * @param {import("../services/leaflet-map.js").LeafletMap} map
-	 * @param {{ details: any; name: any; category: any; }} poi
+	 * @param {{details: any;name: any;category: any;}} poi
+	 * @param {string | undefined} layer
 	 */
-    function addPoiMarker(map, poi) {
+    function addPoiMarker(map, poi, layer) {
         if (poi.details) {
             const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
             map.addMarker(
             { lat: poi.details.latitude, lng: poi.details.longitude },
             poiStr,
-            "Points of Interest"
+            layer
             );
         } else {
             notes.push(`${poi.name} has no coordinates or details, add details to add it to the map.`);
