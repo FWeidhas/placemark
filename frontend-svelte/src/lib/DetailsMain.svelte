@@ -9,6 +9,7 @@
   import AddImagesForm from "./AddImagesForm.svelte";
 	import ImageGallery from "./ImageGallery.svelte";
 	import EditDetailsForm from "./EditDetailsForm.svelte";
+	import PoiMap from "./PoiMap.svelte";
 
   let poi = {};
   let poiId = $page.params.slug;
@@ -37,6 +38,7 @@
     </div>
 
     <div class="column is-half">
+      <PoiMap {poi} />
       <AddImagesForm {poi} on:imageAdded={handleDetailsProcessing}/>
     </div>
   </div>

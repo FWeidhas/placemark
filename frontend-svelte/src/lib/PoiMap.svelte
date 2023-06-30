@@ -5,6 +5,11 @@
 	import { placemarkService } from "../services/placemark-service.js";
 	import { user } from "../stores.js";
 
+    /**
+	 * @type {{ details: any; name?: any; category?: any; }}
+	 */
+     export let poi;
+
     const mapConfig = {
         location: { lat: 49.0134297, lng: 12.1016236 },
         zoom: 8,
@@ -16,10 +21,14 @@
         map.showZoomControl();
         map.addLayerGroup('Points of Interest');
         map.showLayerControl();
-        const pois = await placemarkService.getPoisbyUserId($user.id);
-        pois.forEach((/** @type {{ details: { latitude: any; longitude: any; }; }} */ poi) => {
+        if (poi) {
             addPoiMarker(map, poi);
-        });
+        } else {
+            const pois = await placemarkService.getPoisbyUserId($user.id);
+            pois.forEach((/** @type {{ details: any; name?: any; category?: any; }} */ poi) => {
+                addPoiMarker(map, poi);
+            });
+        }
     });
 
 
