@@ -6,3 +6,5 @@ export const user = writable({
   id: "",
   isAdmin: false,
 });
+
+export const latestDetails = writable(null);

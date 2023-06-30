@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
 
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import { placemarkService } from "../services/placemark-service";
   import { page } from '$app/stores';
   import AddDetailsForm from "./AddDetailsForm.svelte";
@@ -9,10 +9,11 @@
   import AddImagesForm from "./AddImagesForm.svelte";
 	import ImageGallery from "./ImageGallery.svelte";
 	import EditDetailsForm from "./EditDetailsForm.svelte";
-	import PoiMap from "./PoiMap.svelte";
+	import DetailsMap from "./DetailsMap.svelte";
 
   let poi = {};
   let poiId = $page.params.slug;
+  const dispatch = createEventDispatcher();
 
   onMount(async () => {
     poi = await placemarkService.getPoibyId(poiId);
@@ -20,6 +21,7 @@
 
   async function handleDetailsProcessing() {
     poi = await placemarkService.getPoibyId(poiId);
+    dispatch("refreshMap");
   }
 
 </script>
@@ -38,7 +40,7 @@
     </div>
 
     <div class="column is-half">
-      <PoiMap {poi} />
+      <DetailsMap {poi} />
       <AddImagesForm {poi} on:imageAdded={handleDetailsProcessing}/>
     </div>
   </div>
