@@ -70,6 +70,14 @@
             addPoiMarker(map, poi);
             setMapConfig(poi);
         }
+        if(map && details === null) {
+            addPoiMarker(map, poi);
+            mapConfig = {
+                location: { lat: 49.0134297, lng: 12.1016236 },
+                zoom: 8,
+                minZoom: 1
+            };
+        }
     });
 </script>
 
