@@ -21,6 +21,12 @@ export class LeafletMap {
         Street: L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com">Mapbox</a>'
+        }),
+        Weather: L.tileLayer('https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={apiKey}', {
+            maxZoom: 17,
+            attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+            layer: 'temp_new', // Specify the desired weather layer: precipitation, temperature, wind, clouds
+            apiKey: '53d225c3b53c52766d3b630472fd0a37'
         })
     };
 

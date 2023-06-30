@@ -21,6 +21,10 @@
 	 * @type {import("../services/leaflet-map.js").LeafletMap}
 	 */
     let mapContext;
+    /**
+	 * @type {import("../services/leaflet-map.js").LeafletMap}
+	 */
+    let mapWeather;
 
     let categories = ["River", "Pond", "Sea", "Lake"];
 
@@ -37,6 +41,7 @@
             mapTerrain = new LeafletMap("poi-terrainmap", mapConfig, "Terrain");
             mapSat = new LeafletMap("poi-satmap", mapConfig, "Satellite");
             mapContext = new LeafletMap("poi-contextmap", mapConfig, "Street");
+            mapWeather = new LeafletMap("poi-weathermap", mapConfig, "Weather");
 
             mapTerrain.showZoomControl();
             mapTerrain.addLayerGroup("Own POI");
@@ -62,6 +67,14 @@
             });
             mapContext.showLayerControl();
 
+            mapWeather.showZoomControl();
+            mapWeather.addLayerGroup("Own POI");
+            mapWeather.addLayerGroup("All POI");
+            categories.forEach(category => {
+                mapWeather.addLayerGroup(category);
+            });
+            mapWeather.showLayerControl();
+
             const pois = await placemarkService.getPoisbyUserId($user.id);
             pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
                 addPoiMarker(mapTerrain, poi, "Own POI");
@@ -71,6 +84,9 @@
             });
             pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
                 addPoiMarker(mapContext, poi, "Own POI");
+            });
+            pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
+                addPoiMarker(mapWeather, poi, "Own POI");
             });
 
             const allpois = await placemarkService.getAllPois();
@@ -85,6 +101,10 @@
             allpois.forEach((/** @type {{ category: any; details: any; name: any; }} */ poi) => {
                 addPoiMarker(mapContext, poi, "All POI");
                 addPoiMarker(mapContext, poi, poi.category);
+            });
+            allpois.forEach((/** @type {{ category: any; details: any; name: any; }} */ poi) => {
+                addPoiMarker(mapWeather, poi, "All POI");
+                addPoiMarker(mapWeather, poi, poi.category);
             });
         }
     });
@@ -118,6 +138,9 @@
     </div>
     <div class="column is-half">
         <div class="box" id="poi-contextmap" style="height: 75vh"></div>
+    </div>
+    <div class="column is-half">
+        <div class="box" id="poi-weathermap" style="height: 75vh"></div>
     </div>
 </div>
 {#if notes.length > 0}
