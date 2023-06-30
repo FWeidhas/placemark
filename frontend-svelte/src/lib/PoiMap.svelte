@@ -14,12 +14,23 @@
     onMount(async () => {
         const map = new LeafletMap("poi-map", mapConfig);
         map.showZoomControl();
-		map.showLayerControl();
+        map.addLayerGroup('Points of Interest');
+        map.showLayerControl();
         const pois = await placemarkService.getPoisbyUserId($user.id);
         pois.forEach((/** @type {{ details: { latitude: any; longitude: any; }; }} */ poi) => {
-            map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude });
+            addPoiMarker(map, poi);
         });
     });
+
+
+    /**
+	 * @param {LeafletMap} map
+	 * @param {{ details: any; name?: any; category?: any; }} poi
+	 */
+    function addPoiMarker(map, poi) {
+        const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
+        map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr);
+    }
 </script>
 
 <div class="box" id="poi-map" style="height:75vh" />
