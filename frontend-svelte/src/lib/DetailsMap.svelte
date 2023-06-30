@@ -2,8 +2,7 @@
     import "leaflet/dist/leaflet.css";
     import { LeafletMap } from "../services/leaflet-map.js";
     import { onMount } from "svelte";
-	import { placemarkService } from "../services/placemark-service.js";
-	import { latestDetails, user } from "../stores.js";
+	import { latestDetails } from "../stores.js";
 
     /**
 	 * @type {{ details: any; name?: any; category?: any; }}
@@ -57,13 +56,11 @@
 	 * @param {{ details: any; name?: any; category?: any; }} poi
 	 */
     function setMapConfig(poi) {
-        if (poi.details) {
-            mapConfig = {
-                location: { lat: poi.details.latitude, lng: poi.details.longitude },
-                zoom: 8,
-                minZoom: 1
-            };
-        }
+        mapConfig = {
+            location: { lat: poi.details.latitude, lng: poi.details.longitude },
+            zoom: 8,
+            minZoom: 1
+        };
     }
 
     latestDetails.subscribe((details) => {        

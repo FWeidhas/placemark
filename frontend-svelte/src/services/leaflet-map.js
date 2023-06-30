@@ -83,6 +83,10 @@ export class LeafletMap {
         marker.addTo(group);
     }
 
+    clearMarker() {
+        L.clearMarker();
+    }
+
     invalidateSize() {
         this.imap.invalidateSize();
         let hiddenMethodMap = this.imap;
