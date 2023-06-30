@@ -1,50 +1,52 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-    import { placemarkService } from '../services/placemark-service';
+  import { placemarkService } from '../services/placemark-service';
     
-    /**
-	 * @type {{ img: any; _id: any; }}
-	 */
-    export let poi;
+  /**
+ * @type {{ img: any; _id: any; }}
+ */
+  export let poi;
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    /**
-	 * @type {any}
-	 */
-    let imagefiles;
+  /**
+ * @type {any}
+ */
+  let imagefiles;
 
-    let isLoading = false;
+  let isLoading = false;
 
-    let message = "Add your images for your spot";
+  let message = "Add your images for your spot";
 
-    async function addimage () {
-        if(!imagefiles) {
-          message = "Choose a png/jpeg-file to upload"
-        }
-        isLoading = true;
-        let formData = new FormData();
-        for (let i = 0; i < imagefiles.length; i++) {
-            let partfile = imagefiles[i];
-            formData.append(`image_buffer_${i}`, partfile);
-        }
-        
+  async function addimage () {
+      if(!imagefiles) {
+        message = "Choose a png/jpeg-file to upload"
+      }
+      message = "Loading ..."
+      isLoading = true;
+      let formData = new FormData();
+      for (let i = 0; i < imagefiles.length; i++) {
+          let partfile = imagefiles[i];
+          formData.append(`image_buffer_${i}`, partfile);
+      }
+      
+      // @ts-ignore
+      const response = await placemarkService.addImage(poi._id, formData);
+      
+      if (response) {
+        isLoading = false;
+        const fileName = document.querySelector(".file-name");
         // @ts-ignore
-        const response = await placemarkService.addImage(poi._id, formData);
-        
-        if (response) {
-          isLoading = false;
-          const fileName = document.querySelector(".file-name");
-          // @ts-ignore
-          fileName.textContent = "";
-          dispatch('imageAdded');
-        } else {
-            message = "Uploading not completed - some error occurred";
-        }
-    }
+        fileName.textContent = "";
+        message = "Upload successful"
+        dispatch('imageAdded');
+      } else {
+          message = "Uploading not completed - some error occurred";
+      }
+  }
 
 
-    const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
+  const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
   const fileInput = event.target;
   if (fileInput.files.length > 0) {
     const fileName = document.querySelector(".file-name");
@@ -77,8 +79,8 @@
                   </span>
                   <span class="file-name"></span>
               </label>
-              <button type="submit" class="button is-info" class:is-loading={isLoading}>Upload</button>
             </div>
+            <button type="submit" class="button is-info mt-2" class:is-loading={isLoading}>Upload</button>
         </form>
         <div class="mt-3">
           {message}
