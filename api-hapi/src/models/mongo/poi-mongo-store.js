@@ -26,8 +26,16 @@ export const poiMongoStore = {
 
   async getUserPois(id) {
     const pois = await Poi.find({ userid: id }).lean();
+    if (pois) {
+      for (let i = 0; i < pois.length; i+=1) {
+        const poi = pois[i];
+        // eslint-disable-next-line no-await-in-loop
+        poi.details = await detailsMongoStore.getDetailsByPoiId(poi._id);
+      }
+    }
     return pois;
-  },
+  }
+  ,
 
   async deletePoiById(id) {
     try {
