@@ -1,42 +1,51 @@
 <script>
     import "leaflet/dist/leaflet.css";
-    import { LeafletMap } from "../services/leaflet-map.js";
     import { onMount } from "svelte";
 	import { latestDetails } from "../stores.js";
 
-    /**
-	 * @type {{ details: any; name?: any; category?: any; }}
+    
+     /**
+	 * @type {{ details: any; name: any; category: any; }}
 	 */
-     export let poi;
+      export let poi;
 
     /**
 	 * @type {string | null}
 	 */
     let note = null;
 
+    
     /**
-	 * @type {LeafletMap}
+	 * @type {import("../services/leaflet-map.js").LeafletMap}
 	 */
     let map;
-    let mapConfig = {
-        location: { lat: 49.0134297, lng: 12.1016236 },
-        zoom: 8,
-        minZoom: 1
-    };
 
     onMount(async () => {
-        map = new LeafletMap("poi-map", mapConfig);
-        map.showZoomControl();
-        map.addLayerGroup('Points of Interest');
-        map.showLayerControl();
+        if (typeof window !== "undefined") {
+            const { LeafletMap } = await import("../services/leaflet-map.js");
+            import("leaflet/dist/leaflet.css");
+
+            const mapConfig = {
+                location: { lat: 49.0134297, lng: 12.1016236 },
+                zoom: 8,
+                minZoom: 1
+            };
+
+            map = new LeafletMap("poi-map", mapConfig);
+            map.showZoomControl();
+            map.addLayerGroup("Points of Interest");
+            map.showLayerControl();
         
-        addPoiMarker(map, poi);
+            addPoiMarker(map, poi);
+        }
     });
 
 
+   
+    
     /**
-	 * @param {LeafletMap} map
-	 * @param {{ details: any; name?: any; category?: any; }} poi
+	 * @param {import("../services/leaflet-map.js").LeafletMap} map
+	 * @param {{ details: any; name: any; category: any; }} poi
 	 */
     function addPoiMarker(map, poi) {
         if(poi.details) {

@@ -1,6 +1,5 @@
 <script>
     import "leaflet/dist/leaflet.css";
-    import { LeafletMap } from "../services/leaflet-map.js";
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { user } from "../stores.js";
@@ -10,32 +9,42 @@
      */
     let notes = [];
 
+    
     /**
-     * @type {LeafletMap}
-     */
+	 * @type {import("../services/leaflet-map.js").LeafletMap}
+	 */
     let map;
-    let mapConfig = {
-    location: { lat: 49.0134297, lng: 12.1016236 },
-    zoom: 8,
-    minZoom: 1
-    };
 
     onMount(async () => {
-    map = new LeafletMap("poi-map", mapConfig);
-    map.showZoomControl();
-    map.addLayerGroup("Points of Interest");
-    map.showLayerControl();
+    if (typeof window !== "undefined") {
+            const { LeafletMap } = await import("../services/leaflet-map.js");
+            import("leaflet/dist/leaflet.css");
 
-    const pois = await placemarkService.getPoisbyUserId($user.id);
-    pois.forEach((/** @type {{ details: any; name?: any; category?: any; }} */ poi) => {
-        addPoiMarker(map, poi);
-        });
+            const mapConfig = {
+            location: { lat: 49.0134297, lng: 12.1016236 },
+            zoom: 8,
+            minZoom: 1
+            };
+
+            map = new LeafletMap("poi-map", mapConfig);
+            map.showZoomControl();
+            map.addLayerGroup("Points of Interest");
+            map.showLayerControl();
+
+            const pois = await placemarkService.getPoisbyUserId($user.id);
+            pois.forEach((/** @type {{ details: any; name: any; category: any; }} */ poi) => {
+            addPoiMarker(map, poi);
+            });
+        }
     });
 
+
+
+   
     /**
-     * @param {LeafletMap} map
-     * @param {{ details: any; name?: any; category?: any; }} poi
-     */
+	 * @param {import("../services/leaflet-map.js").LeafletMap} map
+	 * @param {{ details: any; name: any; category: any; }} poi
+	 */
     function addPoiMarker(map, poi) {
         if (poi.details) {
             const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
