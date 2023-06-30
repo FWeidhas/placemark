@@ -28,8 +28,13 @@
 	 * @param {{ details: any; name?: any; category?: any; }} poi
 	 */
     function addPoiMarker(map, poi) {
-        const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
-        map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr, 'Points of Interest');
+        if(poi.details) {
+            const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
+            map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr, 'Points of Interest');
+        }
+        else {
+            alert(poi.name + " has no coordinates or details, add details to add it to the map.")
+        }
     }
 </script>
 
