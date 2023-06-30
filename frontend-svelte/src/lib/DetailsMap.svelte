@@ -50,9 +50,9 @@
     };
 
     latestDetails.subscribe((details) => {    
-        console.log(details);    
         if (map && details) {
             poi.details = details;
+            map.clearMarker();
             note = null;
             addPoiMarker(map, poi);
         }
