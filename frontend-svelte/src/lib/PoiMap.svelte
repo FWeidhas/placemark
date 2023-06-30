@@ -29,7 +29,7 @@
 	 */
     function addPoiMarker(map, poi) {
         const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
-        map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr);
+        map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr, 'Points of Interest');
     }
 </script>
 
