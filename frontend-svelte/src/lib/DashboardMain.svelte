@@ -1,12 +1,17 @@
 <script>
 // @ts-nocheck
-
-    import 'bootstrap/dist/css/bootstrap.min.css';
-    import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+    import { onMount } from "svelte";
     import ListPois from "./ListPois.svelte";
 	import ListAllPois from './ListAllPois.svelte';
 
     let switcher = false;
+
+    onMount(async () => {
+    if (typeof document !== 'undefined') {
+        await import('bootstrap/dist/css/bootstrap.min.css');
+        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+    }
+  });
 </script>
 
 <section class="section">
