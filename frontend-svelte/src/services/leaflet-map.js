@@ -2,6 +2,39 @@
 // @ts-nocheck
 import * as L from "leaflet";
 
+export const weatherlayers = {
+    temp: L.tileLayer('https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid={apiKey}', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        apiKey: '53d225c3b53c52766d3b630472fd0a37'
+    }),
+
+    wind: L.tileLayer('https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid={apiKey}', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        apiKey: '53d225c3b53c52766d3b630472fd0a37'
+    }),
+
+    cloud: L.tileLayer('https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid={apiKey}', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        apiKey: '53d225c3b53c52766d3b630472fd0a37'
+    }),
+
+    precipitation: L.tileLayer('https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid={apiKey}', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        apiKey: '53d225c3b53c52766d3b630472fd0a37'
+    }),
+
+    pressure: L.tileLayer('https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid={apiKey}', {
+        maxZoom: 17,
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        apiKey: '53d225c3b53c52766d3b630472fd0a37'
+    }),
+
+}
+
 export class LeafletMap {
     imap = {};
     control = {};
@@ -22,12 +55,6 @@ export class LeafletMap {
         maxZoom: 19,
         attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org">OpenStreetMap</a> contributors, Imagery &copy; <a href="https://www.mapbox.com">Mapbox</a>'
         }),
-        Weather: L.tileLayer('https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={apiKey}', {
-            maxZoom: 17,
-            attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
-            layer: 'temp_new', // Specify the desired weather layer: precipitation, temperature, wind, clouds
-            apiKey: '53d225c3b53c52766d3b630472fd0a37'
-        })
     };
 
     constructor(id, descriptor, activeLayer = "Street") {
@@ -44,9 +71,15 @@ export class LeafletMap {
         });
     }
 
-    addLayer(title, layer) {
-        this.overlays[title] = layer;
-        this.imap.addLayer(layer);
+    addWeatherLayer(layer, title) {
+        const weatherLayer = weatherlayers[layer];
+        if (weatherLayer) {
+            this.overlays[title] = L.layerGroup([]);
+            this.overlays[title].addLayer(weatherLayer);
+            this.imap.addLayer(this.overlays[title]);
+        } else {
+            console.error(`Weather layer '${layer}' not found.`);
+        }
     }
 
     addLayerGroup(title) {

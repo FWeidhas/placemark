@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { user } from "../stores.js";
+	import { weatherlayers } from "../services/leaflet-map.js";
 
     /**
      * @type {string[]}
@@ -41,7 +42,7 @@
             mapTerrain = new LeafletMap("poi-terrainmap", mapConfig, "Terrain");
             mapSat = new LeafletMap("poi-satmap", mapConfig, "Satellite");
             mapContext = new LeafletMap("poi-contextmap", mapConfig, "Street");
-            mapWeather = new LeafletMap("poi-weathermap", mapConfig, "Weather");
+            mapWeather = new LeafletMap("poi-weathermap", mapConfig, "Terrain");
 
             mapTerrain.showZoomControl();
             mapTerrain.addLayerGroup("Own POI");
@@ -73,6 +74,12 @@
             categories.forEach(category => {
                 mapWeather.addLayerGroup(category);
             });
+            
+            mapWeather.addWeatherLayer("cloud", "cloud");
+            mapWeather.addWeatherLayer("temp", "temp");
+            mapWeather.addWeatherLayer("precipitation", "precipitation");
+            mapWeather.addWeatherLayer("pressure", "pressure");
+            mapWeather.addWeatherLayer("wind", "wind");
             mapWeather.showLayerControl();
 
             const pois = await placemarkService.getPoisbyUserId($user.id);
