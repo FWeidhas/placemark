@@ -29,6 +29,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"axios": "^1.4.0"
+		"axios": "^1.4.0",
+		"bootstrap": "^5.3.0",
+		"leaflet": "^1.9.4"
 	}
 }

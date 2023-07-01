@@ -13,7 +13,6 @@
       export let poi;
 
      let message ="";
-    console.log(poi.img);
      const dispatch = createEventDispatcher();
 
      async function handleDelete (i) {

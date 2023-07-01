@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 
-import { user } from "../stores.js";
+import { latestDetails, user } from "../stores.js";
 
 export const placemarkService = {
     baseUrl: "http://localhost:3000",
@@ -233,6 +233,7 @@ export const placemarkService = {
     async addDetails(id ,details) {
         try {
 			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/details", details);
+            latestDetails.set(response.data);
 			return response.status == 201;
 		} catch (error) {
 			return false;
@@ -245,6 +246,7 @@ export const placemarkService = {
     async deleteDetailsbyId(id) {
         try {
 			const response = await axios.delete(this.baseUrl + "/api/details/" + id);
+            latestDetails.set(null);
 			return response.data;
 		} catch (error) {
             console.log(error);
@@ -258,10 +260,25 @@ export const placemarkService = {
     async editdetails(id, details) {
 		try {
 			const response = await axios.put(this.baseUrl + "/api/details/" + id, details);
+            latestDetails.set(response.data);
 			return response.status == 201;
 		} catch (error) {
 			return false;
 		}
 	},
 
+    /**
+     * @param {string} id
+     */
+    async getWeather(id) {
+		try {
+			const response = await axios.get(this.baseUrl + "/api/details/weather/" + id);
+            return response.data;
+		} catch (error) {
+			return false;
+		}
+	},
+
+    
+    
 };
