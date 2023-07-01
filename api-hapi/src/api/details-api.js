@@ -1,4 +1,5 @@
 import Boom from "@hapi/boom";
+import axios from "axios";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
 import { IdSpec, DetailsSpec, DetailsSpecPlus, DetailsArraySpec } from "../models/joi-schemas.js";
@@ -148,5 +149,29 @@ export const detailsApi = {
     notes: "Returns the updated details",
     validate: { payload: DetailsSpecPlus , params: { id: IdSpec }, failAction: validationError},
     response: { schema: DetailsSpecPlus, failAction: validationError },
+  },
+
+  getWeather: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const details = await db.detailsStore.getDetailsById(request.params.id);
+        if (!details) {
+          return Boom.notFound("No Details with this id");
+        }
+        try {
+        const weather = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${details.latitude}&lon=${details.longitude}&appid=53d225c3b53c52766d3b630472fd0a37`);
+        return weather.data;
+        }
+        catch (err) {
+          console.log(err);
+        }
+        return details;
+      } catch (err) {
+        return Boom.serverUnavailable("No Details with this id");
+      }
+    }
   },
 };

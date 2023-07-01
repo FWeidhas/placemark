@@ -267,4 +267,18 @@ export const placemarkService = {
 		}
 	},
 
+    /**
+     * @param {string} id
+     */
+    async getWeather(id) {
+		try {
+			const response = await axios.get(this.baseUrl + "/api/details/weather/" + id);
+            return response.data;
+		} catch (error) {
+			return false;
+		}
+	},
+
+    
+    
 };
