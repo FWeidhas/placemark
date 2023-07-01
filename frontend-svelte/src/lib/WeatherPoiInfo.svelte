@@ -2,7 +2,8 @@
 // @ts-nocheck
 
 	import { onMount } from "svelte";
-	import { placemarkService } from "../services/placemark-service";
+	import { placemarkService } from "../services/placemark-service.js";
+    import "../styles/weather-icons.css";
 
     /**
 	 * @type {{ details: { _id: string; }; }}
@@ -29,8 +30,6 @@
             description: weather[0].description,
             main : weather[0].main,
         };
-
-        console.log(weatherdata);
         } catch (error) {
         console.log(error);
         }
@@ -39,50 +38,47 @@
 
 </script>
 
-<div class="card-container m-3">
+<div class="container has-text-centered mt-5 mb-5">
     {#if weatherdata}
-      <div class="card">
-        <div class="card-content">
-          <div class="card-content-flex">
-            <div>
-              <span class="icon is-large">
-                <i class={"wi wi-owm-" + weatherdata.code}></i>
-              </span>
-            </div>
-            <div>
-              <p class="title">{weatherdata.main}</p>
-              <p>{weatherdata.description}</p>
-            </div>
+      <div class="box">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <span class="icon is-large">
+              <i class={"wi wi-owm-" + weatherdata.code}></i>
+            </span>
+            <p class="title">{weatherdata.main}</p>
+            <p>{weatherdata.description}</p>
           </div>
-          <div class="columns">
-            <div class="column">
-              <p class="subtitle">Temperature</p>
-              <p class="content">{weatherdata.temp} °C</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">Wind</p>
-              <p class="content">{weatherdata.wind} m/s</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">Humidity</p>
-              <p class="content">{weatherdata.humidity}</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">Pressure</p>
-              <p class="content">{weatherdata.pressure}</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">Min Temperature</p>
-              <p class="content">{Math.round(weatherdata.tempmin - 273.15)} °C</p>
-            </div>
-            <div class="column">
-              <p class="subtitle">Max Temperature</p>
-              <p class="content">{Math.round(weatherdata.tempmax - 273.15)} °C</p>
-            </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <p class="subtitle">Temperature</p>
+            <p class="content">{Math.round(weatherdata.temp - 273.15)} °C</p>
+          </div>
+          <div class="column">
+            <p class="subtitle">Wind</p>
+            <p class="content">{weatherdata.wind} m/s</p>
+          </div>
+          <div class="column">
+            <p class="subtitle">Humidity</p>
+            <p class="content">{weatherdata.humidity} %</p>
+          </div>
+          <div class="column">
+            <p class="subtitle">Pressure</p>
+            <p class="content">{weatherdata.pressure} bar</p>
+          </div>
+          <div class="column">
+            <p class="subtitle">Min Temperature</p>
+            <p class="content">{Math.round(weatherdata.tempmin - 273.15)} °C</p>
+          </div>
+          <div class="column">
+            <p class="subtitle">Max Temperature</p>
+            <p class="content">{Math.round(weatherdata.tempmax - 273.15)} °C</p>
           </div>
         </div>
       </div>
     {:else}
       <p>Loading weather data...</p>
     {/if}
-</div>
+  </div>
+  
