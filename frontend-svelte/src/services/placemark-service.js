@@ -205,6 +205,19 @@ export const placemarkService = {
 
     /**
      * @param {string} id
+     */
+    async getCategoryNumberofPoisUser(id) {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/pois/users/" + id);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    /**
+     * @param {string} id
      * @param {undefined} [data]
      */
     async addImage(id, data) {

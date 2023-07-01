@@ -230,6 +230,24 @@ export const poiApi = {
     notes: "Returns number of Points of Interest in each category",
   },
 
+  findbycategorycountUserPois: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const numberofpoiswithcategory = await db.poiStore.getNumberofPoiswithCategoryUser(request.params.id);
+        return numberofpoiswithcategory;
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Get all Categories and the number of Points of Interest in each",
+    notes: "Returns number of Points of Interest in each category",
+  },
+
   poisCountByUser: {
     auth: {
       strategy: "jwt",

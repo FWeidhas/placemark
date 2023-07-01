@@ -94,6 +94,24 @@ export const poiMongoStore = {
     return numberofpois;
   },
 
+  async getNumberofPoiswithCategoryUser(id) {
+    const categories = ["River", "Pond", "Lake", "Sea"];
+    const numberofpois = [];
+  
+    await Promise.all(
+      categories.map(async (category) => {
+        const count = await Poi.countDocuments({ category: category, userid: id });
+        const categorywithcount = {
+          category: category,
+          count: count,
+        };
+        numberofpois.push(categorywithcount);
+      })
+    );
+  
+    return numberofpois;
+  },  
+
   async getUserPoisCount(id) {
     const count = await Poi.countDocuments({ userid: id });
 

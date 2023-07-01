@@ -14,12 +14,17 @@
 	 */
     let numberofpoiswithcategory = [];
 
+    let numberofpoiswithcategoryuserbased = [];
+
     /**
 	 * @type {{ labels: any[]; datasets: { values: any[]; }[]; }}
 	 */
     let categoryAllDistribution;
 
-    let categoryOwnDistribution;
+    /**
+	 * @type {{ labels: any; datasets: { values: any; }[]; }}
+	 */
+    let categoryOwnPoisDistribution;
  
     /**
 	 * @type {{ labels: string[]; datasets: { values: any[]; }[]; }}
@@ -30,13 +35,23 @@
             ownPois = await placemarkService.getPoisbyUserId($user.id);
             pois = await placemarkService.getAllPois();
             numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
-            console.log(numberofpoiswithcategory, pois, ownPois);
+            numberofpoiswithcategoryuserbased = await placemarkService.getCategoryNumberofPoisUser($user.id);
+            console.log(numberofpoiswithcategory, pois, ownPois, numberofpoiswithcategoryuserbased);
 
             categoryAllDistribution = {
                 labels: numberofpoiswithcategory.map((item) => item.category),
                 datasets: [
                 {
                     values: numberofpoiswithcategory.map((item) => item.count),
+                },
+                ],
+            };
+
+            categoryOwnPoisDistribution = {
+                labels: numberofpoiswithcategoryuserbased.map((/** @type {{ category: any; }} */ item) => item.category),
+                datasets: [
+                {
+                    values: numberofpoiswithcategoryuserbased.map((/** @type {{ count: any; }} */ item) => item.count),
                 },
                 ],
             };
@@ -56,6 +71,7 @@
 </script>
 
 {#if categoryAllDistribution}
-<Chart data={categoryAllDistribution} type="pie" options={{ groupOthers: false }} />
-<Chart data={numberPoisallown} type="pie" options={{ groupOthers: false }} />
+<Chart data={categoryAllDistribution} type="pie" />
+<Chart data={categoryOwnPoisDistribution} type="pie" />
+<Chart data={numberPoisallown} type="pie" />
 {/if}
