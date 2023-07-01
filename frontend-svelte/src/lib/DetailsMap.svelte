@@ -54,7 +54,13 @@
 	 */
     function addPoiMarker(map, poi) {
         if(poi.details) {
-            const poiStr = `${poi.name}\n${poi.category}\n${poi.details.description}`;
+            const poiStr = `
+            <div>
+                <h3>${poi.name}</h3>
+                <p>Category: ${poi.category}</p>
+                <p>Coordinates: ${poi.details.latitude}, ${poi.details.longitude}</p>
+            </div>
+            `;
             map.addMarker({ lat: poi.details.latitude, lng: poi.details.longitude }, poiStr, 'Points of Interest');
             map.moveTo(8, { lat: poi.details.latitude, lng: poi.details.longitude });
         }
