@@ -23,7 +23,6 @@
   });
 
   function handleSelectedCategory () {
-        console.log(selectedCategory);
         if (selectedCategory === "Select category") {
             filteredList = poisList;
         } else {
@@ -66,6 +65,13 @@
       </div>
   </div>
 </div>
+{#if !(filteredList.length > 0)}
+  <div class="loading-spinner">
+    <span class="icon is-large">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>
+  </div>
+{/if}
 {#if filteredList}
 {#each filteredList as poi}
   <div class="box box-link-hover-shadow">
@@ -87,11 +93,5 @@
       <i class="fas fa-edit"></i>
     </button>
   </div>
-{/each}
-{:else}
-<div class="loading-spinner">
-    <span class="icon is-large">
-      <i class="fas fa-spinner fa-pulse"></i>
-    </span>
-</div>    
+{/each}    
 {/if}
