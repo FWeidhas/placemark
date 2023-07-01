@@ -7,7 +7,7 @@
     // @ts-ignore
     import Chart from "svelte-frappe-charts";
 
-    let types = ["pie", "bar", "percentage"]
+    let types = ["pie", "bar", "percentage", "donut"]
     let pois = [];
     let ownPois = [];
    
@@ -104,6 +104,8 @@
         <Chart data={categoryAllDistribution} type={type}/>
         {:else if type === "percentage"}
         <Chart data={categoryAllDistribution} type={type} />
+        {:else if type === "donut"}
+        <Chart data={categoryAllDistribution} type={type} />
         {/if}
     </div>
   </div>
@@ -126,6 +128,8 @@
         <Chart data={categoryOwnPoisDistribution} type={type}/>
         {:else if type === "percentage"}
         <Chart data={categoryOwnPoisDistribution} type={type} />
+        {:else if type === "donut"}
+        <Chart data={categoryOwnPoisDistribution} type={type} />
         {/if}
     </div>
   </div>
@@ -147,6 +151,8 @@
         {:else if type === "bar"}
         <Chart data={numberPoisallown} type={type}/>
         {:else if type === "percentage"}
+        <Chart data={numberPoisallown} type={type} />
+        {:else if type === "donut"}
         <Chart data={numberPoisallown} type={type} />
         {/if}
     </div>
