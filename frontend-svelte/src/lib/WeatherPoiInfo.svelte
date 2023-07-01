@@ -43,7 +43,7 @@
       <div class="box">
         <div class="columns is-vcentered">
           <div class="column">
-            <span class="icon is-large">
+            <span class="icon is-large is-size-1">
               <i class={"wi wi-owm-" + weatherdata.code}></i>
             </span>
             <p class="title">{weatherdata.main}</p>
