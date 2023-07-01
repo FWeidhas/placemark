@@ -32,7 +32,6 @@ export const weatherlayers = {
         attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
         apiKey: '53d225c3b53c52766d3b630472fd0a37'
     }),
-
 }
 
 export class LeafletMap {

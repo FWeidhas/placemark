@@ -3,7 +3,6 @@
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { user } from "../stores.js";
-	import { weatherlayers } from "../services/leaflet-map.js";
 
     /**
      * @type {string[]}

@@ -33,7 +33,7 @@
 
             map = new LeafletMap("poi-map", mapConfig);
             map.showZoomControl();
-            map.addLayerGroup("Points of Interest");
+            map.addLayerGroup("Point of Interest");
             map.addWeatherLayer("cloud", "cloud");
             map.addWeatherLayer("temp", "temp");
             map.addWeatherLayer("precipitation", "precipitation");
