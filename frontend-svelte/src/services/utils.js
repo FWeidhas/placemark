@@ -2,15 +2,12 @@
 /**
  * @param {any[]} array
  */
-function linearRegression(array) {
+export function linearRegression(array) {
     const dates = array.map((item) => item.date);
     const counts = array.map((item) => item.count);
-    console.log(dates, counts);
     const dateshourly = transformDatesToHours(dates);
-    console.log(dateshourly);
 
     const regression = linearRegressionCalculating(dateshourly, counts);
-
 
     // @ts-ignore
     const projectedCounts = projectFutureCounts(regression, dateshourly[dateshourly.length - 1]);
@@ -85,5 +82,3 @@ function transformDatesToHours(data) {
     }
     return transformedData;
 }
-
-export default linearRegression;

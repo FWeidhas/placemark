@@ -3,7 +3,7 @@
     import { placemarkService } from "../services/placemark-service.js";
     // @ts-ignore
     import Chart from "svelte-frappe-charts";
-	import linearRegression from "../services/utils.js";
+	import { linearRegression } from "../services/utils.js";
 
     let users = [];
     let pois = [];
@@ -39,6 +39,24 @@
         }
         ]
     };
+
+    let userprojection = {
+        labels: [],
+        datasets: [
+        {
+            values: []
+        }
+        ]
+    };
+
+    let poiprojection = {
+        labels: [],
+        datasets: [
+        {
+            values: []
+        }
+        ]
+    };
     
 
     onMount(async () => {
@@ -54,12 +72,54 @@
             // @ts-ignore
             poiscountoverdate = mapData(poidata);
             trendiconpois = getTrend(poidata);
-            
-            let projecteduser = linearRegression(data);
-            let projectedpois = linearRegression(poidata);
-            console.log(projecteduser, projectedpois);
+            let userprojdata = getprojectedCharts(data);
+            // @ts-ignore
+            userprojection.labels = userprojdata.fulldates;
+            // @ts-ignore
+            userprojection.datasets[0].values = userprojdata.fullcounts;
+
+            let poiprojdata = getprojectedCharts(poidata);
+            // @ts-ignore
+            poiprojection.labels = poiprojdata.fulldates;
+            // @ts-ignore
+            poiprojection.datasets[0].values = poiprojdata.fullcounts;
+
             isLoading = true;
         });
+
+        /**
+	 * @param {any[]} array
+	 */
+        function getprojectedCharts (array) {
+            let projecteddata = linearRegression(array);
+
+            const dates = array.map((item) => item.date);
+            const counts = array.map((item) => item.count);
+
+            const nextdates = getNextSevenDays();
+
+            let fullcounts = counts.concat(projecteddata);
+            let fulldates = dates.concat(nextdates);
+
+            return { fullcounts, fulldates };
+        }
+
+        function getNextSevenDays() {
+        const currentDate = new Date();
+        const dates = [];
+
+        for (let i = 1; i <= 7; i++) {
+            const date = new Date();
+            date.setDate(currentDate.getDate() + i);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear().toString();
+            const formattedDate = `${day}.${month}.${year}`;
+            dates.push(formattedDate);
+        }
+
+        return dates;
+        }
 
     /**
 	 * @param {any[]} array
@@ -112,13 +172,13 @@
 	 */
     function getTrend (array) {
         if(array[array.length - 1].count > array[array.length - 2].count) {
-            return "fas fa-arrow-up is-large";
+            return "fas fa-arrow-up is-large fa-3x";
         }
         if(array[array.length - 1].count < array[array.length - 2].count) {
-            return "fas fa-arrow-down is-large";
+            return "fas fa-arrow-down is-large fa-3x";
         }
         else {
-            return "fas fa-arrow-right is-large";
+            return "fas fa-arrow-right is-large fa-3x";
         }
     }
 </script>
@@ -129,26 +189,46 @@
 <section class="section">
   <div class="container">
     <div class="columns">
-        <div class="column is-narrow">
-          <h2 class="title">Number of users over time</h2>
+        <div class="column has-text-centered">
+          <h2 class="title">Number of users over time:</h2>
         </div>
-        <div class="column">
-          <i class={trendiconuser}></i>
-        </div>
-      </div>      
-    <div class="chart">
-        <Chart data={usercountoverdate} type="line"/>
+        <div class="column has-text-centered">
+            <h2 class="title">Trend:</h2>
+            <div class="icon-wrapper is-flex is-align-items-center is-justify-content-center">
+                <i class={trendiconuser}></i>
+            </div>
+        </div>         
     </div>
     <div class="columns">
-        <div class="column is-narrow">
-          <h2 class="title">Number of spots over time</h2>
+        <div class="column is-half">
+            <h2 class="title">Past:</h2>
+            <Chart data={usercountoverdate} type="line"/>
         </div>
-        <div class="column">
-          <i class={trendiconuser}></i>
+        <div class="column is-half">
+            <h2 class="title">Future:</h2>
+            <Chart data={userprojection} type="line"/>
+        </div>
+    </div>            
+    <div class="columns">
+        <div class="column has-text-centered">
+          <h2 class="title">Number of points over time:</h2>
+        </div>
+        <div class="column has-text-centered">
+            <h2 class="title">Trend:</h2>
+            <div class="icon-wrapper is-flex is-align-items-center is-justify-content-center">
+                <i class={trendiconuser}></i>
+            </div>
         </div>
     </div>
-    <div class="chart">
-        <Chart data={poiscountoverdate} type="line"/>
+    <div class="columns">
+        <div class="column is-half">
+            <h2 class="title">Past:</h2>
+            <Chart data={poiscountoverdate} type="line"/>
+        </div>
+        <div class="column is-half">
+            <h2 class="title">Future:</h2>
+            <Chart data={poiprojection} type="line"/>
+        </div>
     </div>
   </div>
 </section>
