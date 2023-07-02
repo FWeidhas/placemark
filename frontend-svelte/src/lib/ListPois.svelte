@@ -37,6 +37,7 @@
     await placemarkService.deletePoibyId(id);
     poisList = await placemarkService.getPoisbyUserId($user.id);
     filteredList = poisList;
+    selectedCategory = "Select category";
   };
 
   /**
