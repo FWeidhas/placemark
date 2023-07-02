@@ -1,11 +1,9 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
   import { placemarkService } from "../services/placemark-service.js";
   
-    /**
-     * @type {any}
-     */
-    export let poi;
+    
+    export let poi: any;
 
     const dispatch = createEventDispatcher();
   
@@ -52,13 +50,13 @@
 <div class="field">
     <label for="latitude">Enter Latitude:</label>
     <div class="control">
-    <input class="input" type="number" id="latitude" bind:value={latitude} placeholder="Enter Latitude">
+    <input class="input" type="number" step="any" id="latitude" bind:value={latitude} placeholder="Enter Latitude">
     </div>
 </div>
 <div class="field">
     <label for="longitude">Enter Longitude:</label>
     <div class="control">
-    <input class="input" type="number" id="longitude" bind:value={longitude} placeholder="Enter Longitude">
+    <input class="input" type="number" step="any" id="longitude" bind:value={longitude} placeholder="Enter Longitude">
     </div>
 </div>
 <button class="button is-primary">Edit Details</button>

@@ -1,11 +1,11 @@
-<script>
-    // @ts-nocheck
+<script lang="ts">
+    
     import { onMount } from "svelte";
     import { page } from '$app/stores';
     import { placemarkService } from "../services/placemark-service";
 
     let poiId = $page.params.slug;
-    let poi = {};
+    let poi: any = {};
     let name ="";
 
     let categories = ["River", "Pond", "Sea", "Lake"];

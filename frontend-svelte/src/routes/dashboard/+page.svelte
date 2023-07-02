@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
     import Header from '../../lib/Header.svelte';
     import MainNavigator from '../../lib/MainNavigator.svelte';
-    import ListPois from '../../lib/ListPois.svelte';
+	import DashboardMain from '$lib/DashboardMain.svelte';
+	import PoiStatistics from '$lib/PoiStatistics.svelte';
 </script>
 
 <Header>
@@ -10,10 +11,9 @@
 
 <div class="columns">
     <div class="column has-text-centered">
-        <img alt="fishing" src="/lake-fishing.jpg" width="80%" />
+        <PoiStatistics />
     </div>
     <div class="column box has-text-centered">
-        <h1 class="title is-4">Your fishing spots:</h1>
-        <ListPois />
+        <DashboardMain />
     </div>
 </div>

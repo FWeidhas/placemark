@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 
-import { user } from "../stores.js";
+import { latestDetails, user } from "../stores.js";
 
 export const placemarkService = {
-    baseUrl: "http://localhost:3000",
+    // baseUrl: "http://localhost:3000",
+    baseUrl: "https://placemarkbackend.onrender.com",
+
 
     // @ts-ignore
     async login(email, password) {
@@ -205,6 +207,19 @@ export const placemarkService = {
 
     /**
      * @param {string} id
+     */
+    async getCategoryNumberofPoisUser(id) {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/pois/users/" + id);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    },
+
+    /**
+     * @param {string} id
      * @param {undefined} [data]
      */
     async addImage(id, data) {
@@ -219,9 +234,10 @@ export const placemarkService = {
     /**
      * @param {string} id
      * @param {import("axios").AxiosRequestConfig<any> | undefined} img
+     * @param {string | number} index
      */
-    async deleteImage(id, img) {
-        const response = await axios.delete(this.baseUrl +  "/api/pois/" + id + "/deleteimage", img);
+    async deleteImage(id, img, index) {
+        const response = await axios.delete(this.baseUrl +  "/api/pois/" + id + "/deleteimage/" + img + "/" + index);
         return response;
     },
 
@@ -232,6 +248,7 @@ export const placemarkService = {
     async addDetails(id ,details) {
         try {
 			const response = await axios.post(this.baseUrl + "/api/pois/" + id + "/details", details);
+            latestDetails.set(response.data);
 			return response.status == 201;
 		} catch (error) {
 			return false;
@@ -244,6 +261,7 @@ export const placemarkService = {
     async deleteDetailsbyId(id) {
         try {
 			const response = await axios.delete(this.baseUrl + "/api/details/" + id);
+            latestDetails.set(null);
 			return response.data;
 		} catch (error) {
             console.log(error);
@@ -257,10 +275,25 @@ export const placemarkService = {
     async editdetails(id, details) {
 		try {
 			const response = await axios.put(this.baseUrl + "/api/details/" + id, details);
+            latestDetails.set(response.data);
 			return response.status == 201;
 		} catch (error) {
 			return false;
 		}
 	},
 
+    /**
+     * @param {string} id
+     */
+    async getWeather(id) {
+		try {
+			const response = await axios.get(this.baseUrl + "/api/details/weather/" + id);
+            return response.data;
+		} catch (error) {
+			return false;
+		}
+	},
+
+    
+    
 };

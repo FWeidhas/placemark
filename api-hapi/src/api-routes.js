@@ -21,9 +21,10 @@ export const apiRoutes = [
   { method: "GET", path: "/api/pois/{id}/user", config: poiApi.findbyuser },
   { method: "GET", path: "/api/pois/admin", config: poiApi.findbycategorycount },
   { method: "GET", path: "/api/pois/users", config: poiApi.poisCountByUser },
+  { method: "GET", path: "/api/pois/users/{id}", config: poiApi.findbycategorycountUserPois },
 
   { method: "POST", path: "/api/pois/{id}/uploadimage", config: poiApi.uploadImage },
-  { method: "DELETE", path: "/api/pois/{id}/deleteimage", config: poiApi.deleteImage },
+  { method: "DELETE", path: "/api/pois/{id}/deleteimage/{img}/{index}", config: poiApi.deleteImage },
 
 
   { method: "GET", path: "/api/details", config: detailsApi.find },
@@ -33,4 +34,5 @@ export const apiRoutes = [
   { method: "GET", path: "/api/pois/{id}/details", config: detailsApi.findOneByPoiId },
   { method: "DELETE", path: "/api/details/{id}", config: detailsApi.deleteOne },
   { method: "PUT", path: "/api/details/{id}", config: detailsApi.update },
+  { method: "GET", path: "/api/details/weather/{id}", config: detailsApi.getWeather },
 ];

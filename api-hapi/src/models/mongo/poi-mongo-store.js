@@ -4,6 +4,13 @@ import { detailsMongoStore } from "./details-mongo-store.js";
 export const poiMongoStore = {
   async getAllPois() {
     const pois = await Poi.find().lean();
+    if (pois) {
+      for (let i = 0; i < pois.length; i+=1) {
+        const poi = pois[i];
+        // eslint-disable-next-line no-await-in-loop
+        poi.details = await detailsMongoStore.getDetailsByPoiId(poi._id);
+      }
+    }
     return pois;
   },
 
@@ -26,8 +33,16 @@ export const poiMongoStore = {
 
   async getUserPois(id) {
     const pois = await Poi.find({ userid: id }).lean();
+    if (pois) {
+      for (let i = 0; i < pois.length; i+=1) {
+        const poi = pois[i];
+        // eslint-disable-next-line no-await-in-loop
+        poi.details = await detailsMongoStore.getDetailsByPoiId(poi._id);
+      }
+    }
     return pois;
-  },
+  }
+  ,
 
   async deletePoiById(id) {
     try {
@@ -78,6 +93,24 @@ export const poiMongoStore = {
   
     return numberofpois;
   },
+
+  async getNumberofPoiswithCategoryUser(id) {
+    const categories = ["River", "Pond", "Lake", "Sea"];
+    const numberofpois = [];
+  
+    await Promise.all(
+      categories.map(async (category) => {
+        const count = await Poi.countDocuments({ category: category, userid: id });
+        const categorywithcount = {
+          category: category,
+          count: count,
+        };
+        numberofpois.push(categorywithcount);
+      })
+    );
+  
+    return numberofpois;
+  },  
 
   async getUserPoisCount(id) {
     const count = await Poi.countDocuments({ userid: id });

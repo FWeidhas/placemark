@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from "svelte";
   import { user } from "../stores.js";
 	import { placemarkService } from "../services/placemark-service.js";
@@ -7,10 +7,8 @@
     export let subTitle = "";
 
     let userstatus = "";    
-    /**
-	 * @type {{ isAdmin: any; lastName: any; firstName: any; email: any; }}
-	 */
-    let userinfo;
+    
+    let userinfo: { isAdmin: any; lastName: any; firstName: any; email: any; };
 
     onMount(async () => {
         if($user.id) {

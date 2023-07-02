@@ -1,50 +1,57 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-    import { placemarkService } from '../services/placemark-service';
+  import { placemarkService } from '../services/placemark-service';
     
-    /**
-	 * @type {{ img: any; _id: any; }}
-	 */
-    export let poi;
+  export let poi: { img: any; _id: any; };
 
-    const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
-    /**
-	 * @type {any}
-	 */
-    let imagefiles;
+let imagefiles: string | any[];
 
-    let message = "Add your images for your spot";
+  let isLoading = false;
 
-    async function addimage () {
-        if(!imagefiles) {
-          message = "Choose a png/jpeg-file to upload"
-        }
-        let formData = new FormData();
-        for (let i = 0; i < imagefiles.length; i++) {
-            let partfile = imagefiles[i];
-            formData.append(`image_buffer_${i}`, partfile);
-        }
-        // formData.append("imagefile", imagefile);
+  let message = "Add your images for your spot";
 
-        // @ts-ignore
-        const response = await placemarkService.addImage(poi._id, formData);
-        if (response) {
-          dispatch('imageAdded');
-        } else {
-            message = "Uploading not completed - some error occurred";
-        }
-    }
-
-
-    const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
-      const fileInput = event.target;
-      if (fileInput.files.length > 0) {
-        const fileName = document.querySelector(".file-name");
-        // @ts-ignore
-        fileName.textContent = fileInput.files[0].name;
+  async function addimage () {
+      if(!imagefiles) {
+        message = "Choose a png/jpeg-file to upload"
       }
-    };
+      message = "Loading ..."
+      isLoading = true;
+      let formData = new FormData();
+      for (let i = 0; i < imagefiles.length; i++) {
+          let partfile = imagefiles[i];
+          formData.append(`image_buffer_${i}`, partfile);
+      }
+    
+      const response = await placemarkService.addImage(poi._id, formData);
+      
+      if (response) {
+        isLoading = false;
+        const fileName = document.querySelector(".file-name")!;
+        fileName.textContent = "";
+        message = "Upload successful"
+        dispatch('imageAdded');
+      } else {
+          message = "Uploading not completed - some error occurred";
+      }
+  }
+
+
+  const handleFileInputChange = (event: { target: any; }) => {
+  const fileInput = event.target;
+  if (fileInput.files.length > 0) {
+    const fileName = document.querySelector(".file-name")!;
+    let filenames = '';
+    for (let i = 0; i < fileInput.files.length; i++) {
+      filenames += fileInput.files[i].name;
+      if (i !== fileInput.files.length - 1) {
+        filenames += ', ';
+      }
+    }
+    fileName.textContent = filenames;
+  }
+};
 </script>
   
 <div class="card mb-5">
@@ -63,8 +70,8 @@
                   </span>
                   <span class="file-name"></span>
               </label>
-              <button type="submit" class="button is-info">Upload</button>
             </div>
+            <button type="submit" class="button is-info mt-2" class:is-loading={isLoading}>Upload</button>
         </form>
         <div class="mt-3">
           {message}
