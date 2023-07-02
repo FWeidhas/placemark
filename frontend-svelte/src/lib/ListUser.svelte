@@ -11,12 +11,8 @@
 	 */
   let users = [];
 
-  
-  // let usercount;
-
   onMount(async () => {
       if($user.isAdmin) {
-          // users = await placemarkService.getAllUser();
           users = await placemarkService.getPoisCountbyUser();
       }
   });
