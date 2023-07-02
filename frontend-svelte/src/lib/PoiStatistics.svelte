@@ -1,6 +1,4 @@
-<script>
-// @ts-nocheck
-
+<script lang="ts">
     import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service.js";
     import { user, latestPois } from "../stores.js";
@@ -14,40 +12,20 @@
     let selectedType  = "pie";
     let type = "pie";
 
-    /**
-	 * @type {any[]}
-	 */
     let numberofpoiswithcategory = [];
 
     let numberofpoiswithcategoryuserbased = [];
 
     
-    
-    /**
-	 * @type {{ labels: any[]; datasets: { values: any[]; }[]; }}
-	 */
-    let categoryAllDistribution;
-
-    
-    
-    /**
-	 * @type {{ labels: any; datasets: { values: any; }[]; }}
-	 */
-    let categoryOwnPoisDistribution;
- 
-    
-    
-    /**
-	 * @type {{ labels: string[]; datasets: { values: any[]; }[]; }}
-	 */
-    let numberPoisallown;
+    let categoryAllDistribution: { labels: any[]; datasets: { values: any[]; }[] | { values: any[]; }[]; };
+    let categoryOwnPoisDistribution: { labels: any[]; datasets: { values: any[]; }[] | { values: any[]; }[]; };
+    let numberPoisallown: { labels: string[]; datasets: { values: number[]; }[] | { values: number[]; }[]; };
 
     onMount(async () => {
             ownPois = await placemarkService.getPoisbyUserId($user.id);
             pois = await placemarkService.getAllPois();
             numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
             numberofpoiswithcategoryuserbased = await placemarkService.getCategoryNumberofPoisUser($user.id);
-            // console.log(numberofpoiswithcategory, pois, ownPois, numberofpoiswithcategoryuserbased);
 
             categoryAllDistribution = {
                 labels: numberofpoiswithcategory.map((item) => item.category),
@@ -77,9 +55,6 @@
             };
     });
     
-    /**
-	 * @param {{ target: { value: string; }; }} event
-	 */
     function handleSelectedType() {
         type = selectedType;
         console.log(type);
@@ -107,10 +82,10 @@
             };
 
             categoryOwnPoisDistribution = {
-                labels: numberofpoiswithcategoryuserbased.map((/** @type {{ category: any; }} */ item) => item.category),
+                labels: numberofpoiswithcategoryuserbased.map((item) => item.category),
                 datasets: [
                 {
-                    values: numberofpoiswithcategoryuserbased.map((/** @type {{ count: any; }} */ item) => item.count),
+                    values: numberofpoiswithcategoryuserbased.map((item) => item.count),
                 },
                 ],
             };

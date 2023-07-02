@@ -1,11 +1,9 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
   import { placemarkService } from "../services/placemark-service.js";
   
-    /**
-     * @type {any}
-     */
-    export let poi;
+    
+    export let poi: any;
 
     const dispatch = createEventDispatcher();
   

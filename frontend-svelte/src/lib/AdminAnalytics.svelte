@@ -1,18 +1,12 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
     import { latestUsers, user } from "../stores.js";
 
-    /**
-     * @type {any[]}
-     */
     let users = [];
     let pois = [];
     
-    /**
-	 * @type {any[]}
-	 */
-    let numberofpoiswithcategory = [];
+    let numberofpoiswithcategory: any[] = [];
 
     onMount(async () => {
         users = await placemarkService.getAllUser();

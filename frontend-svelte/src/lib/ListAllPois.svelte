@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service";
     import { goto } from "$app/navigation";
@@ -6,14 +6,8 @@
     
     let categories = ["River", "Pond", "Sea", "Lake"];
     let selectedCategory = "Select category";
-    /**
-	 * @type {any[]}
-	 */
-    let poisList = [];
-    /**
-	 * @type {any[]}
-	 */
-    let filteredList = [];
+    let poisList: any[] = [];
+    let filteredList: any[] = [];
 
 
     onMount(async () => {
@@ -30,10 +24,7 @@
         }
     };
   
-    /**
-       * @param {any} id
-       */
-    function gotoDetails(id) {
+    function gotoDetails(id: string) {
       goto("/details/" + id);
     }
 </script>

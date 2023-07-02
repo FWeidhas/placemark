@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import DetailsMain from '$lib/DetailsMain.svelte';
     import Header from '../../../lib/Header.svelte';
     import MainNavigator from '../../../lib/MainNavigator.svelte';

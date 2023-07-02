@@ -1,28 +1,21 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     // @ts-ignore
     import Chart from "svelte-frappe-charts";
 	import { linearRegression } from "../services/utils.js";
 
-    let users = [];
-    let pois = [];
+    let users: any[] = [];
+    let pois: any[] = [];
 
-    
-    /**
-	 * @type {string}
-	 */
-    let trendiconuser;
-    /**
-	 * @type {string}
-	 */
-    let trendiconpois;
+    let trendiconuser: string;
+    let trendiconpois: string;
 
     let isLoading = false;
     
     
     
-    let usercountoverdate = {
+    let usercountoverdate: { labels: string[], datasets: { values: number[] }[] } = {
         labels: [],
         datasets: [
         {
@@ -31,7 +24,7 @@
         ]
     };
 
-    let poiscountoverdate = {
+    let poiscountoverdate: { labels: string[], datasets: { values: number[] }[] } = {
         labels: [],
         datasets: [
         {
@@ -40,7 +33,7 @@
         ]
     };
 
-    let userprojection = {
+    let userprojection: { labels: string[], datasets: { values: number[] }[] } = {
         labels: [],
         datasets: [
         {
@@ -49,7 +42,7 @@
         ]
     };
 
-    let poiprojection = {
+    let poiprojection: { labels: string[], datasets: { values: number[] }[] } = {
         labels: [],
         datasets: [
         {
@@ -64,33 +57,31 @@
             pois = await placemarkService.getAllPois();
             
             let data = getCountofDates(users)
-            // @ts-ignore
+            
             usercountoverdate = mapData(data);
             trendiconuser = getTrend(data);
 
             let poidata = getCountofDates(pois);
-            // @ts-ignore
+            
             poiscountoverdate = mapData(poidata);
             trendiconpois = getTrend(poidata);
             let userprojdata = getprojectedCharts(data);
-            // @ts-ignore
+            
             userprojection.labels = userprojdata.fulldates;
-            // @ts-ignore
+            
             userprojection.datasets[0].values = userprojdata.fullcounts;
 
             let poiprojdata = getprojectedCharts(poidata);
-            // @ts-ignore
+            
             poiprojection.labels = poiprojdata.fulldates;
-            // @ts-ignore
+            
             poiprojection.datasets[0].values = poiprojdata.fullcounts;
 
             isLoading = true;
         });
 
-        /**
-	 * @param {any[]} array
-	 */
-        function getprojectedCharts (array) {
+      
+        function getprojectedCharts (array: any[]) {
             let projecteddata = linearRegression(array);
 
             const dates = array.map((item) => item.date);
@@ -121,10 +112,7 @@
         return dates;
         }
 
-    /**
-	 * @param {any[]} array
-	 */
-    function getCountofDates(array) {
+    function getCountofDates(array: any[]) {
         const countByDate = array.reduce((count, a) => {
         const createdAtDate = new Date(a.createdAt).toLocaleDateString();
 
@@ -137,7 +125,7 @@
         return count;
         }, {});
 
-        const result = Object.entries(countByDate).map(([date, count]) => ({ date, count }));
+        const result: { date: string; count: number }[] = Object.entries(countByDate).map(([date, count]) => ({ date, count: count as number, }));
         result.sort((a, b) => {
             const dateA = new Date(a.date.split('.').reverse().join('-'));
             const dateB = new Date(b.date.split('.').reverse().join('-'));
@@ -152,10 +140,7 @@
         return result;
     };
 
-    /**
-	 * @param {any[]} array
-	 */
-    function mapData(array) {
+    function mapData(array: any[]) {
         let data = {
                 labels: array.map((item) => item.date),
                 datasets: [
@@ -167,10 +152,7 @@
         return data;
     };
 
-    /**
-	 * @param {string | any[]} array
-	 */
-    function getTrend (array) {
+    function getTrend (array: any[]) {
         if(array[array.length - 1].count > array[array.length - 2].count) {
             return "fas fa-arrow-up is-large fa-3x";
         }

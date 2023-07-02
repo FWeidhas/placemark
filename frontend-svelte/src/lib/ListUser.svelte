@@ -1,15 +1,11 @@
-<script>
-// @ts-nocheck
-
+<script lang="ts">
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
   import { latestUsers, user } from "../stores.js";
+  import type { User } from "../services/placemark-types";
 
  
-  /**
-	 * @type {any[] | import("axios").AxiosResponse<any, any>}
-	 */
-  let users = [];
+  let users: User[] = [];
 
   onMount(async () => {
       if($user.isAdmin) {
@@ -17,10 +13,7 @@
       }
   });
 
-  /**
- * @param {string} id
- */
-  async function deleteUser(id) {
+  async function deleteUser(id: string) {
     if($user.isAdmin) {
         await placemarkService.deleteUserById(id);
         users = await placemarkService.getPoisCountbyUser();

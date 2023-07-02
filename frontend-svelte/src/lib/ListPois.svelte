@@ -1,6 +1,4 @@
-<script>
-// @ts-nocheck
-
+<script lang="ts">
   import { onMount } from "svelte";
   import { placemarkService } from "../services/placemark-service";
   import { latestPois, user } from "../stores.js";
@@ -9,17 +7,9 @@
   let categories = ["River", "Pond", "Sea", "Lake"];
   let selectedCategory = "Select category";
 
-  
-  /**
-	 * @type {any[] | null}
-	 */
-  let poisList = [];
+  let poisList: any[] | null = null;
 
-  
-   /**
-	 * @type {string | any[] | null}
-	 */
-   let filteredList = [];
+  let filteredList: any[] | null = null;
 
   onMount(async () => {
     poisList = await placemarkService.getPoisbyUserId($user.id);
@@ -30,34 +20,25 @@
         if (selectedCategory === "Select category") {
             filteredList = poisList;
         } else {
-            // @ts-ignore
+
             filteredList = poisList.filter(poi => poi.category === selectedCategory);
         }
   };
 
-  /**
-	 * @param {string} id
-	 */
-  async function deletePoi(id) {
+  async function deletePoi(id: string) {
     await placemarkService.deletePoibyId(id);
     poisList = await placemarkService.getPoisbyUserId($user.id);
     filteredList = poisList;
     selectedCategory = "Select category";
-    // @ts-ignore
+    
     latestPois.set(poisList);
   };
 
-  /**
-	 * @param {any} id
-	 */
-  function gotoDetails(id) {
+  function gotoDetails(id: string) {
     goto("/details/" + id);
   }
 
-  /**
-	 * @param {string} id
-	 */
-  function gotoEdit(id) {
+  function gotoEdit(id: string) {
     goto("/edit/" + id)
   }
 </script>
@@ -74,7 +55,7 @@
       </div>
   </div>
 </div>
-{#if !(filteredList.length > 0)}
+{#if !(filteredList && filteredList.length > 0)}
   <p>No data</p>
   <div class="loading-spinner">
     <span class="icon is-large">

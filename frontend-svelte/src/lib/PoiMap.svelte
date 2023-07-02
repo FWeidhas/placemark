@@ -1,32 +1,24 @@
-<script>
+<script lang="ts">
     import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { user } from "../stores.js";
 
-    /**
-     * @type {string[]}
-     */
-    let notes = [];
+    let notes: string[] = [];
 
-    /**
-	 * @type {import("../services/leaflet-map.js").LeafletMap}
-	 */
-    let mapTerrain;
-    /**
-	 * @type {import("../services/leaflet-map.js").LeafletMap}
-	 */
-    let mapSat;
-    /**
-	 * @type {import("../services/leaflet-map.js").LeafletMap}
-	 */
-    let mapContext;
-    /**
-	 * @type {import("../services/leaflet-map.js").LeafletMap}
-	 */
-    let mapWeather;
+    interface LeafletMap {
+        showZoomControl(): void;
+        addLayerGroup(layerName: string): void;
+        showLayerControl(): void;
+        addWeatherLayer(layerName: string, layerType: string): void;
+        addMarker(coordinates: { lat: number; lng: number }, content: string, layer?: string | undefined): void;
+    }
+    let mapTerrain: LeafletMap;
+    let mapSat: LeafletMap;
+    let mapContext: LeafletMap;
+    let mapWeather: LeafletMap;
 
-    let categories = ["River", "Pond", "Sea", "Lake"];
+    let categories: string[] = ["River", "Pond", "Sea", "Lake"];
 
     onMount(async () => {
         if (typeof window !== "undefined") {
@@ -82,45 +74,40 @@
             mapWeather.showLayerControl();
 
             const pois = await placemarkService.getPoisbyUserId($user.id);
-            pois.forEach((/** @type {{ details: any; name: any; category: any;_id: any; }} */ poi) => {
+            pois.forEach((poi) => {
                 addPoiMarker(mapTerrain, poi, "Own POI");
             });
-            pois.forEach((/** @type {{ details: any; name: any; category: any;_id: any; }} */ poi) => {
+            pois.forEach((poi) => {
                 addPoiMarker(mapSat, poi, "Own POI");
             });
-            pois.forEach((/** @type {{ details: any; name: any; category: any; _id: any;}} */ poi) => {
+            pois.forEach((poi) => {
                 addPoiMarker(mapContext, poi, "Own POI");
             });
-            pois.forEach((/** @type {{ details: any; name: any; category: any; _id: any;}} */ poi) => {
+            pois.forEach((poi) => {
                 addPoiMarker(mapWeather, poi, "Own POI");
             });
 
             const allpois = await placemarkService.getAllPois();
-            allpois.forEach((/** @type {{ category: any; details: any; name: any;_id: any; }} */ poi) => {
+            allpois.forEach((poi) => {
                 addPoiMarker(mapTerrain, poi, "All POI");
                 addPoiMarker(mapTerrain, poi, poi.category);
             });
-            allpois.forEach((/** @type {{ category: any; details: any; name: any;_id: any; }} */ poi) => {
+            allpois.forEach((poi) => {
                 addPoiMarker(mapSat, poi, "All POI");
                 addPoiMarker(mapSat, poi, poi.category);
             });
-            allpois.forEach((/** @type {{ category: any; details: any; name: any;_id: any; }} */ poi) => {
+            allpois.forEach((poi) => {
                 addPoiMarker(mapContext, poi, "All POI");
                 addPoiMarker(mapContext, poi, poi.category);
             });
-            allpois.forEach((/** @type {{ category: any; details: any; name: any;_id: any; }} */ poi) => {
+            allpois.forEach((poi) => {
                 addPoiMarker(mapWeather, poi, "All POI");
                 addPoiMarker(mapWeather, poi, poi.category);
             });
         }
     });
 
-    /**
-	 * @param {import("../services/leaflet-map.js").LeafletMap} map
-	 * @param {{details: any;name: any;category: any;_id: any;}} poi
-	 * @param {string | undefined} layer
-	 */
-    function addPoiMarker(map, poi, layer) {
+    function addPoiMarker(map: LeafletMap, poi: { details: any; name: any; category: any; _id: any }, layer?: string | undefined) {
         if (poi.details) {
             const poiStr = `
             <div>
