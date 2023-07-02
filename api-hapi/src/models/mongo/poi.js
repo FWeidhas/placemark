@@ -1,15 +1,19 @@
-import Mongoose from "mongoose";
+import mongoose from "mongoose";
 
-const { Schema } = Mongoose;
+const { Schema } = mongoose;
 
-const poiSchema = new Schema({
-  name: String,
-  category: String,
-  img: [String],
-  userid: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+const poiSchema = new Schema(
+  {
+    name: String,
+    category: String,
+    img: [String],
+    userid: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-});
+  { timestamps: true }
+);
 
-export const Poi = Mongoose.model("Poi", poiSchema);
+export const Poi = mongoose.model("Poi", poiSchema);
+
