@@ -7,6 +7,7 @@
     let users = [];
     let pois = [];
 
+    let isLoading = false;
     
     
     
@@ -17,7 +18,16 @@
             values: []
         }
         ]
-    }
+    };
+
+    let poiscountoverdate = {
+        labels: [],
+        datasets: [
+        {
+            values: []
+        }
+        ]
+    };
     
 
     onMount(async () => {
@@ -25,11 +35,15 @@
             pois = await placemarkService.getAllPois();
             
             let data = getCountofDates(users)
-
             // @ts-ignore
             usercountoverdate = mapData(data);
-            console.log(usercountoverdate.datasets)
-            getCountofDates(pois);
+
+            let poidata = getCountofDates(pois);
+            // @ts-ignore
+            poiscountoverdate = mapData(poidata);
+
+
+            isLoading = true;
         });
 
     /**
@@ -90,5 +104,24 @@
 </script>
 
 
-<h1>Dummytext</h1>
-<Chart data={usercountoverdate} type="line"/>
+<h1 class="title is-1 has-text-centered">Trends and Projections:</h1>
+{#if isLoading}
+<section class="section">
+  <div class="container">
+    <h2 class="title">Number of users over time</h2>
+    <div class="chart">
+        <Chart data={usercountoverdate} type="line"/>
+    </div>
+    <h2 class="title">Number of spots over time</h2>
+    <div class="chart">
+        <Chart data={poiscountoverdate} type="line"/>
+    </div>
+  </div>
+</section>
+{:else}
+<div class="loading-spinner">
+    <span class="icon is-large">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>
+</div>    
+{/if}
