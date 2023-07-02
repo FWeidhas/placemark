@@ -1,3 +1,6 @@
+const currentDate = new Date();
+const lastWeekDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+
 export const seedData = {
     users: {
       _model: "User",
@@ -5,32 +8,37 @@ export const seedData = {
         firstName: "Homer",
         lastName: "Simpson",
         email: "homer@simpson.com",
-        password: "secret"
+        password: "secret",
+        timestamp: lastWeekDate.toISOString()
       },
       marge: {
         firstName: "Marge",
         lastName: "Simpson",
         email: "marge@simpson.com",
-        password: "secret"
+        password: "secret",
+        timestamp: lastWeekDate.toISOString()
       },
       bart: {
         firstName: "Bart",
         lastName: "Simpson",
         email: "bart@simpson.com",
-        password: "secret"
+        password: "secret",
+        timestamp: lastWeekDate.toISOString()
       },
       admin: {
         firstName: "admin",
         lastName: "admin",
         email: "admin@simpson.com",
         password: "admin",
-        isAdmin: true
+        isAdmin: true,
+        timestamp: lastWeekDate.toISOString()
       },
       lisa: {
         firstName: "Lisa",
         lastName: "Simpson",
         email: "lisa@simpson.com",
-        password: "secret"
+        password: "secret",
+        timestamp: lastWeekDate.toISOString()
       }
     },
     pois: {
@@ -39,127 +47,148 @@ export const seedData = {
         name: "Regensburg",
         category: "River",
         img: [],
-        userid: "->users.bart"
+        userid: "->users.bart",
+        timestamp: lastWeekDate.toISOString()
       },
       munich: {
         name: "Munich",
         category: "River",
         img: [],
-        userid: "->users.lisa"
+        userid: "->users.lisa",
+        timestamp: lastWeekDate.toISOString()
       },
       ammersee: {
         name: "Ammersee",
         category: "Lake",
         img: [],
-        userid: "->users.homer"
+        userid: "->users.homer",
+        timestamp: lastWeekDate.toISOString()
       },
       balticSea: {
         name: "Baltic Sea",
         category: "Sea",
         img: [],
-        userid: "->users.admin"
+        userid: "->users.admin",
+        timestamp: lastWeekDate.toISOString()
       },
       englishPond: {
         name: "English Pond",
         category: "Pond",
         img: [],
-        userid: "->users.marge"
+        userid: "->users.marge",
+        timestamp: lastWeekDate.toISOString()
       },
       rhineRiver: {
         name: "Rhine River",
         category: "River",
         img: [],
-        userid: "->users.bart"
+        userid: "->users.bart",
+        timestamp: lastWeekDate.toISOString()
       },
       neuschwanstein: {
         name: "Neuschwanstein Castle",
         category: "River",
         img: [],
-        userid: "->users.lisa"
+        userid: "->users.lisa",
+        timestamp: lastWeekDate.toISOString()
       },
       berlin: {
         name: "Berlin",
         category: "Lake",
         img: [],
-        userid: "->users.bart"
+        userid: "->users.bart",
+        timestamp: lastWeekDate.toISOString()
       },
       zugspitze: {
         name: "Zugspitze",
         category: "River",
         img: [],
-        userid: "->users.lisa"
+        userid: "->users.lisa",
+        timestamp: lastWeekDate.toISOString()
       },
       bodensee: {
         name: "Lake Constance",
         category: "Lake",
         img: [],
-        userid: "->users.homer"
+        userid: "->users.homer",
+        timestamp: lastWeekDate.toISOString()
       },
       norwegianFjords: {
         name: "Norwegian Fjords",
         category: "Sea",
         img: [],
-        userid: "->users.admin"
+        userid: "->users.admin",
+        timestamp: lastWeekDate.toISOString()
       },
       blackForest: {
         name: "Black Forest",
         category: "River",
         img: [],
-        userid: "->users.marge"
+        userid: "->users.marge",
+        timestamp: lastWeekDate.toISOString()
       },
       cologneCathedral: {
         name: "Cologne Cathedral",
         category: "River",
         img: [],
-        userid: "->users.homer"
+        userid: "->users.homer",
+        timestamp: lastWeekDate.toISOString()
       },
       rhineFalls: {
         name: "Rhine Falls",
         category: "River",
         img: [],
-        userid: "->users.bart"
+        userid: "->users.bart",
+        timestamp: lastWeekDate.toISOString()
       },
       starnbergerSee: {
         name: "Starnberger See",
         category: "Lake",
         img: [],
-        userid: "->users.lisa"
+        userid: "->users.lisa",
+        timestamp: lastWeekDate.toISOString()
       },
       chiemsee: {
         name: "Chiemsee",
         category: "Lake",
         img: [],
-        userid: "->users.homer"
+        userid: "->users.homer",
+        timestamp: lastWeekDate.toISOString()
       },
       bodden: {
         name: "Bodden",
         category: "Sea",
         img: [],
-        userid: "->users.admin"
+        userid: "->users.admin",
+        timestamp: lastWeekDate.toISOString()
       },
       tegernsee: {
         name: "Tegernsee",
         category: "Lake",
         img: [],
-        userid: "->users.marge"
+        userid: "->users.marge",
+        timestamp: lastWeekDate.toISOString()
       },
       ammer: {
         name: "Ammer",
         category: "River",
         img: [],
-        userid: "->users.bart"
+        userid: "->users.bart",
+        timestamp: lastWeekDate.toISOString()
       },
       constance: {
         name: "Lake Constance",
         category: "Lake",
         img: [],
-        userid: "->users.lisa"
+        userid: "->users.lisa",
+        timestamp: lastWeekDate.toISOString()
       },
       fuschlsee: {
         name: "Fuschlsee",
         category: "Lake",
         img: [],
-        userid: "->users.homer"
+        userid: "->users.homer",
+        timestamp: lastWeekDate.toISOString()
       }
     },
     details: {

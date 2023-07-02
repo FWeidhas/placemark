@@ -19,6 +19,8 @@ export const UserSpec = UserCredentialsSpec.keys({
   firstName: Joi.string().example("Homer").required(),
   lastName: Joi.string().example("Simpson").required(),
   isAdmin: Joi.boolean().example(false),
+  createdAt: Joi.date().iso().optional().example("2023-07-02T10:30:00Z"),
+  updatedAt: Joi.date().iso().optional().example("2023-07-02T10:30:00Z"),
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
@@ -52,6 +54,8 @@ export const PoiSpec = Joi.object()
     userid: IdSpec,
     details: DetailsSpecPlus.optional().allow(null),
     img: Joi.array().items(Joi.string().allow("")).optional().allow(null),
+    createdAt: Joi.date().iso().optional().example("2023-07-02T10:30:00Z"),
+    updatedAt: Joi.date().iso().optional().example("2023-07-02T10:30:00Z"),
   })
   .label("Point of Interest");
 
