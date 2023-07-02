@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "leaflet/dist/leaflet.css";
+    // import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
 	import { latestDetails } from "../stores.js";
 
@@ -11,7 +11,7 @@
     onMount(async () => {
         if (typeof window !== "undefined") {
             const { LeafletMap } = await import("../services/leaflet-map.js");
-            import("leaflet/dist/leaflet.css");
+            // import("leaflet/dist/leaflet.css");
 
             const mapConfig = {
                 location: { lat: 49.0134297, lng: 12.1016236 },

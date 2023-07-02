@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "leaflet/dist/leaflet.css";
+    // import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service.js";
     import { user } from "../stores.js";
