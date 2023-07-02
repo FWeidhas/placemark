@@ -15,11 +15,9 @@
     let numberofpoiswithcategory = [];
 
     onMount(async () => {
-        if($user.isAdmin) {
-            users = await placemarkService.getAllUser();
-            pois = await placemarkService.getAllPois();
-            numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
-        }
+        users = await placemarkService.getAllUser();
+        pois = await placemarkService.getAllPois();
+        numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
     });
 
     latestUsers.subscribe(async (users) => {

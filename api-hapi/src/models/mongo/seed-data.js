@@ -1,5 +1,10 @@
 const currentDate = new Date();
-const lastWeekDate = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+function getRandomDateFromLastWeek() {
+  const lastWeekDate = new Date(
+    currentDate.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000
+  );
+  return lastWeekDate.toISOString();
+}
 
 export const seedData = {
     users: {
@@ -9,21 +14,21 @@ export const seedData = {
         lastName: "Simpson",
         email: "homer@simpson.com",
         password: "secret",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       marge: {
         firstName: "Marge",
         lastName: "Simpson",
         email: "marge@simpson.com",
         password: "secret",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       bart: {
         firstName: "Bart",
         lastName: "Simpson",
         email: "bart@simpson.com",
         password: "secret",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       admin: {
         firstName: "admin",
@@ -31,14 +36,14 @@ export const seedData = {
         email: "admin@simpson.com",
         password: "admin",
         isAdmin: true,
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       lisa: {
         firstName: "Lisa",
         lastName: "Simpson",
         email: "lisa@simpson.com",
         password: "secret",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       }
     },
     pois: {
@@ -48,147 +53,147 @@ export const seedData = {
         category: "River",
         img: [],
         userid: "->users.bart",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       munich: {
         name: "Munich",
         category: "River",
         img: [],
         userid: "->users.lisa",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       ammersee: {
         name: "Ammersee",
         category: "Lake",
         img: [],
         userid: "->users.homer",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       balticSea: {
         name: "Baltic Sea",
         category: "Sea",
         img: [],
         userid: "->users.admin",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       englishPond: {
         name: "English Pond",
         category: "Pond",
         img: [],
         userid: "->users.marge",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       rhineRiver: {
         name: "Rhine River",
         category: "River",
         img: [],
         userid: "->users.bart",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       neuschwanstein: {
         name: "Neuschwanstein Castle",
         category: "River",
         img: [],
         userid: "->users.lisa",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       berlin: {
         name: "Berlin",
         category: "Lake",
         img: [],
         userid: "->users.bart",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       zugspitze: {
         name: "Zugspitze",
         category: "River",
         img: [],
         userid: "->users.lisa",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       bodensee: {
         name: "Lake Constance",
         category: "Lake",
         img: [],
         userid: "->users.homer",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       norwegianFjords: {
         name: "Norwegian Fjords",
         category: "Sea",
         img: [],
         userid: "->users.admin",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       blackForest: {
         name: "Black Forest",
         category: "River",
         img: [],
         userid: "->users.marge",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       cologneCathedral: {
         name: "Cologne Cathedral",
         category: "River",
         img: [],
         userid: "->users.homer",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       rhineFalls: {
         name: "Rhine Falls",
         category: "River",
         img: [],
         userid: "->users.bart",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       starnbergerSee: {
         name: "Starnberger See",
         category: "Lake",
         img: [],
         userid: "->users.lisa",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       chiemsee: {
         name: "Chiemsee",
         category: "Lake",
         img: [],
         userid: "->users.homer",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       bodden: {
         name: "Bodden",
         category: "Sea",
         img: [],
         userid: "->users.admin",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       tegernsee: {
         name: "Tegernsee",
         category: "Lake",
         img: [],
         userid: "->users.marge",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       ammer: {
         name: "Ammer",
         category: "River",
         img: [],
         userid: "->users.bart",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       constance: {
         name: "Lake Constance",
         category: "Lake",
         img: [],
         userid: "->users.lisa",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       },
       fuschlsee: {
         name: "Fuschlsee",
         category: "Lake",
         img: [],
         userid: "->users.homer",
-        timestamp: lastWeekDate.toISOString()
+        createdAt: getRandomDateFromLastWeek()
       }
     },
     details: {
