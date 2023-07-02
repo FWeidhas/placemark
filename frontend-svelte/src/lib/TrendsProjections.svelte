@@ -42,7 +42,6 @@
             // @ts-ignore
             poiscountoverdate = mapData(poidata);
 
-
             isLoading = true;
         });
 
@@ -73,19 +72,9 @@
         for (let i = 1; i < result.length; i++) {
             result[i].count += result[i - 1].count;
         };
-        // console.log(result);
 
         return result;
     };
-
-    /**
-	 * @param {string | any[]} array
-	 */
-    function getSumofDates (array) {
-        for (let i = 1; i < array.length; i++) {
-            array[i].count += array[i - 1].count;
-        };
-    }
 
     /**
 	 * @param {any[]} array
@@ -100,7 +89,7 @@
                 ],
             };
         return data;
-    }
+    };
 </script>
 
 
@@ -119,7 +108,7 @@
   </div>
 </section>
 {:else}
-<div class="loading-spinner">
+<div class="loading-spinner has-text-centered">
     <span class="icon is-large">
       <i class="fas fa-spinner fa-pulse"></i>
     </span>
