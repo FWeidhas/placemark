@@ -7,6 +7,16 @@
     let users = [];
     let pois = [];
 
+    
+    /**
+	 * @type {string}
+	 */
+    let trendiconuser;
+    /**
+	 * @type {string}
+	 */
+    let trendiconpois;
+
     let isLoading = false;
     
     
@@ -37,11 +47,13 @@
             let data = getCountofDates(users)
             // @ts-ignore
             usercountoverdate = mapData(data);
+            trendiconuser = getTrend(data);
 
             let poidata = getCountofDates(pois);
             // @ts-ignore
             poiscountoverdate = mapData(poidata);
-
+            trendiconpois = getTrend(poidata);
+            console.log(data, poidata);
             isLoading = true;
         });
 
@@ -90,6 +102,21 @@
             };
         return data;
     };
+
+    /**
+	 * @param {string | any[]} array
+	 */
+    function getTrend (array) {
+        if(array[array.length - 1].count > array[array.length - 2].count) {
+            return "fas fa-arrow-up is-large";
+        }
+        if(array[array.length - 1].count < array[array.length - 2].count) {
+            return "fas fa-arrow-down is-large";
+        }
+        else {
+            return "fas fa-arrow-right is-large";
+        }
+    }
 </script>
 
 
@@ -97,11 +124,25 @@
 {#if isLoading}
 <section class="section">
   <div class="container">
-    <h2 class="title">Number of users over time</h2>
+    <div class="columns">
+        <div class="column is-narrow">
+          <h2 class="title">Number of users over time</h2>
+        </div>
+        <div class="column">
+          <i class={trendiconuser}></i>
+        </div>
+      </div>      
     <div class="chart">
         <Chart data={usercountoverdate} type="line"/>
     </div>
-    <h2 class="title">Number of spots over time</h2>
+    <div class="columns">
+        <div class="column is-narrow">
+          <h2 class="title">Number of spots over time</h2>
+        </div>
+        <div class="column">
+          <i class={trendiconuser}></i>
+        </div>
+    </div>
     <div class="chart">
         <Chart data={poiscountoverdate} type="line"/>
     </div>
