@@ -8,3 +8,5 @@ export const user = writable({
 });
 
 export const latestDetails = writable(null);
+
+export const latestPois = writable(null);

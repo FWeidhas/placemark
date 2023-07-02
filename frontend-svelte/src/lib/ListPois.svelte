@@ -1,19 +1,23 @@
 <script>
+// @ts-nocheck
+
   import { onMount } from "svelte";
   import { placemarkService } from "../services/placemark-service";
-  import { user } from "../stores.js";
+  import { latestPois, user } from "../stores.js";
 	import { goto } from "$app/navigation";
 
   let categories = ["River", "Pond", "Sea", "Lake"];
   let selectedCategory = "Select category";
 
+  
   /**
-	 * @type {any[]}
+	 * @type {any[] | null}
 	 */
   let poisList = [];
 
-  /**
-	 * @type {any[]}
+  
+   /**
+	 * @type {string | any[] | null}
 	 */
    let filteredList = [];
 
@@ -26,6 +30,7 @@
         if (selectedCategory === "Select category") {
             filteredList = poisList;
         } else {
+            // @ts-ignore
             filteredList = poisList.filter(poi => poi.category === selectedCategory);
         }
   };
@@ -38,6 +43,8 @@
     poisList = await placemarkService.getPoisbyUserId($user.id);
     filteredList = poisList;
     selectedCategory = "Select category";
+    // @ts-ignore
+    latestPois.set(poisList);
   };
 
   /**
