@@ -3,7 +3,7 @@
 
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
-  import { user } from "../stores.js";
+  import { latestUsers, user } from "../stores.js";
 
  
   /**
@@ -24,6 +24,7 @@
     if($user.isAdmin) {
         await placemarkService.deleteUserById(id);
         users = await placemarkService.getPoisCountbyUser();
+        latestUsers.set(users);
       }
   }
 </script>

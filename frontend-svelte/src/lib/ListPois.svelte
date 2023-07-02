@@ -75,6 +75,7 @@
   </div>
 </div>
 {#if !(filteredList.length > 0)}
+  <p>No data</p>
   <div class="loading-spinner">
     <span class="icon is-large">
       <i class="fas fa-spinner fa-pulse"></i>

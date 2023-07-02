@@ -3,7 +3,7 @@
     
         import { onMount } from "svelte";
         import { placemarkService } from "../services/placemark-service.js";
-        import { user } from "../stores.js";
+        import { latestUsers, user } from "../stores.js";
         // @ts-ignore
         import Chart from "svelte-frappe-charts";
     
@@ -98,7 +98,61 @@
         function handleSelectedType() {
             type = selectedType;
             console.log(type);
-      }
+        };
+
+      latestUsers.subscribe(async (users) => {
+        if (users) {
+            await refreshChart();
+        }
+      });
+
+      async function refreshChart() {
+        ownPois = await placemarkService.getPoisbyUserId($user.id);
+                pois = await placemarkService.getAllPois();
+                numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
+                numberofpoiswithcategoryuserbased = await placemarkService.getCategoryNumberofPoisUser($user.id);
+                if($user.isAdmin) {
+                    users = await placemarkService.getPoisCountbyUser();
+
+                    console.log(users);
+
+                    userpoiscount = {
+                    labels: users.map((item) => item.email),
+                    datasets: [
+                    {
+                        values: users.map((item) => item.poisCount),
+                    },
+                    ],
+                };
+                }
+    
+                categoryAllDistribution = {
+                    labels: numberofpoiswithcategory.map((item) => item.category),
+                    datasets: [
+                    {
+                        values: numberofpoiswithcategory.map((item) => item.count),
+                    },
+                    ],
+                };
+    
+                categoryOwnPoisDistribution = {
+                    labels: numberofpoiswithcategoryuserbased.map((/** @type {{ category: any; }} */ item) => item.category),
+                    datasets: [
+                    {
+                        values: numberofpoiswithcategoryuserbased.map((/** @type {{ count: any; }} */ item) => item.count),
+                    },
+                    ],
+                };
+    
+                numberPoisallown = {
+                    labels: ["Other Pois", "Own Pois"],
+                    datasets: [
+                        {
+                            values: [pois.length - ownPois.length, ownPois.length]
+                        }
+                    ],
+                };
+	  };
     </script>
     
     <div class="select">

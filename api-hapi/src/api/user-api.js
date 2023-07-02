@@ -77,6 +77,7 @@ export const userApi = {
           return Boom.notFound("No User with this id");
         }
         await db.userStore.deleteUserById(user._id);
+        await db.poiStore.deletePoiByUserId(user._id);
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("No User with this id");
