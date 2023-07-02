@@ -44,7 +44,49 @@ export const seedData = {
         email: "lisa@simpson.com",
         password: "secret",
         createdAt: getRandomDateFromLastWeek()
-      }
+      },
+      margaret: {
+        firstName: "Margaret",
+        lastName: "Johnson",
+        email: "margaret@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      john: {
+        firstName: "John",
+        lastName: "Smith",
+        email: "john@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      sarah: {
+        firstName: "Sarah",
+        lastName: "Johnson",
+        email: "sarah@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      alex: {
+        firstName: "Alex",
+        lastName: "Brown",
+        email: "alex@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      emma: {
+        firstName: "Emma",
+        lastName: "Davis",
+        email: "emma@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      david: {
+        firstName: "David",
+        lastName: "Wilson",
+        email: "david@example.com",
+        password: "secret",
+        createdAt: getRandomDateFromLastWeek()
+      },
     },
     pois: {
       _model: "Poi",
@@ -194,7 +236,133 @@ export const seedData = {
         img: [],
         userid: "->users.homer",
         createdAt: getRandomDateFromLastWeek()
-      }
+      },
+      eiffelTower: {
+        name: "Eiffel Tower",
+        category: "River",
+        img: [],
+        userid: "->users.margaret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      statueOfLiberty: {
+        name: "Statue of Liberty",
+        category: "Sea",
+        img: [],
+        userid: "->users.margaret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      greatWallOfChina: {
+        name: "Great Wall of China",
+        category: "River",
+        img: [],
+        userid: "->users.margaret",
+        createdAt: getRandomDateFromLastWeek()
+      },
+      johnLake: {
+        name: "Lake Geneva",
+        category: "Lake",
+        img: [],
+        userid: "->users.john",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      johnRiver: {
+        name: "Danube River",
+        category: "River",
+        img: [],
+        userid: "->users.john",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      johnSea: {
+        name: "Mediterranean Sea",
+        category: "Sea",
+        img: [],
+        userid: "->users.john",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      sarahLake: {
+        name: "Plitvice Lakes",
+        category: "Lake",
+        img: [],
+        userid: "->users.sarah",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      sarahRiver: {
+        name: "Soca River",
+        category: "River",
+        img: [],
+        userid: "->users.sarah",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      sarahSea: {
+        name: "Adriatic Sea",
+        category: "Sea",
+        img: [],
+        userid: "->users.sarah",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      alexLake: {
+        name: "Lake Como",
+        category: "Lake",
+        img: [],
+        userid: "->users.alex",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      alexRiver: {
+        name: "Rhine River",
+        category: "River",
+        img: [],
+        userid: "->users.alex",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      alexSea: {
+        name: "Baltic Sea",
+        category: "Sea",
+        img: [],
+        userid: "->users.alex",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      emmaLake: {
+        name: "Lake Bled",
+        category: "Lake",
+        img: [],
+        userid: "->users.emma",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      emmaRiver: {
+        name: "Seine River",
+        category: "River",
+        img: [],
+        userid: "->users.emma",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      emmaSea: {
+        name: "Atlantic Ocean",
+        category: "Sea",
+        img: [],
+        userid: "->users.emma",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      davidLake: {
+        name: "Loch Ness",
+        category: "Lake",
+        img: [],
+        userid: "->users.david",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      davidRiver: {
+        name: "Thames River",
+        category: "River",
+        img: [],
+        userid: "->users.david",
+        createdAt: getRandomDateFromLastWeek()
+        },
+      davidSea: {
+        name: "North Sea",
+        category: "Sea",
+        img: [],
+        userid: "->users.david",
+        createdAt: getRandomDateFromLastWeek()
+        }
     },
     details: {
       _model: "Details",
@@ -323,7 +491,115 @@ export const seedData = {
         latitude: 47.785833,
         longitude: 13.284167,
         poiid: "->pois.fuschlsee"
-      }
+      },
+      details_22: {
+        description: "The Eiffel Tower is an iconic landmark located in Paris, France. It is a wrought-iron lattice tower that stands at a height of 324 meters. The tower offers panoramic views of the city and is visited by millions of tourists each year. Visitors can take elevators or climb the stairs to reach the top and enjoy the breathtaking scenery.",
+        latitude: 48.8583701,
+        longitude: 2.2944813,
+        poiid: "->pois.eiffelTower"
+      },
+      details_23: {
+        description: "The Statue of Liberty is a colossal neoclassical sculpture located on Liberty Island in New York Harbor, United States. It was a gift from France to the United States and is a symbol of freedom and democracy. Visitors can take a ferry to the island and admire the statue up close. There is also a museum inside the pedestal that provides historical information about the statue's construction and significance.",
+        latitude: 40.6892494,
+        longitude: -74.0445004,
+        poiid: "->pois.statueOfLiberty"
+      },
+      details_24: {
+        description: "The Great Wall of China is an ancient fortification that stretches across the northern part of China. It is one of the most famous landmarks in the world and a UNESCO World Heritage Site. The wall was built to protect China from invasions and spans over 13,000 miles. Visitors can explore different sections of the wall, hike along its rugged paths, and learn about its historical significance.",
+        latitude: 40.431908,
+        longitude: 116.570374,
+        poiid: "->pois.greatWallOfChina"
+      },
+      details_25: {
+        description: "Lake Geneva is a stunning lake located on the border between Switzerland and France. Surrounded by the Alps and dotted with charming towns, it offers breathtaking views and various recreational activities, such as boating and lakeside walks.",
+        latitude: 46.4090,
+        longitude: 6.9117,
+        poiid: "->pois.johnLake"
+      },
+      details_26: {
+        description: "The Danube River is Europe's second-longest river, flowing through multiple countries including Germany, Austria, and Hungary. It is known for its scenic beauty, historic cities along its banks, and river cruises that offer a unique way to explore the region.",
+        latitude: 48.2082,
+        longitude: 16.3738,
+        poiid: "->pois.johnRiver"
+        },
+      details_27: {
+        description: "The Mediterranean Sea is a popular sea located between Europe, Africa, and Asia. With its crystal-clear waters, stunning beaches, and rich cultural heritage, it attracts millions of visitors each year who enjoy swimming, sailing, and exploring coastal towns.",
+        latitude: 35.9579,
+        longitude: 14.3836,
+        poiid: "->pois.johnSea"
+        },
+      details_28: {
+        description: "The Plitvice Lakes National Park in Croatia is a UNESCO World Heritage Site renowned for its cascading lakes, waterfalls, and lush greenery. Visitors can explore the park through a series of wooden footbridges and hiking trails, immersing themselves in the natural beauty of the area.",
+        latitude: 44.8654,
+        longitude: 15.5838,
+        poiid: "->pois.sarahLake"
+        },
+      details_29: {
+        description: "The Soca River in Slovenia is known for its stunning turquoise color and pristine surroundings. It offers opportunities for various water activities, including kayaking, rafting, and swimming. The river flows through picturesque valleys and is a paradise for nature lovers.",
+        latitude: 46.3344,
+        longitude: 13.7419,
+        poiid: "->pois.sarahRiver"
+        },
+      details_30: {
+        description: "The Adriatic Sea is a beautiful body of water located between Italy and the Balkan Peninsula. It is known for its stunning coastline, crystal-clear waters, and charming coastal towns such as Dubrovnik and Split, offering visitors a mix of natural beauty and cultural heritage.",
+        latitude: 42.6507,
+        longitude: 18.0944,
+        poiid: "->pois.sarahSea"
+        },
+      details_31: {
+        description: "Lake Como is a picturesque lake situated in the Italian Alps. Surrounded by mountains and dotted with charming villages, it offers a serene and romantic setting. Visitors can enjoy boat tours, waterfront promenades, and explore the elegant villas that line its shores.",
+        latitude: 45.9644,
+        longitude: 9.2188,
+        poiid: "->pois.alexLake"
+        },
+      details_32: {
+        description: "The Rhine River is one of Europe's major rivers, flowing through several countries including Switzerland, Germany, and the Netherlands. It is famous for its scenic landscapes, historic castles, and vineyards along its banks. River cruises are a popular way to experience the beauty of the Rhine.",
+        latitude: 50.5503,
+        longitude: 7.0547,
+        poiid: "->pois.alexRiver"
+        },
+      details_33: {
+        description: "The Baltic Sea is a brackish sea located between the countries of Scandinavia, the Baltic states, and Germany. It offers a unique blend of sandy beaches, rugged coastlines, and charming seaside resorts. Visitors can enjoy sailing, fishing, and exploring the picturesque coastal towns.",
+        latitude: 56.9496,
+        longitude: 21.1334,
+        poiid: "->pois.alexSea"
+        },
+      details_34: {
+        description: "Lake Bled is a stunning glacial lake nestled in the Julian Alps of Slovenia. With its crystal-clear waters, an island with a church, and a medieval castle perched on a cliff, it is a fairytale-like destination. Visitors can explore the lake by rowing traditional wooden boats known as pletnas.",
+        latitude: 46.3676,
+        longitude: 14.1140,
+        poiid: "->pois.emmaLake"
+        },
+      details_35: {
+        description: "The Seine River flows through the heart of Paris, France, and is an iconic symbol of the city. It is lined with famous landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. Taking a boat cruise along the Seine is a popular way to experience the beauty of Paris.",
+        latitude: 48.8599,
+        longitude: 2.3471,
+        poiid: "->pois.emmaRiver"
+        },
+      details_36: {
+        description: "The Atlantic Ocean borders the western coast of Europe, offering vast expanses of water, stunning sunsets, and powerful waves. It is a playground for surfers, a habitat for diverse marine life, and a backdrop for coastal adventures and relaxation.",
+        latitude: 48.2951,
+        longitude: -14.0906,
+        poiid: "->pois.emmaSea"
+        },
+      details_37: {
+        description: "Loch Ness is a large freshwater lake located in the Scottish Highlands. It is famous for the legendary Loch Ness Monster, and visitors flock to the area in hopes of catching a glimpse of the mythical creature. Apart from its mystery, Loch Ness offers breathtaking scenery and opportunities for boating and hiking.",
+        latitude: 57.3229,
+        longitude: -4.4244,
+        poiid: "->pois.davidLake"
+        },
+      details_38: {
+        description: "The Thames River is the iconic river that flows through London, England. It is a historical and cultural landmark, lined with famous landmarks such as the Tower Bridge, the Houses of Parliament, and the London Eye. Taking a river cruise along the Thames provides a unique perspective of the city.",
+        latitude: 51.5074,
+        longitude: -0.1278,
+        poiid: "->pois.davidRiver"
+        },
+      details_39: {
+        description: "The North Sea is a part of the Atlantic Ocean located between the coasts of northern Europe. It is known for its dramatic coastline, sandy beaches, and rich maritime history. Visitors can enjoy coastal walks, explore fishing villages, and indulge in various water sports.",
+        latitude: 55.4304,
+        longitude: 7.3434,
+        poiid: "->pois.davidSea"
+        }
     }
   };
   
