@@ -4,7 +4,9 @@ import axios from "axios";
 import { latestDetails, user } from "../stores.js";
 
 export const placemarkService = {
-    baseUrl: "http://localhost:3000",
+    // baseUrl: "http://localhost:3000",
+    baseUrl: "https://placemarkbackend.onrender.com",
+
 
     // @ts-ignore
     async login(email, password) {
