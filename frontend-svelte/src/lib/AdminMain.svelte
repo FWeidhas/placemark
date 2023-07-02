@@ -10,7 +10,7 @@
         <AdminStatistics />
     </div>
     <div class="column box has-text-centered">
-        <ListUser />
         <AdminAnalytics />
+        <ListUser />
     </div>
 </div>
