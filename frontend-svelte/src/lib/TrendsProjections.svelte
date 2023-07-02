@@ -3,6 +3,7 @@
     import { placemarkService } from "../services/placemark-service.js";
     // @ts-ignore
     import Chart from "svelte-frappe-charts";
+	import linearRegression from "../services/utils.js";
 
     let users = [];
     let pois = [];
@@ -53,7 +54,10 @@
             // @ts-ignore
             poiscountoverdate = mapData(poidata);
             trendiconpois = getTrend(poidata);
-            console.log(data, poidata);
+            
+            let projecteduser = linearRegression(data);
+            let projectedpois = linearRegression(poidata);
+            console.log(projecteduser, projectedpois);
             isLoading = true;
         });
 
