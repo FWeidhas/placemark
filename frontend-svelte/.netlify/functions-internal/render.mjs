@@ -6,7 +6,7 @@ export const handler = init({
 	assets: new Set(["favicon.png","fishing-boat.jpg","images/layers-2x.png","images/layers.png","images/marker-icon-2x.png","images/marker-icon.png","images/marker-shadow.png","lake-fishing.jpg","leaflet.css","sea-fishing.jpg"]),
 	mimeTypes: {".png":"image/png",".jpg":"image/jpeg",".css":"text/css"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.11c73c36.js","app":"_app/immutable/entry/app.082a6584.js","imports":["_app/immutable/entry/start.11c73c36.js","_app/immutable/chunks/scheduler.1fc6c93e.js","_app/immutable/chunks/singletons.8ec9f3b5.js","_app/immutable/chunks/index.e2f1187e.js","_app/immutable/entry/app.082a6584.js","_app/immutable/chunks/preload-helper.41c905a7.js","_app/immutable/chunks/scheduler.1fc6c93e.js","_app/immutable/chunks/index.6a9302cd.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.36e38ca6.js","app":"_app/immutable/entry/app.d625a16b.js","imports":["_app/immutable/entry/start.36e38ca6.js","_app/immutable/chunks/scheduler.1fc6c93e.js","_app/immutable/chunks/singletons.6bbac120.js","_app/immutable/chunks/index.e2f1187e.js","_app/immutable/entry/app.d625a16b.js","_app/immutable/chunks/preload-helper.41c905a7.js","_app/immutable/chunks/scheduler.1fc6c93e.js","_app/immutable/chunks/index.6a9302cd.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			() => import('../server/nodes/0.js'),
 			() => import('../server/nodes/1.js'),

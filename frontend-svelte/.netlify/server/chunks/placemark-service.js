@@ -1,7 +1,8 @@
 import axios from "axios";
 import { u as user, b as latestDetails } from "./stores2.js";
 const placemarkService = {
-  baseUrl: "http://localhost:3000",
+  // baseUrl: "http://localhost:3000",
+  baseUrl: "https://placemarkbackend.onrender.com",
   // @ts-ignore
   async login(email, password) {
     try {
