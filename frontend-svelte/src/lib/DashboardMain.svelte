@@ -1,5 +1,4 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
     import { onMount } from "svelte";
     import ListPois from "./ListPois.svelte";
 	import ListAllPois from './ListAllPois.svelte';

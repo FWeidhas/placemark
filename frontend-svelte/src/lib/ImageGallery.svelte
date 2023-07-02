@@ -1,24 +1,23 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
+
 
 	import { createEventDispatcher } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
 
-
-
-    
-     /**
-	 * @type {{ img: import("axios").AxiosRequestConfig<any> | undefined; _id: string; }}
-	 */
-      export let poi;
+  interface Poi {
+    img: { [x: string]: string };
+    _id: string;
+  }
+  export let poi: Poi;
 
      let message ="";
      const dispatch = createEventDispatcher();
 
-     async function handleDelete (i) {
+    
+     async function handleDelete (i: string) {
       if(poi.img){
         const img = poi.img[i].split("/").pop().replace(/\.[^/.]+$/, "");
-        const index = parseInt(i);
+        const index = parseInt(i as string);
         const response = await placemarkService.deleteImage(poi._id, img, index);
         if (response.status === 204) {
           dispatch('imageDeleted');
@@ -33,7 +32,7 @@
 
 <div class="columns is-multiline">
   {#if poi.img}
-    {#each poi.img as img, i}
+    {#each Object.entries(poi.img) as [i, img]}
       <div class="column is-4">
         <div class="card mb-4">
           <div class="card-image">

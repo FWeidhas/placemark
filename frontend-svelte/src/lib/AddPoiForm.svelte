@@ -1,5 +1,4 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
     import { placemarkService } from "../services/placemark-service";
 	import { user } from "../stores";
   

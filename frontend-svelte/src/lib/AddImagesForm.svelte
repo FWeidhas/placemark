@@ -1,18 +1,12 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
   import { placemarkService } from '../services/placemark-service';
     
-  /**
- * @type {{ img: any; _id: any; }}
- */
-  export let poi;
+  export let poi: { img: any; _id: any; };
 
   const dispatch = createEventDispatcher();
 
-  /**
- * @type {any}
- */
-  let imagefiles;
+let imagefiles: string | any[];
 
   let isLoading = false;
 
@@ -29,14 +23,12 @@
           let partfile = imagefiles[i];
           formData.append(`image_buffer_${i}`, partfile);
       }
-      
-      // @ts-ignore
+    
       const response = await placemarkService.addImage(poi._id, formData);
       
       if (response) {
         isLoading = false;
-        const fileName = document.querySelector(".file-name");
-        // @ts-ignore
+        const fileName = document.querySelector(".file-name")!;
         fileName.textContent = "";
         message = "Upload successful"
         dispatch('imageAdded');
@@ -46,10 +38,10 @@
   }
 
 
-  const handleFileInputChange = (/** @type {{ target: any; }} */ event) => {
+  const handleFileInputChange = (event: { target: any; }) => {
   const fileInput = event.target;
   if (fileInput.files.length > 0) {
-    const fileName = document.querySelector(".file-name");
+    const fileName = document.querySelector(".file-name")!;
     let filenames = '';
     for (let i = 0; i < fileInput.files.length; i++) {
       filenames += fileInput.files[i].name;
@@ -57,7 +49,6 @@
         filenames += ', ';
       }
     }
-    // @ts-ignore
     fileName.textContent = filenames;
   }
 };

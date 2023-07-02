@@ -1,6 +1,4 @@
-<script>
-// @ts-nocheck
-
+<script lang="ts">
   import { onMount } from "svelte";
   import { placemarkService } from "../services/placemark-service";
   import { page } from '$app/stores';
@@ -12,7 +10,7 @@
 	import DetailsMap from "./DetailsMap.svelte";
 	import WeatherPoiInfo from "./WeatherPoiInfo.svelte";
 
-  let poi = {};
+  let poi: any = {};
   let poiId = $page.params.slug;
 
   onMount(async () => {

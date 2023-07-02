@@ -1,24 +1,12 @@
-<script>
+<script lang="ts">
     import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
 	import { latestDetails } from "../stores.js";
 
-    
-     /**
-	 * @type {{ details: any; name: any; category: any; }}
-	 */
-      export let poi;
 
-    /**
-	 * @type {string | null}
-	 */
-    let note = null;
-
-    
-    /**
-	 * @type {import("../services/leaflet-map.js").LeafletMap}
-	 */
-    let map;
+    export let poi: any;
+    let note: string | null = null;
+    let map: any;
 
     onMount(async () => {
         if (typeof window !== "undefined") {
@@ -45,14 +33,7 @@
         }
     });
 
-
-   
-    
-    /**
-	 * @param {import("../services/leaflet-map.js").LeafletMap} map
-	 * @param {{ details: any; name: any; category: any; }} poi
-	 */
-    function addPoiMarker(map, poi) {
+    function addPoiMarker(map: any, poi: any) {
         if(poi.details) {
             const poiStr = `
             <div>
@@ -69,7 +50,7 @@
         }
     };
 
-    latestDetails.subscribe((details) => {    
+    latestDetails.subscribe((details: any) => {    
         if (map && details) {
             poi.details = details;
             map.clearMarker();

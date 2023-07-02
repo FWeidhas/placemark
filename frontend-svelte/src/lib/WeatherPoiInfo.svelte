@@ -1,17 +1,24 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
 
 	import { onMount } from "svelte";
-	import { placemarkService } from "../services/placemark-service.js";
-    import "../styles/weather-icons.css";
+	import { placemarkService } from "../services/placemark-service";
+  import "../styles/weather-icons.css";
 
-    /**
-	 * @type {{ details: { _id: string; }; }}
-	 */
-     export let poi;
+   
+    export let poi: { details: { _id: string } };
    
     
-    let weatherdata;
+    let weatherdata: {
+    code: number;
+    temp: number;
+    tempmin: number;
+    tempmax: number;
+    pressure: number;
+    wind: number;
+    humidity: number;
+    description: string;
+    main: string;
+  };
 
     onMount(async () => {
     if (poi.details) {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import ListUser from './ListUser.svelte';
 	import AdminAnalytics from './AdminAnalytics.svelte';
 	import AdminStatistics from './AdminStatistics.svelte';

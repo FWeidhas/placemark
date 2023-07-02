@@ -1,6 +1,4 @@
-<script>
-    // @ts-nocheck
-    
+<script lang="ts">
         import { onMount } from "svelte";
         import { placemarkService } from "../services/placemark-service.js";
         import { latestUsers, user } from "../stores.js";
@@ -16,33 +14,17 @@
         let selectedType  = "pie";
         let type = "pie";
     
-        /**
-         * @type {any[]}
-         */
         let numberofpoiswithcategory = [];
     
         let numberofpoiswithcategoryuserbased = [];
     
-        
-        
-        /**
-         * @type {{ labels: any[]; datasets: { values: any[]; }[]; }}
-         */
-        let categoryAllDistribution;
+        let categoryAllDistribution: { labels: any[]; datasets: { values: any[]; }[] | { values: any[]; }[]; };
     
-        let userpoiscount;
+        let userpoiscount: { labels: any[]; datasets: { values: any[]; }[] | { values: any[]; }[]; };
         
-        /**
-         * @type {{ labels: any; datasets: { values: any; }[]; }}
-         */
-        let categoryOwnPoisDistribution;
+        let categoryOwnPoisDistribution: { labels: any[]; datasets: { values: any[]; }[] | { values: any[]; }[]; };
      
-        
-        
-        /**
-         * @type {{ labels: string[]; datasets: { values: any[]; }[]; }}
-         */
-        let numberPoisallown;
+        let numberPoisallown: { labels: string[]; datasets: { values: number[]; }[] | { values: number[]; }[]; };
     
         onMount(async () => {
                 ownPois = await placemarkService.getPoisbyUserId($user.id);
@@ -92,9 +74,6 @@
                 };
         });
         
-        /**
-         * @param {{ target: { value: string; }; }} event
-         */
         function handleSelectedType() {
             type = selectedType;
             console.log(type);
