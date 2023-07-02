@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
-    import { user } from "../stores.js";
+    import { latestUsers, user } from "../stores.js";
 
     /**
      * @type {any[]}
@@ -21,6 +21,18 @@
             numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
         }
     });
+
+    latestUsers.subscribe(async (users) => {
+        if (users) {
+            await refreshAnalytics();
+        }
+    });
+
+    async function refreshAnalytics() {
+        users = await placemarkService.getAllUser();
+        pois = await placemarkService.getAllPois();
+        numberofpoiswithcategory = await placemarkService.getCategoryNumberofPois();
+    }
 </script>
 
 <div class="box">

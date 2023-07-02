@@ -1,19 +1,23 @@
 <script>
+// @ts-nocheck
+
   import { onMount } from "svelte";
   import { placemarkService } from "../services/placemark-service";
-  import { user } from "../stores.js";
+  import { latestPois, user } from "../stores.js";
 	import { goto } from "$app/navigation";
 
   let categories = ["River", "Pond", "Sea", "Lake"];
   let selectedCategory = "Select category";
 
+  
   /**
-	 * @type {any[]}
+	 * @type {any[] | null}
 	 */
   let poisList = [];
 
-  /**
-	 * @type {any[]}
+  
+   /**
+	 * @type {string | any[] | null}
 	 */
    let filteredList = [];
 
@@ -23,10 +27,10 @@
   });
 
   function handleSelectedCategory () {
-        console.log(selectedCategory);
         if (selectedCategory === "Select category") {
             filteredList = poisList;
         } else {
+            // @ts-ignore
             filteredList = poisList.filter(poi => poi.category === selectedCategory);
         }
   };
@@ -37,6 +41,10 @@
   async function deletePoi(id) {
     await placemarkService.deletePoibyId(id);
     poisList = await placemarkService.getPoisbyUserId($user.id);
+    filteredList = poisList;
+    selectedCategory = "Select category";
+    // @ts-ignore
+    latestPois.set(poisList);
   };
 
   /**
@@ -66,6 +74,15 @@
       </div>
   </div>
 </div>
+{#if !(filteredList.length > 0)}
+  <p>No data</p>
+  <div class="loading-spinner">
+    <span class="icon is-large">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>
+  </div>
+{/if}
+{#if filteredList}
 {#each filteredList as poi}
   <div class="box box-link-hover-shadow">
     <h2 class="title">
@@ -86,4 +103,5 @@
       <i class="fas fa-edit"></i>
     </button>
   </div>
-{/each}
+{/each}    
+{/if}

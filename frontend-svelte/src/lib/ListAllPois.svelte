@@ -36,8 +36,8 @@
     function gotoDetails(id) {
       goto("/details/" + id);
     }
-  </script>
-  
+</script>
+
 <div class="columns is-centered">
     <div class="column is-narrow">
         <div class="select">
@@ -50,6 +50,7 @@
         </div>
     </div>
 </div>
+{#if filteredList}
 {#each filteredList as poi}
 <div class="box box-link-hover-shadow">
     <h2 class="title">
@@ -65,3 +66,10 @@
     </button>
 </div>
 {/each}
+{:else}
+<div class="loading-spinner">
+    <span class="icon is-large">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>
+</div>    
+{/if}

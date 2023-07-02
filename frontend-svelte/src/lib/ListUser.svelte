@@ -3,7 +3,7 @@
 
 	import { onMount } from "svelte";
 	import { placemarkService } from "../services/placemark-service";
-  import { user } from "../stores.js";
+  import { latestUsers, user } from "../stores.js";
 
  
   /**
@@ -11,12 +11,8 @@
 	 */
   let users = [];
 
-  
-  // let usercount;
-
   onMount(async () => {
       if($user.isAdmin) {
-          // users = await placemarkService.getAllUser();
           users = await placemarkService.getPoisCountbyUser();
       }
   });
@@ -28,6 +24,7 @@
     if($user.isAdmin) {
         await placemarkService.deleteUserById(id);
         users = await placemarkService.getPoisCountbyUser();
+        latestUsers.set(users);
       }
   }
 </script>
